@@ -26,19 +26,26 @@ app.use((req, res, next) => {
 // Manejar las solicitudes POST a '/enviar-mensaje'
 app.post('/enviar-mensaje', async (req, res) => {
     try {
-        // Obtener el mensaje del cuerpo de la solicitud
+        // Obtener el mensaje y el nombre de la cola del cuerpo de la solicitud
         const mensaje = req.body.mensaje;
+        const cola = req.body.cola;
+
         // Conectar a RabbitMQ
         const connection = await amqp.connect(rabbitmqUrl);
         const channel = await connection.createChannel();
-        // Declarar una cola
-        await channel.assertQueue(queueName);
-        // Enviar el mensaje a la cola
-        await channel.sendToQueue(queueName, Buffer.from(mensaje));
+        
+        // Declarar la cola especificada por el cliente
+        await channel.assertQueue(cola);
+
+        // Enviar el mensaje a la cola especificada
+        await channel.sendToQueue(cola, Buffer.from(mensaje));
+
         console.log('Mensaje enviado a la cola:', mensaje);
+
         // Cerrar la conexión
         await channel.close();
         await connection.close();
+
         // Responder con un mensaje de éxito
         res.status(200).send('Mensaje enviado correctamente');
     } catch (error) {
@@ -48,20 +55,35 @@ app.post('/enviar-mensaje', async (req, res) => {
     }
 });
 
+
 // Iniciar un servidor WebSocket
 const wss = new WebSocket.Server({ port: 3002 });
 
 // Manejar conexiones WebSocket
 wss.on('connection', (ws) => {
     console.log('Cliente conectado al WebSocket');
-    // Agregar cliente a la lista
-    clients.add(ws);
 
-    // Manejar desconexiones de clientes
-    ws.on('close', () => {
-        console.log('Cliente desconectado del WebSocket');
-        // Remover cliente de la lista
-        clients.delete(ws);
+    // Manejar mensajes del cliente
+    ws.on('message', (message) => {
+        try {
+            const data = JSON.parse(message);
+            const cola = data.cola;
+
+            // Suscribirse a la cola especificada por el cliente y enviar mensajes al cliente
+            async function recibirMensajesRabbitMQ(cola) {
+                const connection = await amqp.connect(rabbitmqUrl);
+                const channel = await connection.createChannel();
+                await channel.assertQueue(cola);
+                channel.consume(cola, (mensaje) => {
+                    ws.send(mensaje.content.toString());
+                    console.log('Mensaje recibido de RabbitMQ:', mensaje.content.toString());
+                }, { noAck: true });
+            }
+
+            recibirMensajesRabbitMQ(cola).catch(error => console.error('Error al recibir mensajes de RabbitMQ:', error));
+        } catch (error) {
+            console.error('Error al procesar mensaje del cliente:', error);
+        }
     });
 });
 
