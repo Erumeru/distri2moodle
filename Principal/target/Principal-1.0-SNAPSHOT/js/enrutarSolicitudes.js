@@ -66,21 +66,25 @@ async function consultarCursos() {
 
 }
 
-function consultarProfesorCurso() {
-    hacerSolicitud('/api/consultar-profesor-curso?courseId=2');
+async function consultarProfesorCurso(courseId) {
+    try {
+        const respuesta = await hacerSolicitud('/api/consultar-profesor-curso?courseId=' + courseId);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al consultar tareas:', error);
+        throw error;
+
+    }
 }
 
 function consultarCalificaciones() {
     hacerSolicitud('/api/consultar-calificaciones-curso?courseId=2&userId=4');
 }
 
-
-
 //esto es para control escolar 
 function maestroConCalificar() {
     fetch('/api/obtener-maestro-calificaciones');
 }
-
 
 function mestroSinCalificar() {
     fetch('/api/obtener-maestros-sin-calificacion');
@@ -94,7 +98,10 @@ function promedioAlum() {
 
 function consultarCusosAlumnoYCargarAsignaciones() {
     var tbody = document.getElementById('bodyCursos');
+    var tbodyProfe = document.getElementById('bodyProfes');
 
+    let cursos = [];
+    let profesores = [];
     consultarCursos().then(function (resultado) {
         resultado.forEach(function (elemento) {
             const tareasNombres = [];
@@ -109,6 +116,28 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                     var tareas = resultadoTareas['courses'][0];
                     var nombreCurso = tareas['fullname'];
                     console.log(nombreCurso);
+                    profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
+                        var fila = document.createElement('tr');
+
+                        var nombreProfe = document.createElement('td');
+                        nombreProfe.textContent = profe[0]['fullname'];
+                        fila.appendChild(nombreProfe);
+                        
+                        
+                        var idProfe = document.createElement('td');
+                        idProfe.textContent = profe[0]['id'];
+                        fila.appendChild(idProfe);
+                        
+                        
+                        var boton = document.createElement('button');
+                        boton.textContent = 'Ir a chat';
+                        boton.addEventListener('click', function () {
+                            console.log("pasoalgo");
+                        });
+                        fila.appendChild(boton);
+                        
+                        tbodyProfe.appendChild(fila);
+                    });
 
                     arregloTareas = tareas['assignments'].forEach(function (assign) {
                         console.log(assign['id']);

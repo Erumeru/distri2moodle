@@ -19,10 +19,12 @@
         <button onclick="consultarProfesorCurso()">Consultar Profesor Curso</button>
         <button onclick="consultarCalificaciones()">Consultar Calificaciones</button>
         <button onclick="consultarTareasDeAlumnoEnCurso()">Consultar Asignaciones de alumno en un curso</button>
+        <input type="text" id="idAlumno" placeholder="Escribe el id del alumno">
+        <button onclick="cargarProfesoresAlumno()">Cargar profesores alumno</button>
 
 
 
-           <script src="js/enrutarSolicitudes.js"></script>
+        <script src="js/enrutarSolicitudes.js"></script>
 
 
         <table id="tablaTareas">
@@ -35,6 +37,16 @@
                 </tr>
             </thead>
             <tbody id="bodyCursos">
+            </tbody>
+        </table>
+        <table id="tablaProfes">
+            <thead>
+                <tr>
+                    <th>Nombre Profe</th>
+                    <th>Id Profe</th>
+                </tr>
+            </thead>
+            <tbody id="bodyProfes">
             </tbody>
         </table>
     </body>
