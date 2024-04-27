@@ -13,7 +13,7 @@ app.get('/api/otra-api', async (req, res) => {
         //var tbody = document.getElementById('tablaCursos');
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
+        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
         parametros.push("wsfunction=gradereport_user_get_grades_table");
         // parametros.push("courseid=2");
         parametros.push("moodlewsrestformat=json");
@@ -38,7 +38,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
         var url = "http://localhost/webservice/rest/server.php";
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
+        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
         parametros.push("wsfunction=core_enrol_get_users_courses");
         parametros.push("moodlewsrestformat=json");
         parametros.push("userid=" + req.query.userId);
@@ -65,7 +65,7 @@ app.get('/api/consultar-profesor-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'core_enrol_get_enrolled_users',
             courseid: req.query.courseId,
             moodlewsrestformat: 'json'
@@ -90,7 +90,7 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'mod_assign_get_assignments',
             courseids: [req.query.courseId],
             moodlewsrestformat: 'json'
@@ -117,7 +117,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         const url = "http://localhost/webservice/rest/server.php";
         const userId = req.query.userId;
         const courseId = req.query.courseId;
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+        const token = 'a7ab7c13eca9c4d87556998dff78a606';
         const params = {
             wstoken: token,
             wsfunction: 'gradereport_user_get_grades_table',

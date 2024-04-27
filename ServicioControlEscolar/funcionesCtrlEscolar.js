@@ -8,7 +8,7 @@ const axios = require('axios');
 async function getProfesores(courseId) {
     const url = "http://localhost/webservice/rest/server.php";
     const params = {
-        wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+        wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
         wsfunction: 'core_enrol_get_enrolled_users',
         courseid: courseId,
         moodlewsrestformat: 'json'
@@ -34,7 +34,7 @@ async function obtenerIdsCursos() {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'core_course_get_courses',
             moodlewsrestformat: 'json'
         };

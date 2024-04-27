@@ -17,7 +17,7 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
     try {
         const axios = require('axios');
         const url = "http://localhost/webservice/rest/server.php";
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+        const token = 'a7ab7c13eca9c4d87556998dff78a606';
 
         // Obtener todos los IDs de los cursos
         const idsCursos = await obtenerIdsCursos();
@@ -92,7 +92,6 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
                 }));
             }
         }));
-
         // Devolver la respuesta JSON con la información de todos los alumnos de todos los cursos
         res.json(alumnosTodosCursos);
 

@@ -6,9 +6,11 @@ const bodyParser = require('body-parser');
 
 const WebSocket = require('ws');
 
-
 const rabbitmqUrl = 'amqp://localhost';
 const queueName = 'mi_cola';
+
+// Lista de clientes conectados
+const clients = new Set();
 
 // Configurar el middleware para analizar el cuerpo de las solicitudes como JSON
 app.use(bodyParser.json());
@@ -52,24 +54,36 @@ const wss = new WebSocket.Server({ port: 3002 });
 // Manejar conexiones WebSocket
 wss.on('connection', (ws) => {
     console.log('Cliente conectado al WebSocket');
+    // Agregar cliente a la lista
+    clients.add(ws);
 
-    // Suscribirse a la cola de RabbitMQ y enviar mensajes al cliente
-    async function recibirMensajesRabbitMQ() {
-        const connection = await amqp.connect(rabbitmqUrl);
-        const channel = await connection.createChannel();
-        await channel.assertQueue(queueName);
-        channel.consume(queueName, (mensaje) => {
-            ws.send(mensaje.content.toString());
-            console.log('Mensaje recibido de RabbitMQ:', mensaje.content.toString());
-        }, { noAck: true });
-    }
-
-    recibirMensajesRabbitMQ().catch(error => console.error('Error al recibir mensajes de RabbitMQ:', error));
+    // Manejar desconexiones de clientes
+    ws.on('close', () => {
+        console.log('Cliente desconectado del WebSocket');
+        // Remover cliente de la lista
+        clients.delete(ws);
+    });
 });
 
+// Conectar a RabbitMQ y suscribirse a la cola
+async function conectarRabbitMQ() {
+    const connection = await amqp.connect(rabbitmqUrl);
+    const channel = await connection.createChannel();
+    await channel.assertQueue(queueName);
+    channel.consume(queueName, (mensaje) => {
+        // Enviar mensaje a todos los clientes conectados
+        const mensajeString = mensaje.content.toString();
+        clients.forEach(client => {
+            client.send(mensajeString);
+        });
+        console.log('Mensaje recibido de RabbitMQ:', mensajeString);
+    }, { noAck: true });
+}
 
+// Iniciar la conexión a RabbitMQ
+conectarRabbitMQ().catch(error => console.error('Error al conectar con RabbitMQ:', error));
 
-
-app.listen(PORT, async () => {
+// Iniciar el servidor HTTP
+app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
