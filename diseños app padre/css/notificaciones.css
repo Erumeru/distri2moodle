@@ -1,0 +1,47 @@
+.contenedor {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.margen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.superpuesta {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.superpuesta2 {
+    position: absolute;
+    top: 15%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.texto {
+    position: absolute;
+    top: calc(15% + 50px);
+    left: 51%;
+    transform: translateX(-50%);
+    z-index: 0;
+    text-align: center;
+    width: 19%; 
+}
+
+.texto2 {
+    position: absolute;
+    top: calc(15% + 160px);
+    left: 51%;
+    transform: translateX(-50%);
+    z-index: 0;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    width: 19%; 
+}
