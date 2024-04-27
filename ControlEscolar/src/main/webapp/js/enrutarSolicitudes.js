@@ -28,6 +28,12 @@ function consultarAlumnosPorCurso() {
     hacerSolicitud('/api/entrega-ctrlEscolar');
 }
 
+function loop() {
+    consultarAlumnosPorCurso();
+}
 
+// Establece el intervalo de tiempo en milisegundos (5 segundos = 5000 milisegundos)
+const intervalo = 5000;
 
-
+// Llama a la función miFuncion() cada 5 segundos utilizando setInterval()
+setInterval(loop, intervalo);
