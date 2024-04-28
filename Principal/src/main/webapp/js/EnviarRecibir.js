@@ -1,29 +1,58 @@
 
-function guardarMensaje(mensaje) {
-    // Obtener los mensajes guardados actualmente en el almacenamiento local
-    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
+/* global col */
 
-    mensajesGuardados.push(mensaje);
+document.addEventListener('DOMContentLoaded', function () {
+    var parametros = new URLSearchParams(window.location.search);
+    var nombreMaestro = parametros.get('maestro');
+    var col = parametros.get('col');
 
-    localStorage.setItem('mensajes', JSON.stringify(mensajesGuardados));
-}
+    document.getElementById('nombreMaestro').textContent = `Maestro: ${nombreMaestro} idDeCola: ${col}`;
+    console.log("aqui");
+    iniciarWebSocket(col);
+    
 
-function cargarMensajesGuardados() {
-    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
-    mensajesGuardados.forEach(mensaje => {
-        document.getElementById('mensajes').innerText += mensaje + '\n';
-    });
-}
+document.getElementById('btnEnviar').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
 
-// Llamar a la función cargarMensajesGuardados al iniciar la aplicación
-cargarMensajesGuardados();
+    // Llamar a la función enviarMensaje
+    enviarMensaje(col);
+});
+});
 
-document.getElementById('btnEnviar').addEventListener('click', enviarMensaje);
 
-async function enviarMensaje() {
+
+
+
+//
+//function guardarMensaje(mensaje) {
+//    // Obtener los mensajes guardados actualmente en el almacenamiento local
+//    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
+//
+//    mensajesGuardados.push(mensaje);
+//
+//    localStorage.setItem('mensajes', JSON.stringify(mensajesGuardados));
+//}
+//
+
+
+
+//function cargarMensajesGuardados() {
+//    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
+//    mensajesGuardados.forEach(mensaje => {
+//        document.getElementById('mensajes').innerText += mensaje + '\n';
+//    });
+//}
+//
+//// Llamar a la función cargarMensajesGuardados al iniciar la aplicación
+//cargarMensajesGuardados();
+
+
+
+
+async function enviarMensaje(cola) {
     try {
         const mensaje = document.getElementById('messageInput').value;
-        const colaEnviar = document.getElementById('colaInput').value;
+        const colaEnviar = cola;
         const response = await fetch('http://localhost:3001/enviar-mensaje', {
             method: 'POST',
             headers: {
@@ -38,14 +67,15 @@ async function enviarMensaje() {
     }
 }
 
-function iniciarWebSocket() {
+function iniciarWebSocket(cola) {
     const ws = new WebSocket('ws://localhost:3002');
 
     ws.onopen = () => {
         console.log('Conexión WebSocket abierta');
-        const mensaje = document.getElementById('colaRecibirInput').value;
 
-        const cola = mensaje; // Nombre de la cola deseada
+//        const mensaje = document.getElementById('colaRecibirInput').value;
+//
+//        const cola = mensaje; // Nombre de la cola deseada
 
         // Enviar el nombre de la cola al servidor
         ws.send(JSON.stringify({cola: cola}));

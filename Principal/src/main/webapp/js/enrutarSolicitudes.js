@@ -122,20 +122,20 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                         var nombreProfe = document.createElement('td');
                         nombreProfe.textContent = profe[0]['fullname'];
                         fila.appendChild(nombreProfe);
-                        
-                        
+
+
                         var idProfe = document.createElement('td');
                         idProfe.textContent = profe[0]['id'];
                         fila.appendChild(idProfe);
-                        
-                        
+
+
                         var boton = document.createElement('button');
                         boton.textContent = 'Ir a chat';
                         boton.addEventListener('click', function () {
-                            console.log("pasoalgo");
+                            redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
                         });
                         fila.appendChild(boton);
-                        
+
                         tbodyProfe.appendChild(fila);
                     });
 
@@ -190,4 +190,9 @@ function consultarCusosAlumnoYCargarAsignaciones() {
 
 function imprimirIdTarea(idTarea) {
     console.log('ID de la tarea:', idTarea);
+}
+
+function redirigirConUsuario(nombreMaestro, idMaestro) {
+    // Redirigir a la página de mensajería con el nombre de usuario como parámetro
+    window.location.href = 'mensajeriaMaestro.html?maestro=' + encodeURIComponent(nombreMaestro) + '&col=' + encodeURIComponent(idMaestro);
 }
