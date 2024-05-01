@@ -9,44 +9,39 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('nombreMaestro').textContent = `Maestro: ${nombreMaestro} idDeCola: ${col}`;
     console.log("aqui");
     iniciarWebSocket(col);
-    
 
-document.getElementById('btnEnviar').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
 
-    // Llamar a la función enviarMensaje
-    enviarMensaje(col);
+    document.getElementById('btnEnviar').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
+
+        // Llamar a la función enviarMensaje
+        enviarMensaje(col);
+    });
 });
-});
 
 
 
 
 
-//
-//function guardarMensaje(mensaje) {
-//    // Obtener los mensajes guardados actualmente en el almacenamiento local
-//    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
-//
-//    mensajesGuardados.push(mensaje);
-//
-//    localStorage.setItem('mensajes', JSON.stringify(mensajesGuardados));
-//}
-//
+function guardarMensaje(mensaje, cola) {
+    // Obtener los mensajes guardados actualmente en el almacenamiento local
+    let mensajesGuardados = JSON.parse(localStorage.getItem(cola)) || [];
+
+    mensajesGuardados.push(mensaje);
+
+    localStorage.setItem(cola, JSON.stringify(mensajesGuardados));
+}
 
 
 
-//function cargarMensajesGuardados() {
-//    let mensajesGuardados = JSON.parse(localStorage.getItem('mensajes')) || [];
-//    mensajesGuardados.forEach(mensaje => {
-//        document.getElementById('mensajes').innerText += mensaje + '\n';
-//    });
-//}
-//
-//// Llamar a la función cargarMensajesGuardados al iniciar la aplicación
-//cargarMensajesGuardados();
+function cargarMensajesGuardados(cola) {
+    let mensajesGuardados = JSON.parse(localStorage.getItem(cola)) || [];
+    mensajesGuardados.forEach(mensaje => {
+        document.getElementById('mensajes').innerText += mensaje + '\n';
+    });
+}
 
-
+// Llamar a la función cargarMensajesGuardados al iniciar la aplicación
 
 
 async function enviarMensaje(cola) {
@@ -72,7 +67,7 @@ function iniciarWebSocket(cola) {
 
     ws.onopen = () => {
         console.log('Conexión WebSocket abierta');
-
+        cargarMensajesGuardados(cola);
 //        const mensaje = document.getElementById('colaRecibirInput').value;
 //
 //        const cola = mensaje; // Nombre de la cola deseada
@@ -86,6 +81,6 @@ function iniciarWebSocket(cola) {
         // Manejar el mensaje recibido del servidor
         document.getElementById('mensajes').innerText += event.data + '\n';
         // Guardar el mensaje en el almacenamiento local
-        guardarMensaje(event.data);
+        guardarMensaje(event.data, cola);
     };
 }
