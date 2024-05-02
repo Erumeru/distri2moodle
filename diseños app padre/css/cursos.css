@@ -28,6 +28,8 @@
     background-color: rgb(255, 255, 255);
     width: 19%; 
     margin-bottom: 25px;
+    border-radius: 10px;
+
 }
 
 .superpuesta2 {
@@ -36,4 +38,30 @@
     left: 43%;
     transform: translate(-50%, -50%);
     z-index: 1;
+}
+
+
+table {
+    width: 100%;
+
+}
+
+ td {
+    padding: 8px;
+    text-align: justify;
+    font-size: 10px;
+}
+
+th{
+    font-size: 12px;
+}
+
+button {
+  
+    background-color: #FF7904;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
 }
