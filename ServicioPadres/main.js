@@ -156,15 +156,63 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
     }
 });
 
-const { insertarDatos } = require('./persistencia');
+const { insertarDatosAlumnoDePadre} = require('./persistencia');
+app.get('/api/consulta-alumno-de-padre', async (req, res) => {
+    try {
+        var url = "http://localhost/webservice/rest/server.php";
+        var parametros = [
+            "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+            "wsfunction=core_user_get_users",
+            "moodlewsrestformat=json",
+            `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.email)}`,
+            `criteria[1][key]=firstname&criteria[1][value]=${encodeURIComponent(req.query.nombre)}`,
+            `criteria[2][key]=lastname&criteria[2][value]=${encodeURIComponent(req.query.apellidos)}`
+        ];
+
+        url += "?" + parametros.join("&");
+
+        const response = await axios.get(url);
+
+        // Limpiar los datos de la respuesta
+        const cleanedData = response.data.users.map(user => {
+            // Crear un nuevo objeto con las propiedades necesarias limpias
+            return {
+                id: user.id,
+                email: user.email,
+                fullname: user.fullname.trim()
+
+            };
+        });
+
+        // Devolver la respuesta JSON con los datos limpios
+        res.json(cleanedData);
+
+        const alumno = {
+            email: cleanedData[0].email,
+            id_moodle: cleanedData[0].id,
+            nombre: cleanedData[0].fullname,
+            password:"novaasernecesario",
+            padre_id:2
+        };
+        insertarDatosAlumnoDePadre(alumno);
+      console.log(alumno);
+
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+
+const {insertarDatosPadres} = require('./persistencia');
 
 app.get('/api/persistir-padre', async (req, res) => {
-    const padre={
+    const padre = {
         email: 'padrecaliz@gmail.com',
         nombre: 'kim',
-        password:'contrakim'
+        password: 'contrakim'
     };
-    insertarDatos(padre);
+    insertarDatosPadres(padre);
     res.json(padre);
 });
 

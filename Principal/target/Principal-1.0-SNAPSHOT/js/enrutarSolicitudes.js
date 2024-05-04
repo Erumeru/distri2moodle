@@ -188,6 +188,25 @@ function consultarCusosAlumnoYCargarAsignaciones() {
 }
 
 
+// nuevo kim
+async function consultarAlumnoDePadre() {
+    try {
+        var form = document.getElementById("registroForm");
+        var formData = new FormData(form);
+        const email = encodeURIComponent(formData.get("email"));
+        const nombre = encodeURIComponent(formData.get("nombre"));
+        const apellidos = encodeURIComponent(formData.get("apellidos"));
+        const url = `/api/consulta-alumno-de-padre?email=${email}&nombre=${nombre}&apellidos=${apellidos}`;
+        const respuesta = await hacerSolicitud(url);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al consultar alumno:', error);
+        throw error;
+    }
+}
+
+
+
 function imprimirIdTarea(idTarea) {
     console.log('ID de la tarea:', idTarea);
 }
