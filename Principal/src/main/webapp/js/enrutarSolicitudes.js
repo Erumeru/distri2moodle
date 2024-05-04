@@ -188,10 +188,9 @@ function consultarCusosAlumnoYCargarAsignaciones() {
 }
 
 
-// nuevo kim
 async function consultarAlumnoDePadre() {
     try {
-        var form = document.getElementById("registroForm");
+        var form = document.getElementById("registroFormAlumno");
         var formData = new FormData(form);
         const email = encodeURIComponent(formData.get("email"));
         const nombre = encodeURIComponent(formData.get("nombre"));
@@ -204,6 +203,24 @@ async function consultarAlumnoDePadre() {
         throw error;
     }
 }
+
+
+async function registrarPadre() {
+    try {
+        var form = document.getElementById("registroFormPadre");
+        var formData = new FormData(form);
+        const email = encodeURIComponent(formData.get("email"));
+        const nombre = encodeURIComponent(formData.get("nombre"));
+        const password = encodeURIComponent(formData.get("password"));
+        const url = `/api/persistir-padre?email=${email}&nombre=${nombre}&password=${password}`;
+        const respuesta = await hacerSolicitud(url);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al registrar padre:', error);
+        throw error;
+    }
+}
+
 
 
 

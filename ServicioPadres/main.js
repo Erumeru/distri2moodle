@@ -208,9 +208,9 @@ const {insertarDatosPadres} = require('./persistencia');
 
 app.get('/api/persistir-padre', async (req, res) => {
     const padre = {
-        email: 'padrecaliz@gmail.com',
-        nombre: 'kim',
-        password: 'contrakim'
+        email: req.query.email,
+        nombre: req.query.nombre,
+        password: req.query.password
     };
     insertarDatosPadres(padre);
     res.json(padre);
