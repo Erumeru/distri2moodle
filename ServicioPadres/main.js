@@ -156,7 +156,17 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
     }
 });
 
+const { insertarDatos } = require('./persistencia');
 
+app.get('/api/persistir-padre', async (req, res) => {
+    const padre={
+        email: 'padrecaliz@gmail.com',
+        nombre: 'kim',
+        password:'contrakim'
+    };
+    insertarDatos(padre);
+    res.json(padre);
+});
 
 // Manejador de ruta para todas las demás solicitudes
 app.all('*', (req, res) => {
