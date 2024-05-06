@@ -156,7 +156,29 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
     }
 });
 
-const { insertarDatosAlumnoDePadre} = require('./persistencia');
+
+ let padreId;
+
+const {insertarDatosPadres} = require('./persistencia');
+
+app.get('/api/persistir-padre', async (req, res) => {
+    const padre = {
+        email: req.query.email,
+        nombre: req.query.nombre,
+        password: req.query.password
+    };
+    try {
+        padreId = await insertarDatosPadres(padre); // Esperar a que se resuelva la inserción en la base de datos
+        padre.padre_id = padreId; // Agregar el padre_id a la respuesta
+        res.json(padre); // Enviar la respuesta con el padre_id
+    } catch (error) {
+        console.error('Error al persistir los datos del padre:', error);
+        res.status(500).json({error: 'Error al persistir los datos del padre'});
+    }
+});
+
+
+const {insertarDatosAlumnoDePadre} = require('./persistencia');
 app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = "http://localhost/webservice/rest/server.php";
@@ -191,11 +213,11 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
             email: cleanedData[0].email,
             id_moodle: cleanedData[0].id,
             nombre: cleanedData[0].fullname,
-            password:"novaasernecesario",
-            padre_id:2
+            password: "novaasernecesario",
+            padre_id: padreId
         };
-        insertarDatosAlumnoDePadre(alumno);
-      console.log(alumno);
+       await insertarDatosAlumnoDePadre(alumno);
+        console.log(alumno);
 
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
@@ -203,18 +225,6 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     }
 });
 
-
-const {insertarDatosPadres} = require('./persistencia');
-
-app.get('/api/persistir-padre', async (req, res) => {
-    const padre = {
-        email: req.query.email,
-        nombre: req.query.nombre,
-        password: req.query.password
-    };
-    insertarDatosPadres(padre);
-    res.json(padre);
-});
 
 // Manejador de ruta para todas las demás solicitudes
 app.all('*', (req, res) => {

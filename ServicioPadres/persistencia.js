@@ -11,35 +11,48 @@ const connection = mysql.createConnection({
 
 // Método para insertar datos en la base de datos
 function insertarDatosPadres(datos) {
-    // Conectarse a la base de datos
-    connection.connect(function (err) {
-        if (err) {
-            console.error('Error al conectar a la base de datos: ' + err.stack);
-            return;
-        }
+    return new Promise((resolve, reject) => {
+        // Conectarse a la base de datos
+        connection.connect(function(err) {
+            if (err) {
+                console.error('Error al conectar a la base de datos: ' + err.stack);
+                return reject(err);
+            }
 
-        console.log('Conectado como ID ' + connection.threadId);
+            console.log('Conectado como ID ' + connection.threadId);
 
-        // Consulta SQL para insertar datos
-        const sql = 'INSERT INTO padre (email, nombre, password) VALUES (?, ?, ?)';
+            // Consulta SQL para insertar datos
+            const sql = 'INSERT INTO padre (email, nombre, password) VALUES (?, ?, ?)';
 
-        // Parámetros para la consulta SQL
-        const values = [datos.email, datos.nombre, datos.password];
+            // Parámetros para la consulta SQL
+            const values = [datos.email, datos.nombre, datos.password];
 
-        // Ejecutar la consulta SQL
-        connection.query(sql, values, function (error, results, fields) {
-            // Si hay un error, mostrarlo
-            if (error)
-                throw error;
+            // Ejecutar la consulta SQL
+            connection.query(sql, values, function (error, results, fields) {
+                // Si hay un error, rechazar la promesa con el error
+                if (error) {
+                    console.error('Error al insertar datos del padre:', error);
+                    return reject(error);
+                }
 
-            // Mostrar los resultados
-            console.log('Datos insertados correctamente:', results);
+                // Mostrar los resultados
+                console.log('Datos del padre insertados correctamente:', results);
+
+                // Obtener el ID del padre insertado
+                const padreId = results.insertId;
+
+                // Resolver la promesa con el padreId
+                resolve(padreId);
+
+                // Cerrar la conexión a la base de datos
+                //connection.end();
+            });
         });
-
-        // Cerrar la conexión a la base de datos
-        connection.end();
     });
+    connection.end();
 }
+
+
 
 // Método para insertar datos en la base de datos
 function insertarDatosAlumnoDePadre(datos) {
@@ -69,7 +82,7 @@ function insertarDatosAlumnoDePadre(datos) {
         });
 
         // Cerrar la conexión a la base de datos
-        connection.end();
+                 connection.end();
     });
 }
 

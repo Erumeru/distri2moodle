@@ -188,6 +188,32 @@ function consultarCusosAlumnoYCargarAsignaciones() {
 }
 
 
+async function registrarPadre() {
+    try {
+        var form = document.getElementById("registroFormPadre");
+        var formData = new FormData(form);
+        const email = encodeURIComponent(formData.get("email"));
+        const nombre = encodeURIComponent(formData.get("nombre"));
+        const password = encodeURIComponent(formData.get("password"));
+        const url = `/api/persistir-padre?email=${email}&nombre=${nombre}&password=${password}`;
+
+        // Realizar la solicitud al servidor
+        const respuesta = await hacerSolicitud(url);
+
+        // Verificar si la respuesta contiene el padre_id
+        if (respuesta.padre_id) {
+            // Retornar la respuesta recibida
+            return respuesta;
+        } else {
+            // Si la respuesta no contiene el padre_id, lanzar un error
+            throw new Error('La respuesta no contiene el padre_id');
+        }
+    } catch (error) {
+        console.error('Error al registrar padre:', error);
+        throw error;
+    }
+}
+
 async function consultarAlumnoDePadre() {
     try {
         var form = document.getElementById("registroFormAlumno");
@@ -203,25 +229,6 @@ async function consultarAlumnoDePadre() {
         throw error;
     }
 }
-
-
-async function registrarPadre() {
-    try {
-        var form = document.getElementById("registroFormPadre");
-        var formData = new FormData(form);
-        const email = encodeURIComponent(formData.get("email"));
-        const nombre = encodeURIComponent(formData.get("nombre"));
-        const password = encodeURIComponent(formData.get("password"));
-        const url = `/api/persistir-padre?email=${email}&nombre=${nombre}&password=${password}`;
-        const respuesta = await hacerSolicitud(url);
-        return respuesta;
-    } catch (error) {
-        console.error('Error al registrar padre:', error);
-        throw error;
-    }
-}
-
-
 
 
 function imprimirIdTarea(idTarea) {
