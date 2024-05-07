@@ -63,7 +63,6 @@ async function consultarCursos() {
         throw error;
 
     }
-
 }
 
 async function consultarProfesorCurso(courseId) {
@@ -222,6 +221,21 @@ async function consultarAlumnoDePadre() {
         const nombre = encodeURIComponent(formData.get("nombre"));
         const apellidos = encodeURIComponent(formData.get("apellidos"));
         const url = `/api/consulta-alumno-de-padre?email=${email}&nombre=${nombre}&apellidos=${apellidos}`;
+        const respuesta = await hacerSolicitud(url);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al consultar alumno:', error);
+        throw error;
+    }
+}
+
+async function loginPadre() {
+    try {
+        var form = document.getElementById("loginForm");
+        var formData = new FormData(form);
+        const email = encodeURIComponent(formData.get("email"));
+        const password = encodeURIComponent(formData.get("password"));
+        const url = `/api/iniciarSesion-Padre?email=${email}&password=${password}`;
         const respuesta = await hacerSolicitud(url);
         return respuesta;
     } catch (error) {

@@ -225,6 +225,30 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     }
 });
 
+const {consultarPadrePorCredenciales} = require('./persistencia');
+app.get('/api/iniciarSesion-Padre', async (req, res) => {
+    try {
+        // Obtener los parámetros de la URL
+        const email = req.query.email;
+        const password = req.query.password;
+
+        // Llamar a la función para consultar al padre por sus credenciales
+        consultarPadrePorCredenciales(email, password, (error, padre) => {
+            if (error) {
+                // Manejar el error, si lo hay
+                console.error('Error al consultar padre:', error);
+                res.status(500).send('Error interno del servidor');
+                return;
+            }
+            // Si no hay error, enviar el resultado (el padre) como respuesta
+            res.json(padre);
+        });
+    } catch (error) {
+        // Manejar cualquier error inesperado
+        console.error('Error inesperado:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
 
 // Manejador de ruta para todas las demás solicitudes
 app.all('*', (req, res) => {
