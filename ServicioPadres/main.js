@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3000;
 // Middleware para parsear JSON en las solicitudes
@@ -240,8 +241,18 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
                 res.status(500).send('Error interno del servidor');
                 return;
             }
-            // Si no hay error, enviar el resultado (el padre) como respuesta
-            res.json(padre);
+            if (!padre) {
+                // Si no se encuentra al padre, enviar una respuesta de error
+                res.status(401).send('Credenciales incorrectas');
+                return;
+            }
+            // Si no hay error, enviar el jwtoken como respuesta
+            // 
+            // 
+          //  const token=generarToken(padre.id);
+          
+          
+            res.json({idPadre:padre.id});
         });
     } catch (error) {
         // Manejar cualquier error inesperado
@@ -249,6 +260,15 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 });
+
+
+//POR AHORA NO SE USARA Y SOLO SE USARÁ EL ID AL INICIAR SESIÓN
+// Función para generar el token JWT
+function generarToken(usuario) {
+    // Generar el token con la información del usuario y una clave secreta
+    const token = jwt.sign({ usuario }, 'claveSecreta', { expiresIn: '1h' }); // duración del token
+    return token;
+}
 
 // Manejador de ruta para todas las demás solicitudes
 app.all('*', (req, res) => {

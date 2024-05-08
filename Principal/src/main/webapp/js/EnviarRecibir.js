@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var parametros = new URLSearchParams(window.location.search);
     var nombreMaestro = parametros.get('maestro');
     var col = parametros.get('col');
-
+    col=`${col}&${localStorage.getItem('id')}`;
     document.getElementById('nombreMaestro').textContent = `Maestro: ${nombreMaestro} idDeCola: ${col}`;
     console.log("aqui");
     iniciarWebSocket(col);
@@ -18,10 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
         enviarMensaje(col);
     });
 });
-
-
-
-
 
 function guardarMensaje(mensaje, cola) {
     // Obtener los mensajes guardados actualmente en el almacenamiento local
@@ -46,7 +42,7 @@ function cargarMensajesGuardados(cola) {
 
 async function enviarMensaje(cola) {
     try {
-        const mensaje = document.getElementById('messageInput').value;
+        const mensaje = `Padre: ${document.getElementById('messageInput').value}`;
         const colaEnviar = cola;
         const response = await fetch('http://localhost:3001/enviar-mensaje', {
             method: 'POST',

@@ -56,7 +56,8 @@ async function consultarTareasDeAlumnoEnCurso(courseId) {
 
 async function consultarCursos() {
     try {
-        const respuesta = await hacerSolicitud('/api/consultar-cursos?userId=2');
+        const token = localStorage.getItem('jwtToken');
+        const respuesta = await hacerSolicitud('/api/consultar-cursos?userId=2', token);
         return respuesta;
     } catch (error) {
         console.error('Error al consultar tareas:', error);
@@ -237,12 +238,56 @@ async function loginPadre() {
         const password = encodeURIComponent(formData.get("password"));
         const url = `/api/iniciarSesion-Padre?email=${email}&password=${password}`;
         const respuesta = await hacerSolicitud(url);
+
+//        
+//        // almacenar el token JWT
+//        if (respuesta.token) {
+//            // Almacenar el token en localStorage
+//            localStorage.setItem('jwtToken', respuesta.token);
+//        }
+
+
+        if (respuesta.idPadre) {
+            localStorage.setItem('id', respuesta.idPadre);
+            console.log(localStorage.getItem('id'));
+        }
         return respuesta;
     } catch (error) {
         console.error('Error al consultar alumno:', error);
         throw error;
     }
 }
+
+//
+//function solicitarJwtToken(url) {
+//    return new Promise((resolve, reject) => {
+//        const xhr = new XMLHttpRequest();
+//        const urlDestino = 'http://localhost:89' + url;
+//        xhr.open('GET', urlDestino, true);
+//        xhr.onreadystatechange = function () {
+//            if (xhr.readyState === XMLHttpRequest.DONE) {
+//                if (xhr.status === 200) {
+//                    try {
+//                        const jsonRespuesta = JSON.parse(xhr.responseText);
+//                        console.log('Respuesta del servidor:', jsonRespuesta);
+//                        resolve(jsonRespuesta);
+//                    } catch (error) {
+//                        console.error("Error al analizar el json de respuesta", error);
+//                        reject(error);
+//                    }
+//                } else {
+//                    console.error('Error al hacer la solicitud:', xhr.statusText);
+//                    reject(new Error(xhr.statusText));
+//                }
+//            }
+//        };
+//        xhr.onerror = function () {
+//            console.error('Error de red al hacer la solicitud');
+//            reject(new Error('Error de red al hacer la solicitud'));
+//        };
+//        xhr.send();
+//    });
+//}
 
 
 function imprimirIdTarea(idTarea) {

@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'root',
     database: 'moodlepadres',
-    port: 3306
+    port: 12345
 });
 
 // Método para insertar datos en la base de datos
@@ -89,45 +89,33 @@ function insertarDatosAlumnoDePadre(datos) {
 
 // Método para consultar un padre en la base de datos
 function consultarPadrePorCredenciales(email, password, callback) {
-    // Conectarse a la base de datos
-    connection.connect(function (err) {
-        if (err) {
-            console.error('Error al conectar a la base de datos: ' + err.stack);
-            callback(err, null); // Llamar al callback con el error
+    // Consulta SQL para buscar al padre por email y contraseña
+    const sql = 'SELECT * FROM padre WHERE email = ? AND password = ?';
+
+    // Parámetros para la consulta SQL
+    const values = [email, password];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            callback(error, null);
             return;
         }
 
-        console.log('Conectado como ID ' + connection.threadId);
+        // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontró el padre
+        if (results.length === 0) {
+            const notFoundError = new Error('Padre no encontrado');
+            callback(notFoundError, null);
+            return;
+        }
 
-        // Consulta SQL para buscar al padre por email y contraseña
-        const sql = 'SELECT * FROM padre WHERE email = ? AND password = ?';
-
-        // Parámetros para la consulta SQL
-        const values = [email, password];
-
-        // Ejecutar la consulta SQL
-        connection.query(sql, values, function (error, results, fields) {
-            // Cerrar la conexión a la base de datos
-            connection.end();
-
-            // Si hay un error, llamar al callback con el error
-            if (error) {
-                callback(error, null);
-                return;
-            }
-
-            // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontró el padre
-            if (results.length === 0) {
-                const notFoundError = new Error('Padre no encontrado');
-                callback(notFoundError, null);
-                return;
-            }
-
-            // Llamar al callback con los resultados (el padre encontrado)
-            callback(null, results[0]);
-        });
+        // Llamar al callback con los resultados (el padre encontrado)
+        callback(null, results[0]);
     });
 }
+
 
 module.exports = {
     insertarDatosPadres: insertarDatosPadres,
