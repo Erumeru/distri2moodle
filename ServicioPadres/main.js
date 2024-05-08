@@ -261,7 +261,28 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
     }
 });
 
+app.get('/api/iniciarSesion-maestro', async (req, res) => {
+    try {
+        const axios = require('axios');
+        const url = "http://localhost/login/token.php";
+        const username = req.query.username;
+        const password = req.query.password;
+        const service = 'moodle_mobile_app';
+        const params = {
+            username: username,
+            password: password,
+            service: service,
+        };
+        // Realizar la solicitud GET utilizando Axios
+        const response = await axios.get(url, {params});
 
+        res.json(response.data);
+
+    } catch (error) {
+        // Manejar errores
+        console.error("Error al enviar la solicitud:", error);
+    }
+});
 //POR AHORA NO SE USARA Y SOLO SE USARÁ EL ID AL INICIAR SESIÓN
 // Función para generar el token JWT
 function generarToken(usuario) {

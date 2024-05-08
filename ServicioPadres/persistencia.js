@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 function insertarDatosPadres(datos) {
     return new Promise((resolve, reject) => {
         // Conectarse a la base de datos
-        connection.connect(function(err) {
+        connection.connect(function (err) {
             if (err) {
                 console.error('Error al conectar a la base de datos: ' + err.stack);
                 return reject(err);
@@ -82,7 +82,7 @@ function insertarDatosAlumnoDePadre(datos) {
         });
 
         // Cerrar la conexión a la base de datos
-                 connection.end();
+        connection.end();
     });
 }
 
@@ -117,8 +117,32 @@ function consultarPadrePorCredenciales(email, password, callback) {
 }
 
 
+
+// Método para obtener los IDs y nombres de todos los padres existentes en la base de datos
+function obtenerIdsYNombrePadres(callback) {
+    // Consulta SQL para seleccionar los IDs y nombres de todos los padres
+    const sql = 'SELECT id, nombre FROM padre';
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Crear un array para almacenar los IDs y nombres de los padres
+        const idsYNombrePadres = results.map(resultado => ({id: resultado.id, nombre: resultado.nombre}));
+
+        // Llamar al callback con los IDs y nombres de los padres
+        callback(null, idsYNombrePadres);
+    });
+}
+
 module.exports = {
     insertarDatosPadres: insertarDatosPadres,
     insertarDatosAlumnoDePadre: insertarDatosAlumnoDePadre,
-    consultarPadrePorCredenciales: consultarPadrePorCredenciales
+    consultarPadrePorCredenciales: consultarPadrePorCredenciales,
+    obtenerIdsYNombrePadres: obtenerIdsYNombrePadres
 };
