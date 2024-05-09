@@ -158,28 +158,28 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
 });
 
 
- let padreId;
+// let padreId;
+//
+//const {insertarDatosPadres} = require('./persistencia');
+//
+//app.get('/api/persistir-padre', async (req, res) => {
+//    const padre = {
+//        email: req.query.email,
+//        nombre: req.query.nombre,
+//        password: req.query.password
+//    };
+//    try {
+//        padreId = await insertarDatosPadres(padre); // Esperar a que se resuelva la inserción en la base de datos
+//        padre.padre_id = padreId; // Agregar el padre_id a la respuesta
+//        res.json(padre); // Enviar la respuesta con el padre_id
+//    } catch (error) {
+//        console.error('Error al persistir los datos del padre:', error);
+//        res.status(500).json({error: 'Error al persistir los datos del padre'});
+//    }
+//});
 
-const {insertarDatosPadres} = require('./persistencia');
 
-app.get('/api/persistir-padre', async (req, res) => {
-    const padre = {
-        email: req.query.email,
-        nombre: req.query.nombre,
-        password: req.query.password
-    };
-    try {
-        padreId = await insertarDatosPadres(padre); // Esperar a que se resuelva la inserción en la base de datos
-        padre.padre_id = padreId; // Agregar el padre_id a la respuesta
-        res.json(padre); // Enviar la respuesta con el padre_id
-    } catch (error) {
-        console.error('Error al persistir los datos del padre:', error);
-        res.status(500).json({error: 'Error al persistir los datos del padre'});
-    }
-});
-
-
-const {insertarDatosAlumnoDePadre} = require('./persistencia');
+const {insertarDatosAlumnoDePadre, insertarDatosPadres} = require('./persistencia');
 app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = "http://localhost/webservice/rest/server.php";
@@ -187,9 +187,9 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
             "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
             "wsfunction=core_user_get_users",
             "moodlewsrestformat=json",
-            `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.email)}`,
-            `criteria[1][key]=firstname&criteria[1][value]=${encodeURIComponent(req.query.nombre)}`,
-            `criteria[2][key]=lastname&criteria[2][value]=${encodeURIComponent(req.query.apellidos)}`
+            `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
+            `criteria[1][key]=firstname&criteria[1][value]=${encodeURIComponent(req.query.nombreAlumno)}`,
+            `criteria[2][key]=lastname&criteria[2][value]=${encodeURIComponent(req.query.apellidosAlumno)}`
         ];
 
         url += "?" + parametros.join("&");
@@ -210,15 +210,30 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
         // Devolver la respuesta JSON con los datos limpios
         res.json(cleanedData);
 
-        const alumno = {
-            email: cleanedData[0].email,
-            id_moodle: cleanedData[0].id,
-            nombre: cleanedData[0].fullname,
-            password: "novaasernecesario",
-            padre_id: padreId
+
+
+        // construir y agregar al padre 
+        const padre = {
+            email: req.query.emailPadre,
+            nombre: req.query.nombrePadre,
+            password: req.query.passwordPadre
         };
-       await insertarDatosAlumnoDePadre(alumno);
-        console.log(alumno);
+        try {
+            const padreId = await insertarDatosPadres(padre); // Esperar a que se resuelva la inserción en la base de datos
+            const alumno = {
+                email: cleanedData[0].email,
+                id_moodle: cleanedData[0].id,
+                nombre: cleanedData[0].fullname,
+                password: "novaasernecesario",
+                padre_id: padreId
+            };
+            await insertarDatosAlumnoDePadre(alumno);
+
+        } catch (error) {
+            console.error('Error al persistir los datos del padre:', error);
+            res.status(500).json({error: 'Error al persistir los datos del padre'});
+        }
+
 
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
@@ -249,10 +264,10 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
             // Si no hay error, enviar el jwtoken como respuesta
             // 
             // 
-          //  const token=generarToken(padre.id);
-          
-          
-            res.json({idPadre:padre.id});
+            //  const token=generarToken(padre.id);
+
+
+            res.json({idPadre: padre.id});
         });
     } catch (error) {
         // Manejar cualquier error inesperado
@@ -271,7 +286,7 @@ app.get('/api/iniciarSesion-maestro', async (req, res) => {
         const params = {
             username: username,
             password: password,
-            service: service,
+            service: service
         };
         // Realizar la solicitud GET utilizando Axios
         const response = await axios.get(url, {params});
@@ -287,7 +302,7 @@ app.get('/api/iniciarSesion-maestro', async (req, res) => {
 // Función para generar el token JWT
 function generarToken(usuario) {
     // Generar el token con la información del usuario y una clave secreta
-    const token = jwt.sign({ usuario }, 'claveSecreta', { expiresIn: '1h' }); // duración del token
+    const token = jwt.sign({usuario}, 'claveSecreta', {expiresIn: '1h'}); // duración del token
     return token;
 }
 

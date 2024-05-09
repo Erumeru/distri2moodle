@@ -62,7 +62,6 @@ async function consultarCursos() {
     } catch (error) {
         console.error('Error al consultar tareas:', error);
         throw error;
-
     }
 }
 
@@ -73,7 +72,6 @@ async function consultarProfesorCurso(courseId) {
     } catch (error) {
         console.error('Error al consultar tareas:', error);
         throw error;
-
     }
 }
 
@@ -99,7 +97,6 @@ function promedioAlum() {
 function consultarCusosAlumnoYCargarAsignaciones() {
     var tbody = document.getElementById('bodyCursos');
     var tbodyProfe = document.getElementById('bodyProfes');
-
     let cursos = [];
     let profesores = [];
     consultarCursos().then(function (resultado) {
@@ -108,7 +105,6 @@ function consultarCusosAlumnoYCargarAsignaciones() {
             const tareasIds = [];
             var idCurso = elemento['id']; // Declarar idCurso como variable local
             console.log(idCurso);
-
             // Utilizar una función de cierre para capturar el valor correcto de idCurso
             (function (idCurso) {
                 consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {
@@ -118,66 +114,50 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                     console.log(nombreCurso);
                     profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
                         var fila = document.createElement('tr');
-
                         var nombreProfe = document.createElement('td');
                         nombreProfe.textContent = profe[0]['fullname'];
                         fila.appendChild(nombreProfe);
-
-
                         var idProfe = document.createElement('td');
                         idProfe.textContent = profe[0]['id'];
                         fila.appendChild(idProfe);
-
-
                         var boton = document.createElement('button');
                         boton.textContent = 'Ir a chat';
                         boton.addEventListener('click', function () {
                             redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
                         });
                         fila.appendChild(boton);
-
                         tbodyProfe.appendChild(fila);
                     });
-
                     arregloTareas = tareas['assignments'].forEach(function (assign) {
                         console.log(assign['id']);
                         console.log(assign['name']);
-
                         var idTarea = assign['id'];
                         var nombreTarea = assign['name'];
                         tareasIds.push(idTarea);
                         tareasNombres.push(nombreTarea);
                     });
-
                     console.log(tareasIds);
                     var i = 0;
                     tareasNombres.forEach(function (tareaNom) {
                         var fila = document.createElement('tr');
-
                         var nombreCursoFila = document.createElement('td');
                         nombreCursoFila.textContent = nombreCurso;
                         fila.appendChild(nombreCursoFila);
-
                         var nomTarea = document.createElement('td');
                         nomTarea.textContent = tareaNom;
                         fila.appendChild(nomTarea);
-
                         var idCursoFila = document.createElement('td');
                         idCursoFila.textContent = idCurso;
                         fila.appendChild(idCursoFila);
-
                         var tareaIdFila = document.createElement('td');
                         tareaIdFila.textContent = tareasIds[i];
                         fila.appendChild(tareaIdFila);
-
                         var boton = document.createElement('button');
                         boton.textContent = 'Avalar Tarea';
                         boton.addEventListener('click', function () {
                             console.log(tareaIdFila.textContent);
                         });
-
                         fila.appendChild(boton);
-
                         tbody.appendChild(fila);
                         i++;
                     });
@@ -188,40 +168,48 @@ function consultarCusosAlumnoYCargarAsignaciones() {
 }
 
 
-async function registrarPadre() {
-    try {
-        var form = document.getElementById("registroFormPadre");
-        var formData = new FormData(form);
-        const email = encodeURIComponent(formData.get("email"));
-        const nombre = encodeURIComponent(formData.get("nombre"));
-        const password = encodeURIComponent(formData.get("password"));
-        const url = `/api/persistir-padre?email=${email}&nombre=${nombre}&password=${password}`;
-
-        // Realizar la solicitud al servidor
-        const respuesta = await hacerSolicitud(url);
-
-        // Verificar si la respuesta contiene el padre_id
-        if (respuesta.padre_id) {
-            // Retornar la respuesta recibida
-            return respuesta;
-        } else {
-            // Si la respuesta no contiene el padre_id, lanzar un error
-            throw new Error('La respuesta no contiene el padre_id');
-        }
-    } catch (error) {
-        console.error('Error al registrar padre:', error);
-        throw error;
-    }
-}
+//async function registrarPadre() {
+//    try {
+//        var form = document.getElementById("registroFormPadre");
+//        var formData = new FormData(form);
+//        const email = encodeURIComponent(formData.get("email"));
+//        const nombre = encodeURIComponent(formData.get("nombre"));
+//        const password = encodeURIComponent(formData.get("password"));
+//        const url = `/api/persistir-padre?email=${email}&nombre=${nombre}&password=${password}`;
+//        // Realizar la solicitud al servidor
+//        const respuesta = await hacerSolicitud(url);
+//        // Verificar si la respuesta contiene el padre_id
+//        if (respuesta.padre_id) {
+//// Retornar la respuesta recibida
+//            return respuesta;
+//        } else {
+//// Si la respuesta no contiene el padre_id, lanzar un error
+//            throw new Error('La respuesta no contiene el padre_id');
+//        }
+//    } catch (error) {
+//        console.error('Error al registrar padre:', error);
+//        throw error;
+//    }
+//}
 
 async function consultarAlumnoDePadre() {
     try {
-        var form = document.getElementById("registroFormAlumno");
-        var formData = new FormData(form);
-        const email = encodeURIComponent(formData.get("email"));
-        const nombre = encodeURIComponent(formData.get("nombre"));
-        const apellidos = encodeURIComponent(formData.get("apellidos"));
-        const url = `/api/consulta-alumno-de-padre?email=${email}&nombre=${nombre}&apellidos=${apellidos}`;
+
+//datos alumno
+        var formAlumno = document.getElementById("registroFormAlumno");
+        var formDataAlumno = new FormData(formAlumno);
+        const emailAlumno = encodeURIComponent(formDataAlumno.get("emailAlumno"));
+        const nombreAlumno = encodeURIComponent(formDataAlumno.get("nombreAlumno"));
+        const apellidosAlumno = encodeURIComponent(formDataAlumno.get("apellidosAlumno"));
+
+        var parametros = new URLSearchParams(window.location.search);
+        var emailPadre = parametros.get('emailPadre');
+        var nombrePadre = parametros.get('nombrePadre');
+        var passwordPadre = parametros.get('passwordPadre');
+
+
+        const url = `/api/consulta-alumno-de-padre?emailPadre=${emailPadre}&nombrePadre=${nombrePadre}&passwordPadre=${passwordPadre}
+        &emailAlumno=${emailAlumno}&nombreAlumno=${nombreAlumno}&apellidosAlumno=${apellidosAlumno}`;
         const respuesta = await hacerSolicitud(url);
         return respuesta;
     } catch (error) {
@@ -238,7 +226,6 @@ async function loginPadre() {
         const password = encodeURIComponent(formData.get("password"));
         const url = `/api/iniciarSesion-Padre?email=${email}&password=${password}`;
         const respuesta = await hacerSolicitud(url);
-
 //        
 //        // almacenar el token JWT
 //        if (respuesta.token) {
@@ -290,11 +277,14 @@ async function loginPadre() {
 //}
 
 
+
+
+
 function imprimirIdTarea(idTarea) {
     console.log('ID de la tarea:', idTarea);
 }
 
 function redirigirConUsuario(nombreMaestro, idMaestro) {
-    // Redirigir a la página de mensajería con el nombre de usuario como parámetro
+// Redirigir a la página de mensajería con el nombre de usuario como parámetro
     window.location.href = 'mensajeriaMaestro.html?maestro=' + encodeURIComponent(nombreMaestro) + '&col=' + encodeURIComponent(idMaestro);
 }
