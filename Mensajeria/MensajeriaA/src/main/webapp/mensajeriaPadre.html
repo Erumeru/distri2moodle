@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mensajería</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            #nombreUsuarioInput, #mensajeInput {
+                width: 300px;
+                padding: 10px;
+                font-size: 16px;
+            }
+            #btnEnviar {
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+            #btnEnviar:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Mensajería</h1>
+        <form id="formularioMensaje">
+            <label for="nombreUsuarioInput">Usuario:</label>
+            <br>
+            <span id="nombrePadre">Padre</span>
+            <br>
+            <label for="messageInput">Mensaje:</label><br>
+            <input type="text" id="messageInput" name="mensaje" placeholder="Escribe tu mensaje"><br><br>
+            <button type="submit" id="btnEnviar">Enviar</button>
+            <div id="mensajes"></div>
+        </form>
+
+        <script src="js/EnviarRecibir.js"></script>
+
+    </body>
+</html>

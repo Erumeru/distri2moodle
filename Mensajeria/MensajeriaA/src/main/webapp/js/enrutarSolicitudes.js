@@ -41,10 +41,21 @@ async function loginMaestro(courseId) {
 
         const respuesta = await hacerSolicitud('/api/iniciarSesion-maestro?username=' + username + '&password=' + password);
         console.log(respuesta);
+        if (respuesta.token) {
+            const maestro = await hacerSolicitud('/api/consultar-user-por-usuario?username=' + username);
+            localStorage.setItem('id', maestro['users'][0]['id']);
+            console.log(maestro['users'][0]['id']);
+            window.location.href = 'chatsMaestro.html';
+
+        }
         return respuesta;
     } catch (error) {
         console.error('Error al iniciar sesion:', error);
         throw error;
-
     }
+}
+
+function redirigirConUsuario(nombrePadre, idPadre) {
+// Redirigir a la página de mensajería con el nombre de usuario como parámetro
+    window.location.href = 'mensajeriaPadre.html?padre=' + encodeURIComponent(nombrePadre) + '&col=' + encodeURIComponent(idPadre);
 }
