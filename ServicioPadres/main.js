@@ -261,12 +261,7 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
                 res.status(401).send('Credenciales incorrectas');
                 return;
             }
-            // Si no hay error, enviar el jwtoken como respuesta
-            // 
-            // 
-            //  const token=generarToken(padre.id);
-
-
+       
             res.json({idPadre: padre.id});
         });
     } catch (error) {
