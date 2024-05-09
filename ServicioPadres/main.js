@@ -293,6 +293,37 @@ app.get('/api/iniciarSesion-maestro', async (req, res) => {
         console.error("Error al enviar la solicitud:", error);
     }
 });
+
+app.get('/api/consultar-user-por-usuario', async (req, res) => {
+    try {
+        var url = "http://localhost/webservice/rest/server.php";
+        // Construir los parámetros de la URL
+        var parametros = [];
+        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
+        parametros.push("wsfunction=core_user_get_users");
+        parametros.push("moodlewsrestformat=json");
+        parametros.push("criteria[0][key]=username");
+        parametros.push("criteria[0][value]="+req.query.username);
+
+        // Combinar todos los parámetros en la URL
+        url += "?" + parametros.join("&");
+        // Hacer la solicitud utilizando Axios
+        axios.get(url)
+                .then(function (response) {
+                    // Devolver la respuesta JSON
+                    res.json(response.data);
+                })
+                .catch(function (error) {
+                    // Manejar errores
+                    console.error("Error al enviar la solicitud:", error);
+                    res.status(500).json({error: 'Error al enviar la solicitud'});
+                });
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
 //POR AHORA NO SE USARA Y SOLO SE USARÁ EL ID AL INICIAR SESIÓN
 // Función para generar el token JWT
 function generarToken(usuario) {
