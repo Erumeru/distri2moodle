@@ -19,15 +19,13 @@ import java.io.IOException;
 //import jakarta.ws.rs.container.ContainerRequestContext;
 //import jakarta.ws.rs.container.ContainerRequestFilter;
 //import jakarta.ws.rs.core.Response.Status;
-
-
 /**
  *
  * @author COMPUTOCKS
  */
-
 public class JaxRsFilterAuthentication implements Filter {
-   public static final String AUTHENTICATION_HEADER = "Authorization";
+
+    public static final String AUTHENTICATION_HEADER = "Authorization";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,22 +35,29 @@ public class JaxRsFilterAuthentication implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
+
         // Obtener el método y la URL de la solicitud
         String metodo = req.getMethod();
         String path = req.getServletContext().getContextPath() + req.getServletPath();
 
-        if (metodo.equals("GET") && path.contains("ogin")) {
+        if (metodo.equals("GET") && path.contains("ogin") || path.contains("register")) {
             System.out.println("Estoy en login");
             // Aquí podrías implementar la lógica para crear el token si es una solicitud de inicio de sesión
         } else {
             // Verificar si se proporciona un token de autenticación en la solicitud
             String token = (String) req.getSession().getAttribute("token");
             if (token != null) {
-                System.out.println("Tengo un token validado por el filtro");
+                ManejoJWT jwtManager = new ManejoJWT();
+                Boolean verificacion = jwtManager.verificarToken(token);
+                if (verificacion) {
+                    System.out.println("Tengo un token validado por el filtro");
+                } else{
+                    System.out.println("token malito");
+                }
+
                 // Aquí podrías implementar la lógica para verificar el token de autenticación
                 // Por ejemplo, validar el token para permitir o denegar el acceso
             } else {
@@ -69,7 +74,7 @@ public class JaxRsFilterAuthentication implements Filter {
         // Pasar la solicitud al siguiente filtro en la cadena (o al servlet si no hay más filtros)
         chain.doFilter(request, response);
     }
-    
+
     @Override
     public void destroy() {
         // Método de destrucción del filtro (opcional)

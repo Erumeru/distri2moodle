@@ -30,14 +30,16 @@ public class ManejoJWT {
         return token;
     }
 
-    private void verificarToken(String token){
-        try{
-        Algorithm algoritmo = Algorithm.HMAC256("secret");
-        JWTVerifier verificador = JWT.require(algoritmo)
-                .withIssuer("auth0").build();
-        DecodedJWT jwt = verificador.verify(token);
-        }catch (JWTVerificationException exception){
-            
+    public Boolean verificarToken(String token) {
+        try {
+            Algorithm algoritmo = Algorithm.HMAC256("secret");
+            JWTVerifier verificador = JWT.require(algoritmo)
+                    .withIssuer("auth0").build();
+            DecodedJWT jwt = verificador.verify(token);
+           return true;
+        } catch (JWTVerificationException exception) {
+
         }
+        return false;
     }
 }
