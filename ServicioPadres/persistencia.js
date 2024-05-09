@@ -45,7 +45,7 @@ function insertarDatosPadres(datos) {
                 resolve(padreId);
 
                 // Cerrar la conexión a la base de datos
-                //connection.end();
+                // connection.end();
             });
         });
     });
@@ -114,6 +114,7 @@ function consultarPadrePorCredenciales(email, password, callback) {
         // Llamar al callback con los resultados (el padre encontrado)
         callback(null, results[0]);
     });
+   // connection.end();
 }
 
 

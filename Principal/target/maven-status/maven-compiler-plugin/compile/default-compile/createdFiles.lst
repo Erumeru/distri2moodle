@@ -1,2 +1,5 @@
 equipo\distribuidos\principal\resources\JakartaEE91Resource.class
 equipo\distribuidos\principal\JakartaRestConfiguration.class
+equipo\distribuidos\jwt\ManejoJWT.class
+equipo\distribuidos\servlet\LoginServlet.class
+equipo\distribuidos\filtros\JaxRsFilterAuthentication.class
