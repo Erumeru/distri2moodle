@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\principal\resources\JakartaEE91Resource.java
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\filtros\JaxRsFilterAuthentication.java
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\principal\JakartaRestConfiguration.java
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\servlet\LoginServlet.java
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\servlet\ObtenerEmailDesdeTokenServlet.java
 C:\Users\COMPUTOCKS\Downloads\kim\distri\getmio\Principal\src\main\java\equipo\distribuidos\jwt\ManejoJWT.java
+=======
+C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\servlet\LoginServlet.java
+C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\filtros\JaxRsFilterAuthentication.java
+C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\resources\JakartaEE91Resource.java
+C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\jwt\ManejoJWT.java
+C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\JakartaRestConfiguration.java
+>>>>>>> 0d00a06da830b0bdaf78f58f927e70cddacdbef7

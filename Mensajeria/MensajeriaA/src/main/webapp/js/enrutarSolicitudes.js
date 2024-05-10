@@ -9,6 +9,11 @@ function hacerSolicitud(url) {
         const xhr = new XMLHttpRequest();
         const urlDestino = 'http://localhost:89' + url;
         xhr.open('GET', urlDestino, true);
+        var token = localStorage.getItem('token');
+        if (token !== null && token !== undefined) {
+            document.cookie = "token=" + encodeURIComponent(localStorage.getItem('token'));
+        }
+
         xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
@@ -34,19 +39,20 @@ function hacerSolicitud(url) {
     });
 }
 
-async function loginMaestro(courseId) {
+async function loginMaestro() {
     try {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-
+        console.log("acapendejo");
         const respuesta = await hacerSolicitud('/api/iniciarSesion-maestro?username=' + username + '&password=' + password);
         console.log(respuesta);
         if (respuesta.token) {
+            localStorage.setItem('token', respuesta['token']);
             const maestro = await hacerSolicitud('/api/consultar-user-por-usuario?username=' + username);
             localStorage.setItem('id', maestro['users'][0]['id']);
-            console.log(maestro['users'][0]['id']);
+            console.log(respuesta['token']);
+            localStorage.setItem('token', respuesta['token']);
             window.location.href = 'chatsMaestro.html';
-
         }
         return respuesta;
     } catch (error) {
