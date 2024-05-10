@@ -12,9 +12,17 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>equipo.distribuidos.servlet.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ObtenerEmailDesdeTokenServlet</servlet-name>
+        <servlet-class>equipo.distribuidos.servlet.ObtenerEmailDesdeTokenServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ObtenerEmailDesdeTokenServlet</servlet-name>
+        <url-pattern>/ObtenerEmailDesdeTokenServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

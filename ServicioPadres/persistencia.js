@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'admin',
     database: 'moodlepadres',
-    port: 12345
+    port: 3306
 });
 
 // Método para insertar datos en la base de datos
@@ -86,6 +86,48 @@ function insertarDatosAlumnoDePadre(datos) {
     });
 }
 
+// Método para insertar datos en la base de datos
+function insertarDatosCurso(datos) {
+    return new Promise((resolve, reject) => {
+        // Conectarse a la base de datos
+        connection.connect(function (err) {
+            if (err) {
+                console.error('Error al conectar a la base de datos: ' + err.stack);
+                return reject(err);
+            }
+
+            console.log('Conectado como ID ' + connection.threadId);
+
+            // Consulta SQL para insertar datos
+            const sql = 'INSERT INTO curso (id_maestro, id_moodle, nombreCurso, nombreMaestro) VALUES (?, ?, ?, ?)';
+
+            // Parámetros para la consulta SQL
+            const values = [datos.id_maestro, datos.id_moodle, datos.id_moodle, datos.nombreMaestro];
+
+            // Ejecutar la consulta SQL
+            connection.query(sql, values, function (error, results, fields) {
+                // Si hay un error, rechazar la promesa con el error
+                if (error) {
+                    console.error('Error al insertar datos del curso:', error);
+                    return reject(error);
+                }
+
+                // Mostrar los resultados
+                console.log('Datos del curso insertados correctamente:', results);
+
+                // Obtener el ID del padre insertado
+                const cursoId = results.insertId;
+
+                // Resolver la promesa con el padreId
+                resolve(cursoId);
+
+                // Cerrar la conexión a la base de datos
+                // connection.end();
+            });
+        });
+    });
+    connection.end();
+}
 
 // Método para consultar un padre en la base de datos
 function consultarPadrePorCredenciales(email, password, callback) {
@@ -140,9 +182,46 @@ function obtenerIdsYNombrePadres(callback) {
     });
 }
 
+function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
+    // Consulta SQL para buscar los IDs de los alumnos asociados al padre por su correo electrónico
+    const sql = `
+        SELECT id
+        FROM alumno
+        WHERE padre_id IN (
+            SELECT id
+            FROM padre
+            WHERE email = ?
+        )`;
+
+    // Parámetros para la consulta SQL
+    const values = [emailPadre];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            return callback(error, null);
+        }
+
+        // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontraron alumnos
+        if (results.length === 0) {
+            const notFoundError = new Error('No se encontraron alumnos asociados a este padre');
+            return callback(notFoundError, null);
+        }
+
+        // Crear un array para almacenar los IDs de los alumnos
+        const idsAlumnos = results.map(result => result.id);
+
+        // Llamar al callback con los IDs de los alumnos encontrados
+        return callback(null, idsAlumnos);
+    });
+}
+
 module.exports = {
     insertarDatosPadres: insertarDatosPadres,
     insertarDatosAlumnoDePadre: insertarDatosAlumnoDePadre,
     consultarPadrePorCredenciales: consultarPadrePorCredenciales,
-    obtenerIdsYNombrePadres: obtenerIdsYNombrePadres
+    obtenerIdsYNombrePadres: obtenerIdsYNombrePadres,
+    consultarIdsAlumnosPorEmailPadre: consultarIdsAlumnosPorEmailPadre
 };

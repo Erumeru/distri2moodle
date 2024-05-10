@@ -54,16 +54,42 @@ async function consultarTareasDeAlumnoEnCurso(courseId) {
     }
 }
 
+async function obtenerEmailPadre() {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "ObtenerEmailDesdeTokenServlet", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var email = response.email;
+                    console.log("Email del usuario:", email);
+                    resolve(email); // Resuelve la promesa con el email obtenido
+                } else {
+                    console.error("Error al obtener el email:", xhr.status);
+                    reject(new Error("Error al obtener el email"));
+                }
+            }
+        };
+
+        xhr.send();
+    });
+}
+
 async function consultarCursos() {
     try {
-        const token = localStorage.getItem('jwtToken');
-        const respuesta = await hacerSolicitud('/api/consultar-cursos?userId=2', token);
+        const email = await obtenerEmailPadre(); // Obtener el email del padre
+        const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
         return respuesta;
     } catch (error) {
         console.error('Error al consultar tareas:', error);
         throw error;
     }
 }
+
+
 
 async function consultarProfesorCurso(courseId) {
     try {

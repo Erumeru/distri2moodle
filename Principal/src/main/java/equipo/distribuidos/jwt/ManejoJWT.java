@@ -17,11 +17,13 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  */
 public class ManejoJWT {
 
+    private static final String SECRET_KEY = "clave_secreta";
+
     public String crearToken(String user) {
         String token = null;
 
         try {
-            Algorithm algoritmo = Algorithm.HMAC256("secret");
+            Algorithm algoritmo = Algorithm.HMAC256(SECRET_KEY);
             token = JWT.create().withIssuer("auth0")
                     .withClaim("user", user).sign(algoritmo);
         } catch (JWTCreationException exception) {
@@ -32,14 +34,28 @@ public class ManejoJWT {
 
     public Boolean verificarToken(String token) {
         try {
-            Algorithm algoritmo = Algorithm.HMAC256("secret");
+            Algorithm algoritmo = Algorithm.HMAC256(SECRET_KEY);
             JWTVerifier verificador = JWT.require(algoritmo)
                     .withIssuer("auth0").build();
             DecodedJWT jwt = verificador.verify(token);
-           return true;
+            return true;
         } catch (JWTVerificationException exception) {
 
         }
         return false;
+    }
+
+    public String obtenerEmailUsuarioDesdeToken(String token) {
+        try {
+            Algorithm algoritmo = Algorithm.HMAC256(SECRET_KEY);
+            JWTVerifier verificador = JWT.require(algoritmo)
+                    .withIssuer("auth0")
+                    .build();
+            DecodedJWT jwt = verificador.verify(token);
+            return jwt.getClaim("user").asString(); 
+        } catch (JWTVerificationException exception) {
+            // Manejar la excepción si ocurre al verificar y decodificar el token
+            return null;
+        }
     }
 }
