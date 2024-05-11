@@ -67,7 +67,6 @@ function iniciarWebSocket(cola) {
 //        const mensaje = document.getElementById('colaRecibirInput').value;
 //
 //        const cola = mensaje; // Nombre de la cola deseada
-
         // Enviar el nombre de la cola al servidor
         ws.send(JSON.stringify({cola: cola}));
     };

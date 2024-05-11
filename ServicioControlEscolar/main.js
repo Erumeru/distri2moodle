@@ -96,14 +96,11 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
                             const padre = await obtenerIdPadreDeAlumno(alumno.id);
                             if (padre.idPadre) {
                                 console.log(padre);
-
-
                                 var nombrePadre = padre.nombre;
                                 var col = `ctrlEscolar&${padre.idPadre}`;
                                 console.log(col);
                                 const mensaje=`Querido ${padre.nombre}, su hijo ${alumno.fullname} ha presentado una baja calificación con un vaor de ${alumno.calificaciones}`;
                                 enviarMensaje(col,mensaje);
-
                             }
                         }
                     } catch (error) {
