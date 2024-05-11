@@ -35,7 +35,7 @@ app.get('/api/otra-api', async (req, res) => {
 });
 
 
-const { consultarIdsAlumnosPorEmailPadre } = require('./persistencia');
+const {consultarIdsAlumnosPorEmailPadre} = require('./persistencia');
 app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
     try {
         const email = req.query.email;
@@ -67,14 +67,14 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 
                 // Hacer la solicitud utilizando Axios
                 axios.get(cursoUrl)
-                    .then(function (response) {
-                        // Resolver la promesa con los datos recibidos
-                        resolve(response.data);
-                    })
-                    .catch(function (error) {
-                        // Rechazar la promesa con el error
-                        reject(error);
-                    });
+                        .then(function (response) {
+                            // Resolver la promesa con los datos recibidos
+                            resolve(response.data);
+                        })
+                        .catch(function (error) {
+                            // Rechazar la promesa con el error
+                            reject(error);
+                        });
             });
         });
 
@@ -98,10 +98,10 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 
         // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
         const profesores = await Promise.all(promesasProfesores);
-        res.json({ cursos, profesores, idsAlumnos});
+        res.json({cursos, profesores, idsAlumnos});
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
-        res.status(500).json({ error: 'Error al procesar la solicitud' });
+        res.status(500).json({error: 'Error al procesar la solicitud'});
     }
 });
 
@@ -138,14 +138,14 @@ app.get('/api/consultar-cursos', async (req, res) => {
 
                 // Hacer la solicitud utilizando Axios
                 axios.get(url)
-                    .then(function (response) {
-                        // Resolver la promesa con los datos recibidos
-                        resolve(response.data);
-                    })
-                    .catch(function (error) {
-                        // Rechazar la promesa con el error
-                        reject(error);
-                    });
+                        .then(function (response) {
+                            // Resolver la promesa con los datos recibidos
+                            resolve(response.data);
+                        })
+                        .catch(function (error) {
+                            // Rechazar la promesa con el error
+                            reject(error);
+                        });
             });
         });
 
@@ -164,7 +164,7 @@ app.get('/api/consultar-profesor-curso', async (req, res) => {
         const params = {
             wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'core_enrol_get_enrolled_users',
-            courseid:req.query.courseId,
+            courseid: req.query.courseId,
             moodlewsrestformat: 'json'
         };
         // Realizar la solicitud GET utilizando Axios
@@ -254,7 +254,49 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
 });
 
 
+const{insertarDatosCurso} = require('./persistencia');
+app.get('/api/insertarDatosCurso', async (req, res) => {
+    try {
+        // construir y agregar al padre 
+        const curso = {
+            id_maestro: req.query.id_maestro,
+            id_moodle: req.query.id_moodle,
+            nombreCurso: req.query.nombreCurso,
+            nombreMaestro: req.query.nombreMaestro
+        };
+        try {
+            const cursoId = await insertarDatosCurso(curso); // Esperar a que se resuelva la inserción en la base de datos
+            res.json({cursoId: cursoId});
+        } catch (error) {
+            console.error('Error al persistir los datos del curso:', error);
+            res.status(500).json({error: 'Error al persistir los datos del curso'});
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
 
+const{insertarCursoAlAlumno} = require('./persistencia');
+app.get('/api/insertarCursoAlAlumno', async (req, res) => {
+    try {
+        // construir y agregar al padre 
+        const cursoAlAlumno = {
+            alumno_id: req.query.alumno_id,
+            curso_id: req.query.curso_id
+        };
+        try {
+            const alumno_cursoId = await insertarCursoAlAlumno(cursoAlAlumno); // Esperar a que se resuelva la inserción en la base de datos
+            res.json({alumno_cursoId: alumno_cursoId});
+        } catch (error) {
+            console.error('Error al persistir los datos del curso en alumno:', error);
+            res.status(500).json({error: 'Error al persistir los datos del curso en alumno'});
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
 
 const {insertarDatosAlumnoDePadre, insertarDatosPadres} = require('./persistencia');
 app.get('/api/consulta-alumno-de-padre', async (req, res) => {
@@ -368,7 +410,7 @@ app.get('/api/obtener-padre-por-id-moodle', async (req, res) => {
                 return;
             }
 
-            res.json({idPadre: padre.id, nombre:padre.nombre});
+            res.json({idPadre: padre.id, nombre: padre.nombre});
         });
     } catch (error) {
         // Manejar cualquier error inesperado

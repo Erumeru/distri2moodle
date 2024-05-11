@@ -101,6 +101,26 @@ async function consultarProfesorCurso(courseId) {
     }
 }
 
+async function insertarCurso(idMaestro, idMoodle, nombreCurso, nombreMaestro) {
+    try {
+        const respuesta = await hacerSolicitud('/api/insertarDatosCurso?id_maestro=' + idMaestro + '&id_moodle=' + idMoodle + '&nombreCurso=' + nombreCurso + '&nombreMaestro=' + nombreMaestro);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al consultar tareas:', error);
+        throw error;
+    }
+}
+
+async function insertarCursoAlAlumno(alumno_id, curso_id) {
+    try {
+        const respuesta = await hacerSolicitud('/api/insertarCursoAlAlumno?alumno_id=' + alumno_id + '&curso_id=' + curso_id);
+        return respuesta;
+    } catch (error) {
+        console.error('Error al consultar tareas:', error);
+        throw error;
+    }
+}
+
 function consultarCalificaciones() {
     hacerSolicitud('/api/consultar-calificaciones-curso?courseId=2&userId=4');
 }
@@ -126,74 +146,56 @@ function consultarCusosAlumnoYCargarAsignaciones() {
     let cursos = [];
     let profesores = [];
     consultarCursos().then(function (resultado) {
-        console.log("chigon",resultado);
+        console.log("chigon", resultado);
         resultado['cursos'].forEach(function (elemento) {
             const tareasNombres = [];
             const tareasIds = [];
             console.log("aquyi", elemento);
-            elemento.forEach(function(cursosParaSacarID){
-               console.log(cursosParaSacarID['id']); 
+            elemento.forEach(function (cursosParaSacarID) {
+                console.log(cursosParaSacarID['id']);
+                var idCurso = cursosParaSacarID['id']; // Declarar idCurso como variable local
+                var cursoInfo = {};
+                cursoInfo.idMoodle = idCurso;
+
+                // Mover la lógica que depende de cursoInfo dentro de la función then de la promesa
+                (function (idCurso) {
+                    consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {
+                        console.log(resultadoTareas);
+                        console.log(resultadoTareas['courses']);
+                        var tareas = resultadoTareas['courses'][0];
+                        var nombreCurso = tareas['fullname'];
+                        console.log(nombreCurso);
+                        cursoInfo.nombreCurso = nombreCurso;
+                        profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
+                            var fila = document.createElement('tr');
+                            var nombreProfe = document.createElement('td');
+                            nombreProfe.textContent = profe[0]['fullname'];
+                            fila.appendChild(nombreProfe);
+                            var idProfe = document.createElement('td');
+                            idProfe.textContent = profe[0]['id'];
+                            fila.appendChild(idProfe);
+                            var boton = document.createElement('button');
+                            boton.textContent = 'Ir a chat';
+                            boton.addEventListener('click', function () {
+                                redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
+                            });
+                            fila.appendChild(boton);
+                            tbodyProfe.appendChild(fila);
+                            cursoInfo.idProfe = profe[0]['id'];
+                            cursoInfo.nombreMaestro = profe[0]['fullname'];
+
+                            // Persistir el curso aquí dentro de la función then
+                            insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro).then(function (cursoPersisted) {
+                                console.log("elcursofue", cursoPersisted['cursoId'], "para el alumno: ", resultado['idsAlumnos'][0]);
+                                insertarCursoAlAlumno(resultado['idsAlumnos'][0],cursoPersisted['cursoId']);
+                            });
+                        });
+                    });
+                })(idCurso);
+
+                // No se necesita esta línea aquí
+                // idCursoInsertado = insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro);
             });
-            var idCurso = elemento['id']; // Declarar idCurso como variable local
-            console.log("id del curo",idCurso);
-            // Utilizar una función de cierre para capturar el valor correcto de idCurso
-            (function (idCurso) {
-                consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {
-                    console.log(resultadoTareas['courses']);
-                    var tareas = resultadoTareas['courses'][0];
-                    var nombreCurso = tareas['fullname'];
-                    console.log(nombreCurso);
-                    profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
-                        var fila = document.createElement('tr');
-                        var nombreProfe = document.createElement('td');
-                        nombreProfe.textContent = profe[0]['fullname'];
-                        fila.appendChild(nombreProfe);
-                        var idProfe = document.createElement('td');
-                        idProfe.textContent = profe[0]['id'];
-                        fila.appendChild(idProfe);
-                        var boton = document.createElement('button');
-                        boton.textContent = 'Ir a chat';
-                        boton.addEventListener('click', function () {
-                            redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
-                        });
-                        fila.appendChild(boton);
-                        tbodyProfe.appendChild(fila);
-                    });
-                    arregloTareas = tareas['assignments'].forEach(function (assign) {
-                        console.log(assign['id']);
-                        console.log(assign['name']);
-                        var idTarea = assign['id'];
-                        var nombreTarea = assign['name'];
-                        tareasIds.push(idTarea);
-                        tareasNombres.push(nombreTarea);
-                    });
-                    console.log(tareasIds);
-                    var i = 0;
-                    tareasNombres.forEach(function (tareaNom) {
-                        var fila = document.createElement('tr');
-                        var nombreCursoFila = document.createElement('td');
-                        nombreCursoFila.textContent = nombreCurso;
-                        fila.appendChild(nombreCursoFila);
-                        var nomTarea = document.createElement('td');
-                        nomTarea.textContent = tareaNom;
-                        fila.appendChild(nomTarea);
-                        var idCursoFila = document.createElement('td');
-                        idCursoFila.textContent = idCurso;
-                        fila.appendChild(idCursoFila);
-                        var tareaIdFila = document.createElement('td');
-                        tareaIdFila.textContent = tareasIds[i];
-                        fila.appendChild(tareaIdFila);
-                        var boton = document.createElement('button');
-                        boton.textContent = 'Avalar Tarea';
-                        boton.addEventListener('click', function () {
-                            console.log(tareaIdFila.textContent);
-                        });
-                        fila.appendChild(boton);
-                        tbody.appendChild(fila);
-                        i++;
-                    });
-                });
-            })(idCurso);
         });
     });
 }
