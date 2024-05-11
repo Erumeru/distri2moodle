@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'root',
     database: 'moodlepadres',
-    port: 3306
+    port: 12345
 });
 
 // Método para insertar datos en la base de datos
@@ -182,6 +182,34 @@ function obtenerIdsYNombrePadres(callback) {
     });
 }
 
+function obtenerPadrePorIdMoodle(idMoodle, callback) {
+    // Consulta SQL para obtener el padre de un alumno por su id_moodle
+    const sql = 'SELECT p.id, p.nombre FROM padre p INNER JOIN alumno a ON p.id = a.padre_id WHERE a.id_moodle = ?';
+
+    // Ejecutar la consulta SQL con el id_moodle proporcionado
+    connection.query(sql, [idMoodle], function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Si no se encontraron resultados, llamar al callback con un mensaje de error
+        if (results.length === 0) {
+            const mensajeError = 'No se encontró ningún padre para el alumno con id_moodle: ' + idMoodle;
+            callback(mensajeError, null);
+            return;
+        }
+
+        // Como se espera que haya un solo padre, obtener el primer resultado
+        const padre = { id: results[0].id, nombre: results[0].nombre };
+
+        // Llamar al callback con los datos del padre
+        callback(null, padre);
+    });
+}
+
 function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
     // Consulta SQL para buscar los IDs de los alumnos asociados al padre por su correo electrónico
     const sql = `
@@ -223,5 +251,6 @@ module.exports = {
     insertarDatosAlumnoDePadre: insertarDatosAlumnoDePadre,
     consultarPadrePorCredenciales: consultarPadrePorCredenciales,
     obtenerIdsYNombrePadres: obtenerIdsYNombrePadres,
-    consultarIdsAlumnosPorEmailPadre: consultarIdsAlumnosPorEmailPadre
+    consultarIdsAlumnosPorEmailPadre: consultarIdsAlumnosPorEmailPadre,
+    obtenerPadrePorIdMoodle: obtenerPadrePorIdMoodle
 };

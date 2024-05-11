@@ -11,13 +11,12 @@ const PORT = 3003;
 app.use(express.json());
 
 
-const {obtenerIdsCursos, getProfesores} = require('./funcionesCtrlEscolar.js');
-
+const {obtenerIdsCursos, getProfesores, obtenerIdPadreDeAlumno} = require('./funcionesCtrlEscolar.js');
 app.get('/api/entrega-ctrlEscolar', async (req, res) => {
     try {
         const axios = require('axios');
         const url = "http://localhost/webservice/rest/server.php";
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+        const token = 'a7ab7c13eca9c4d87556998dff78a606';
 
         // Obtener todos los IDs de los cursos
         const idsCursos = await obtenerIdsCursos();
@@ -89,6 +88,27 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
 
                     // Agregar las calificaciones al objeto del alumno
                     alumno.calificaciones = sum;
+                    console.log(alumno.calificaciones);
+                    console.log(alumno.id);
+                    try {
+                        if (alumno.calificaciones < 70) {
+                            console.log("PADRE DE EL ALUMNO MALO");
+                            const padre = await obtenerIdPadreDeAlumno(alumno.id);
+                            if (padre.idPadre) {
+                                console.log(padre);
+
+
+                                var nombrePadre = padre.nombre;
+                                var col = `ctrlEscolar&${padre.idPadre}`;
+                                console.log(col);
+                                const mensaje=`Querido ${padre.nombre}, su hijo ${alumno.fullname} ha presentado una baja calificación con un vaor de ${alumno.calificaciones}`;
+                                enviarMensaje(col,mensaje);
+
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error al procesar el alumno', error);
+                    }
                 }));
             }
         }));
@@ -101,6 +121,23 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
         res.status(500).json({error: 'Error al procesar la solicitud'});
     }
 });
+
+async function enviarMensaje(cola, mensaje) {
+    try {
+        const colaEnviar = cola;
+        const response = await fetch('http://localhost:3001/enviar-mensaje', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({mensaje: mensaje, cola: colaEnviar})
+        });
+        const data = await response.text();
+        console.log(data); // Mensaje enviado correctamente
+    } catch (error) {
+        console.error('Error al enviar mensaje:', error);
+    }
+}
 
 // Manejador de ruta para todas las demás solicitudes
 app.all('*', (req, res) => {

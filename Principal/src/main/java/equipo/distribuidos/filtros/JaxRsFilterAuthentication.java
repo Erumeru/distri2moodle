@@ -43,9 +43,9 @@ public class JaxRsFilterAuthentication implements Filter {
         String metodo = req.getMethod();
         String path = req.getServletContext().getContextPath() + req.getServletPath();
 
-        if (metodo.equals("GET") && path.contains("ogin") || path.contains("register")) {
+        if (metodo.equals("GET") && path.contains("ogin") || path.contains("register") || path.contains("EnviarRecibir.js") || path.contains("enrutarSolicitudes.js") || path.contains("navegacion.js") || path.contains("formularioObtenerHijo.html")){
             System.out.println("Estoy en login");
-            // Aquí podrías implementar la lógica para crear el token si es una solicitud de inicio de sesión
+            // Aquí podrías iDmplementar la lógica para crear el token si es una solicitud de inicio de sesión
         } else {
             // Verificar si se proporciona un token de autenticación en la solicitud
             String token = (String) req.getSession().getAttribute("token");
