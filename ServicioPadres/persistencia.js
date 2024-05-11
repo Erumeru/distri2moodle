@@ -136,7 +136,8 @@ function consultarPadrePorCredenciales(email, password, callback) {
 
     // Parámetros para la consulta SQL
     const values = [email, password];
-
+    console.log("emaiul del padre: ", email);
+    console.log("pass del padre: ", password)
     // Ejecutar la consulta SQL
     connection.query(sql, values, function (error, results, fields) {
         // Si hay un error, llamar al callback con el error
@@ -156,7 +157,7 @@ function consultarPadrePorCredenciales(email, password, callback) {
         // Llamar al callback con los resultados (el padre encontrado)
         callback(null, results[0]);
     });
-   // connection.end();
+    // connection.end();
 }
 
 
@@ -203,7 +204,7 @@ function obtenerPadrePorIdMoodle(idMoodle, callback) {
         }
 
         // Como se espera que haya un solo padre, obtener el primer resultado
-        const padre = { id: results[0].id, nombre: results[0].nombre };
+        const padre = {id: results[0].id, nombre: results[0].nombre};
 
         // Llamar al callback con los datos del padre
         callback(null, padre);
@@ -223,7 +224,6 @@ function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
 
     // Parámetros para la consulta SQL
     const values = [emailPadre];
-
     // Ejecutar la consulta SQL
     connection.query(sql, values, function (error, results, fields) {
         // Si hay un error, llamar al callback con el error
@@ -231,7 +231,6 @@ function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
             console.error('Error al ejecutar la consulta:', error);
             return callback(error, null);
         }
-
         // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontraron alumnos
         if (results.length === 0) {
             const notFoundError = new Error('No se encontraron alumnos asociados a este padre');

@@ -126,11 +126,16 @@ function consultarCusosAlumnoYCargarAsignaciones() {
     let cursos = [];
     let profesores = [];
     consultarCursos().then(function (resultado) {
-        resultado.forEach(function (elemento) {
+        console.log("chigon",resultado);
+        resultado['cursos'].forEach(function (elemento) {
             const tareasNombres = [];
             const tareasIds = [];
+            console.log("aquyi", elemento);
+            elemento.forEach(function(cursosParaSacarID){
+               console.log(cursosParaSacarID['id']); 
+            });
             var idCurso = elemento['id']; // Declarar idCurso como variable local
-            console.log(idCurso);
+            console.log("id del curo",idCurso);
             // Utilizar una función de cierre para capturar el valor correcto de idCurso
             (function (idCurso) {
                 consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {

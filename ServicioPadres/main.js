@@ -98,8 +98,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 
         // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
         const profesores = await Promise.all(promesasProfesores);
-
-        res.json({ cursos, profesores });
+        res.json({ cursos, profesores, idsAlumnos});
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
         res.status(500).json({ error: 'Error al procesar la solicitud' });
