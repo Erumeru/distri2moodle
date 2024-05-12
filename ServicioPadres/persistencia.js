@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'admin',
     database: 'moodlepadres',
-    port: 12345
+    port: 3306
 });
 
 // Método para insertar datos en la base de datos
@@ -179,8 +179,6 @@ function consultarPadrePorCredenciales(email, password, callback) {
 
     // Parámetros para la consulta SQL
     const values = [email, password];
-    console.log("emaiul del padre: ", email);
-    console.log("pass del padre: ", password);
     // Ejecutar la consulta SQL
     connection.query(sql, values, function (error, results, fields) {
         // Si hay un error, llamar al callback con el error

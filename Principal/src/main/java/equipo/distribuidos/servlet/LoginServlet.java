@@ -17,6 +17,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -55,12 +56,20 @@ public class LoginServlet extends HttpServlet {
                 ManejoJWT jwtManager = new ManejoJWT();
                 String token = jwtManager.crearToken(email); // Usar el email para crear el token
 
+// Convertir la cadena JSON en un objeto JSON
+                JSONObject jsonResponse = new JSONObject(responseData);
+
+// Obtener el valor del ID del padre
+                int idPadre = jsonResponse.getInt("idPadre");
                 // Agregar el token como un atributo al objeto de sesión del usuario
                 request.getSession().setAttribute("token", token);
+                String jsCode = "<script>localStorage.setItem('idPadre', '" + idPadre + "'); window.location.href='index.html';</script>";
 
                 System.out.println(token);
                 // Redirigir al usuario a otro recurso
-                response.sendRedirect("index.html");
+                //response.sendRedirect("index.html");
+                PrintWriter out = response.getWriter();
+                out.println(jsCode);
             } else {
                 // Si la respuesta está vacía, responder con un mensaje de error
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

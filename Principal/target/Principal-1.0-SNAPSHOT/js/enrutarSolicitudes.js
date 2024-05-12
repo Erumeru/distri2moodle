@@ -78,6 +78,8 @@ async function obtenerEmailPadre() {
     });
 }
 
+
+
 async function consultarCursos() {
     try {
         const email = await obtenerEmailPadre(); // Obtener el email del padre
@@ -269,7 +271,7 @@ async function loginPadre() {
 
         if (respuesta.idPadre) {
             localStorage.setItem('id', respuesta.idPadre);
-            console.log(localStorage.getItem('id'));
+            console.log("naca",localStorage.getItem('id'));
         }
         return respuesta;
     } catch (error) {

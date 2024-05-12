@@ -1,22 +1,17 @@
 
 /* global col */
 
+
+async function obtenerNSetIdPadre() {
+    
+}
 document.addEventListener('DOMContentLoaded', function () {
-    var parametros = new URLSearchParams(window.location.search);
-    var nombreMaestro = parametros.get('maestro');
+     var parametros = new URLSearchParams(window.location.search);
     var col = parametros.get('col');
-    col=`${col}&${localStorage.getItem('idPadre')}`;
-    document.getElementById('nombreMaestro').textContent = `Maestro: ${nombreMaestro} idDeCola: ${col}`;
+    col = `ctrlEscolar&${localStorage.getItem('idPadre')}`;
     console.log("aqui");
     iniciarWebSocket(col);
-
-
-    document.getElementById('btnEnviar').addEventListener('click', function (event) {
-        event.preventDefault(); // Prevenir el comportamiento predeterminado del botón
-
-        // Llamar a la función enviarMensaje
-        enviarMensaje(col);
-    });
+    console.log(col);
 });
 
 function guardarMensaje(mensaje, cola) {
@@ -40,23 +35,6 @@ function cargarMensajesGuardados(cola) {
 // Llamar a la función cargarMensajesGuardados al iniciar la aplicación
 
 
-async function enviarMensaje(cola) {
-    try {
-        const mensaje = `Padre: ${document.getElementById('messageInput').value}`;
-        const colaEnviar = cola;
-        const response = await fetch('http://localhost:3001/enviar-mensaje', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({mensaje: mensaje, cola: colaEnviar})
-        });
-        const data = await response.text();
-        console.log(data); // Mensaje enviado correctamente
-    } catch (error) {
-        console.error('Error al enviar mensaje:', error);
-    }
-}
 
 function iniciarWebSocket(cola) {
     const ws = new WebSocket('ws://localhost:3002');
