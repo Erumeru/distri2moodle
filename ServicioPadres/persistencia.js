@@ -4,9 +4,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'root',
     database: 'moodlepadres',
-    port: 3306
+    port: 12345
 });
 
 // Método para insertar datos en la base de datos
@@ -22,10 +22,11 @@ function insertarDatosPadres(datos) {
             console.log('Conectado como ID ' + connection.threadId);
 
             // Consulta SQL para insertar datos
-            const sql = 'INSERT INTO padre (email, nombre, password) VALUES (?, ?, ?)';
+            const sql = 'INSERT INTO padre (email, nombre, password) VALUES (?, ?, TRIM(?))';
 
             // Parámetros para la consulta SQL
             const values = [datos.email, datos.nombre, datos.password];
+            console.log("0oadre:", values);
 
             // Ejecutar la consulta SQL
             connection.query(sql, values, function (error, results, fields) {
@@ -49,7 +50,7 @@ function insertarDatosPadres(datos) {
             });
         });
     });
-    connection.end();
+   // connection.end();
 }
 
 
@@ -82,7 +83,7 @@ function insertarDatosAlumnoDePadre(datos) {
         });
 
         // Cerrar la conexión a la base de datos
-        connection.end();
+      //  connection.end();
     });
 }
 
@@ -175,30 +176,38 @@ function insertarCursoAlAlumno(datos) {
 // Método para consultar un padre en la base de datos
 function consultarPadrePorCredenciales(email, password, callback) {
     // Consulta SQL para buscar al padre por email y contraseña
-    const sql = 'SELECT * FROM padre WHERE email = ? AND password = ?';
 
-    // Parámetros para la consulta SQL
-    const values = [email, password];
-    // Ejecutar la consulta SQL
-    connection.query(sql, values, function (error, results, fields) {
-        // Si hay un error, llamar al callback con el error
-        if (error) {
-            console.error('Error al ejecutar la consulta:', error);
-            callback(error, null);
-            return;
+    connection.connect(function (err) {
+        if (err) {
+            console.error('Error al conectar a la base de datos: ' + err.stack);
+            return reject(err);
         }
+        const sql = 'SELECT * FROM padre WHERE email = ? AND password = ?';
 
-        // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontró el padre
-        if (results.length === 0) {
-            const notFoundError = new Error('Padre no encontrado');
-            callback(notFoundError, null);
-            return;
-        }
+        // Parámetros para la consulta SQL
+        const values = [email, password];
+        // Ejecutar la consulta SQL
+        connection.query(sql, values, function (error, results, fields) {
+            // Si hay un error, llamar al callback con el error
+            if (error) {
+                console.error('Error al ejecutar la consulta:', error);
+                callback(error, null);
+                return;
+            }
 
-        // Llamar al callback con los resultados (el padre encontrado)
-        callback(null, results[0]);
+            // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontró el padre
+            if (results.length === 0) {
+                const notFoundError = new Error('Padre no encontrado');
+                callback(notFoundError, null);
+                return;
+            }
+
+            // Llamar al callback con los resultados (el padre encontrado)
+            callback(null, results[0]);
+        });
     });
-    // connection.end();
+   // connection.end();
+
 }
 
 
@@ -387,6 +396,6 @@ module.exports = {
     insertarDatosCurso: insertarDatosCurso,
     insertarCursoAlAlumno: insertarCursoAlAlumno,
     consultarCursosDeAlumno: consultarCursosDeAlumno,
-    consultarIdMoodleAlumnosPorEmailPadre:consultarIdMoodleAlumnosPorEmailPadre,
-    consultarIdMoodleCurso:consultarIdMoodleCurso
+    consultarIdMoodleAlumnosPorEmailPadre: consultarIdMoodleAlumnosPorEmailPadre,
+    consultarIdMoodleCurso: consultarIdMoodleCurso
 };

@@ -247,7 +247,7 @@ async function consultarAlumnoDePadre() {
         var emailPadre = parametros.get('emailPadre');
         var nombrePadre = parametros.get('nombrePadre');
         var passwordPadre = parametros.get('passwordPadre');
-
+        console.log("[assp[adre", passwordPadre);
 
         const url = `/api/consulta-alumno-de-padre?emailPadre=${emailPadre}&nombrePadre=${nombrePadre}&passwordPadre=${passwordPadre}
         &emailAlumno=${emailAlumno}&nombreAlumno=${nombreAlumno}&apellidosAlumno=${apellidosAlumno}`;

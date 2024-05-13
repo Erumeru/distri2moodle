@@ -6,15 +6,16 @@
 
 function redirigirFormsAlumno() {
     // Obtener los valores del formulario
-    var emailPadre = document.getElementById("emailPadre").value; 
-    var nombrePadre = document.getElementById("nombrePadre").value; 
-    var passwordPadre = document.getElementById("passwordPadre").value; 
-    
+    var emailPadre = document.getElementById("emailPadre").value;
+    var nombrePadre = document.getElementById("nombrePadre").value;
+    var passwordPadre = document.getElementById("passwordPadre").value;
+        console.log("[assp[adre", passwordPadre, "t");
+
     // Construir la URL con los datos del formulario como parámetros
     var url = "formularioObtenerHijo.html?" +
-              "emailPadre=" + encodeURIComponent(emailPadre) +
-              "&nombrePadre=" + encodeURIComponent(nombrePadre) +
-              "&passwordPadre=" + encodeURIComponent(passwordPadre);
+            "emailPadre=" + encodeURIComponent(emailPadre) +
+            "&nombrePadre=" + encodeURIComponent(nombrePadre) +
+            "&passwordPadre=" + encodeURIComponent(passwordPadre);
 
     // Cambiar la ubicación del navegador al HTML deseado con los parámetros
     window.location.href = url;
@@ -26,4 +27,4 @@ document.getElementById("registroFormPadre").addEventListener("submit", function
     redirigirFormsAlumno();
     // Prevenir el comportamiento predeterminado del formulario (no enviarlo por POST)
     event.preventDefault();
-}); 
+});

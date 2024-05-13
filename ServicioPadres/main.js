@@ -3,6 +3,7 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = 3000;
+
 // Middleware para parsear JSON en las solicitudes
 app.use(express.json());
 // Ruta para hacer la solicitud a la otra API
@@ -14,7 +15,7 @@ app.get('/api/otra-api', async (req, res) => {
         //var tbody = document.getElementById('tablaCursos');
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
+        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
         parametros.push("wsfunction=gradereport_user_get_grades_table");
         // parametros.push("courseid=2");
         parametros.push("moodlewsrestformat=json");
@@ -58,7 +59,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
                 // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
                 const url = "http://localhost/webservice/rest/server.php";
                 const parametros = [
-                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+                    "wstoken=a7ab7c13eca9c4d87556998dff78a606",
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
                     `userid=${idAlumno}`
@@ -80,14 +81,14 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 
         // Esperar a que se completen todas las solicitudes de cursos y luego obtener los profesores
         const cursos = await Promise.all(promesasCursos);
-
+        console.log(cursos);
         // Ahora, puedes iterar sobre los cursos para obtener los IDs de los cursos y hacer la solicitud para obtener los profesores
         const promesasProfesores = cursos.flatMap(curso => {
             const courseid = curso.map(c => c.id); // Supongo que el ID del curso está en la propiedad 'id'
             return courseid.map(id => {
                 return axios.get('http://localhost/webservice/rest/server.php', {
                     params: {
-                        wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+                        wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
                         wsfunction: 'core_enrol_get_enrolled_users',
                         courseid: id,
                         moodlewsrestformat: 'json'
@@ -106,11 +107,11 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 });
 
 
-
+const {consultarIdsAlumnosPorEmailPadre} = require('./persistencia.js');
 app.get('/api/consultar-cursos', async (req, res) => {
     try {
         const email = req.query.email;
-
+        
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
         const idsAlumnos = await new Promise((resolve, reject) => {
             consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
@@ -129,7 +130,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
                 // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
                 var url = "http://localhost/webservice/rest/server.php";
                 var parametros = [
-                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+                    "wstoken=a7ab7c13eca9c4d87556998dff78a606",
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
                     `userid=${idAlumno}`
@@ -162,7 +163,7 @@ app.get('/api/consultar-profesor-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'core_enrol_get_enrolled_users',
             courseid: req.query.courseId,
             moodlewsrestformat: 'json'
@@ -187,7 +188,7 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
             wsfunction: 'mod_assign_get_assignments',
             courseids: [req.query.courseId],
             moodlewsrestformat: 'json'
@@ -215,7 +216,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
 
         const idsAlumnos = await new Promise((resolve, reject) => {
-            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
                 if (error) {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
@@ -226,8 +227,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         });
 
         const url = "http://localhost/webservice/rest/server.php";
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
-
+        const token = 'a7ab7c13eca9c4d87556998dff78a606';
         // Array para almacenar las calificaciones de cada alumno
         const calificaciones = [];
 
@@ -375,7 +375,7 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = "http://localhost/webservice/rest/server.php";
         var parametros = [
-            "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+            "wstoken=a7ab7c13eca9c4d87556998dff78a606",
             "wsfunction=core_user_get_users",
             "moodlewsrestformat=json",
             `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
@@ -520,7 +520,7 @@ app.get('/api/consultar-user-por-usuario', async (req, res) => {
         var url = "http://localhost/webservice/rest/server.php";
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
+        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
         parametros.push("wsfunction=core_user_get_users");
         parametros.push("moodlewsrestformat=json");
         parametros.push("criteria[0][key]=username");
