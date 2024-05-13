@@ -217,7 +217,6 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
     }
 });
 
-
 //CHECARRRRRR
 const {consultarIdMoodleAlumnosPorEmailPadre, consultarCursosDeAlumno, consultarIdMoodleCurso} = require('./persistencia.js');
 app.get('/api/consultar-calificaciones-curso', async (req, res) => {
@@ -227,7 +226,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
 
         const idsAlumnos = await new Promise((resolve, reject) => {
-            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
                 if (error) {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
@@ -239,6 +238,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
 
         const url = "http://localhost/webservice/rest/server.php";
         const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+
         // Array para almacenar las calificaciones de cada alumno
         const calificaciones = [];
 
@@ -323,7 +323,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
                         // Manejar errores
                         console.error("Error al enviar la solicitud:", error);
                     }
-                } // Fin del bucle `for` de `cursosAlumno`
+                } // Fin del bucle for de cursosAlumno
             }
         }
 

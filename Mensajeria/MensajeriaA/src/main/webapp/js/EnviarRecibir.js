@@ -34,7 +34,7 @@ function cargarMensajesGuardados(cola) {
 
 async function enviarMensaje(cola) {
     try {
-        const mensaje = `Padre: ${document.getElementById('messageInput').value}`;
+        const mensaje = `Maestro: ${document.getElementById('messageInput').value}`;
         const colaEnviar = cola;
         const response = await fetch('http://localhost:3001/enviar-mensaje', {
             method: 'POST',
