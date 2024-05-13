@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var parametros = new URLSearchParams(window.location.search);
     var nombreMaestro = parametros.get('maestro');
     var col = parametros.get('col');
-    col=`${col}&${localStorage.getItem('idPadre')}`;
+    col = `${col}&${localStorage.getItem('idPadre')}`;
     document.getElementById('nombreMaestro').textContent = `Maestro: ${nombreMaestro} idDeCola: ${col}`;
     console.log("aqui");
     iniciarWebSocket(col);

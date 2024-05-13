@@ -35,14 +35,14 @@ app.get('/api/otra-api', async (req, res) => {
 });
 
 
-const {consultarIdsAlumnosPorEmailPadre} = require('./persistencia');
+
 app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
     try {
         const email = req.query.email;
 
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
         const idsAlumnos = await new Promise((resolve, reject) => {
-            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
                 if (error) {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
@@ -207,52 +207,124 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
 
 
 //CHECARRRRRR
-//const {getProfesores} = require('./funciones.js');
+const {consultarIdMoodleAlumnosPorEmailPadre, consultarCursosDeAlumno, consultarIdMoodleCurso} = require('./persistencia.js');
 app.get('/api/consultar-calificaciones-curso', async (req, res) => {
+    const email = req.query.email;
+    console.log("email", email);
     try {
-        const axios = require('axios');
-        const url = "http://localhost/webservice/rest/server.php";
-        const userId = req.query.userId;
-        const courseId = req.query.courseId;
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
-        const params = {
-            wstoken: token,
-            wsfunction: 'gradereport_user_get_grades_table',
-            moodlewsrestformat: 'json',
-            userid: userId,
-            courseid: courseId
-        };
-        // Realizar la solicitud GET utilizando Axios
-        const response = await axios.get(url, {params});
+        // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
 
-        let sum = 0;
-        let hasNaN = false;
-        // Recorre todas las tablas
-        for (const table of response.data.tables) {
-            // Recorre los datos de la tabla
-            for (const data of table.tabledata) {
-                // Verifica si hay un atributo contributiontocoursetotal
-                if (data.contributiontocoursetotal) {
-                    // Extrae el contenido del atributo contributiontocoursetotal y lo convierte a número
-                    const contribution = parseFloat(data.contributiontocoursetotal.content);
-                    // Suma el valor al total
-                    if (!Number.isNaN(contribution)) {
-                        sum += contribution;
-                    } else {
-                        hasNaN = true;
-                    }
+        const idsAlumnos = await new Promise((resolve, reject) => {
+            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+                if (error) {
+                    console.error('Error al consultar los IDs de los alumnos:', error);
+                    reject(error);
+                } else {
+                    resolve(idsAlumnos);
                 }
+            });
+        });
+
+        const url = "http://localhost/webservice/rest/server.php";
+        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+
+        // Array para almacenar las calificaciones de cada alumno
+        const calificaciones = [];
+
+        for (const alumnoId of idsAlumnos) {
+            // Consultar los cursos del alumno actual
+            const cursosAlumno = await new Promise((resolve, reject) => {
+                consultarCursosDeAlumno(alumnoId, function (error, cursosAlumno) {
+                    if (error) {
+                        console.error('Error al consultar los cursos del alumno:', error);
+                        reject(error);
+                    } else {
+                        resolve(cursosAlumno);
+                    }
+                });
+            });
+            console.log("cursosAlumnos", cursosAlumno);
+
+            // Iterar sobre cada ID de curso del alumno actual
+            for (const cursoId of cursosAlumno) {
+                console.log("alumnoId", alumnoId);
+                console.log("cursoId", cursoId);
+
+                // Consultar el id_moodle del curso
+                const idMoodleCurso = await new Promise((resolve, reject) => {
+                    consultarIdMoodleCurso(cursoId, function (error, idMoodleCurso) {
+                        if (error) {
+                            console.error('Error al consultar el id_moodle del curso:', error);
+                            reject(error);
+                        } else {
+                            resolve(idMoodleCurso);
+                        }
+                    });
+                });
+                console.log("id_moodle_curso", idMoodleCurso);
+
+                const idsAlumnosMoodle = await new Promise((resolve, reject) => {
+                    consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnosMoodle) {
+                        if (error) {
+                            console.error('Error al consultar los moodle IDs de los alumnos:', error);
+                            reject(error);
+                        } else {
+                            resolve(idsAlumnosMoodle);
+                        }
+                    });
+                });
+
+                for (const idAlumnoMoodle of idsAlumnosMoodle) {
+
+                    console.log("id_moodle_alumno", idAlumnoMoodle);
+                    const params = {
+                        wstoken: token,
+                        wsfunction: 'gradereport_user_get_grades_table',
+                        moodlewsrestformat: 'json',
+                        userid: idAlumnoMoodle, // Usar el ID de cada alumno
+                        courseid: idMoodleCurso // Utilizar el id_moodle del curso actual
+                    };
+                    try {
+                        const response = await axios.get(url, {params});
+
+                        let sum = 0;
+                        let hasNaN = false;
+                        // Recorre todas las tablas
+                        for (const table of response.data.tables) {
+                            // Recorre los datos de la tabla
+                            for (const data of table.tabledata) {
+                                // Verifica si hay un atributo contributiontocoursetotal
+                                if (data.contributiontocoursetotal) {
+                                    // Extrae el contenido del atributo contributiontocoursetotal y lo convierte a número
+                                    const contribution = parseFloat(data.contributiontocoursetotal.content);
+                                    // Suma el valor al total
+                                    if (!Number.isNaN(contribution)) {
+                                        sum += contribution;
+                                    } else {
+                                        hasNaN = true;
+                                    }
+                                }
+                            }
+                        }
+                        // Almacenar la calificación del alumno actual en el array de calificaciones
+                        calificaciones.push({idAlumnoMoodle, idMoodleCurso, contibucionTotal: sum});
+                    } catch (error) {
+                        // Manejar errores
+                        console.error("Error al enviar la solicitud:", error);
+                    }
+                } // Fin del bucle `for` de `cursosAlumno`
             }
         }
-        const jsonData = {contibucionTotal: sum};
-        res.json(jsonData);
+
+        // Enviar las calificaciones como respuesta
+        res.json(calificaciones);
 
     } catch (error) {
         // Manejar errores
-        console.error("Error al enviar la solicitud:", error);
+        console.error("Error al procesar la solicitud:", error);
+        res.status(500).send("Error al procesar la solicitud");
     }
 });
-
 
 const{insertarDatosCurso} = require('./persistencia');
 app.get('/api/insertarDatosCurso', async (req, res) => {

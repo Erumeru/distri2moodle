@@ -123,8 +123,14 @@ async function insertarCursoAlAlumno(alumno_id, curso_id) {
     }
 }
 
-function consultarCalificaciones() {
-    hacerSolicitud('/api/consultar-calificaciones-curso?courseId=2&userId=4');
+// Definir una función async para consultar calificaciones
+async function consultarCalificaciones() {
+    try {
+        const email = await obtenerEmailPadre(); // Obtener el email del padre
+        await hacerSolicitud('/api/consultar-calificaciones-curso?email=' + email);
+    } catch (error) {
+        console.error("Error al consultar calificaciones:", error);
+    }
 }
 
 //esto es para control escolar 
@@ -189,7 +195,7 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                             // Persistir el curso aquí dentro de la función then
                             insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro).then(function (cursoPersisted) {
                                 console.log("elcursofue", cursoPersisted['cursoId'], "para el alumno: ", resultado['idsAlumnos'][0]);
-                                insertarCursoAlAlumno(resultado['idsAlumnos'][0],cursoPersisted['cursoId']);
+                                insertarCursoAlAlumno(resultado['idsAlumnos'][0], cursoPersisted['cursoId']);
                             });
                         });
                     });
@@ -271,7 +277,7 @@ async function loginPadre() {
 
         if (respuesta.idPadre) {
             localStorage.setItem('id', respuesta.idPadre);
-            console.log("naca",localStorage.getItem('id'));
+            console.log("naca", localStorage.getItem('id'));
         }
         return respuesta;
     } catch (error) {

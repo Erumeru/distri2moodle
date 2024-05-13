@@ -286,6 +286,97 @@ function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
     });
 }
 
+function consultarIdMoodleAlumnosPorEmailPadre(emailPadre, callback) {
+    // Consulta SQL para buscar los IDs de los alumnos asociados al padre por su correo electrónico
+    const sql = `
+        SELECT id_moodle
+        FROM alumno
+        WHERE padre_id IN (
+            SELECT id
+            FROM padre
+            WHERE email = ?
+        )`;
+
+    // Parámetros para la consulta SQL
+    const values = [emailPadre];
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            return callback(error, null);
+        }
+        // Si no hay resultados, llamar al callback con un mensaje indicando que no se encontraron alumnos
+        if (results.length === 0) {
+            const notFoundError = new Error('No se encontraron alumnos asociados a este padre');
+            return callback(notFoundError, null);
+        }
+
+        // Crear un array para almacenar los IDs de los alumnos
+        const idsAlumnos = results.map(result => result.id_moodle);
+
+        // Llamar al callback con los IDs de los alumnos encontrados
+        return callback(null, idsAlumnos);
+    });
+}
+
+
+function consultarCursosDeAlumno(alumno_id, callback) {
+    // Consulta SQL para seleccionar los cursos del alumno
+    const sql = 'SELECT curso_id FROM alumno_curso WHERE alumno_id = ?';
+
+    // Parámetros para la consulta SQL
+    const values = [alumno_id];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Almacenar los ids de los cursos en un array
+        const cursos = results.map(result => result.curso_id);
+
+        // Llamar al callback con los ids de los cursos
+        callback(null, cursos);
+    });
+}
+
+
+function consultarIdMoodleCurso(id, callback) {
+    // Consulta SQL para seleccionar el id_moodle del curso
+    const sql = 'SELECT id_moodle FROM curso WHERE id = ?';
+
+    // Parámetros para la consulta SQL
+    const values = [id];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, results, fields) {
+        // Si hay un error, llamar al callback con el error
+        if (error) {
+            console.error('Error al ejecutar la consulta:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Si hay resultados, tomar el primer resultado y extraer el id_moodle
+        if (results.length > 0) {
+            const idMoodleCurso = results[0].id_moodle;
+            // Llamar al callback con el id_moodle del curso
+            callback(null, idMoodleCurso);
+        } else {
+            // Si no hay resultados, llamar al callback con un mensaje indicando que el curso no fue encontrado
+            const errorMessage = 'Curso no encontrado';
+            console.error(errorMessage);
+            callback(errorMessage, null);
+        }
+    });
+}
+
+
 module.exports = {
     insertarDatosPadres: insertarDatosPadres,
     insertarDatosAlumnoDePadre: insertarDatosAlumnoDePadre,
@@ -294,5 +385,8 @@ module.exports = {
     consultarIdsAlumnosPorEmailPadre: consultarIdsAlumnosPorEmailPadre,
     obtenerPadrePorIdMoodle: obtenerPadrePorIdMoodle,
     insertarDatosCurso: insertarDatosCurso,
-    insertarCursoAlAlumno: insertarCursoAlAlumno
+    insertarCursoAlAlumno: insertarCursoAlAlumno,
+    consultarCursosDeAlumno: consultarCursosDeAlumno,
+    consultarIdMoodleAlumnosPorEmailPadre:consultarIdMoodleAlumnosPorEmailPadre,
+    consultarIdMoodleCurso:consultarIdMoodleCurso
 };
