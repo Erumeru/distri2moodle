@@ -1,12 +1,9 @@
-
-/* global col */
-
 document.addEventListener('DOMContentLoaded', function () {
     var parametros = new URLSearchParams(window.location.search);
-    var nombreMaestro = parametros.get('padre');
+    var nombrePadre = parametros.get('padre');
     var col = parametros.get('col');
-    col=`${localStorage.getItem('id')}&${col}`;
-    document.getElementById('nombrePadre').textContent = `Padre: ${nombreMaestro} idDeCola: ${col}`;
+    col = `${localStorage.getItem('id')}&${col}`;
+    document.getElementById('nombrePadre').textContent = `Padre: ${nombrePadre} idDeCola: ${col}`;
     console.log("aqui");
     iniciarWebSocket(col);
 
@@ -28,8 +25,6 @@ function guardarMensaje(mensaje, cola) {
     localStorage.setItem(cola, JSON.stringify(mensajesGuardados));
 }
 
-
-
 function cargarMensajesGuardados(cola) {
     let mensajesGuardados = JSON.parse(localStorage.getItem(cola)) || [];
     mensajesGuardados.forEach(mensaje => {
@@ -37,12 +32,9 @@ function cargarMensajesGuardados(cola) {
     });
 }
 
-// Llamar a la función cargarMensajesGuardados al iniciar la aplicación
-
-
 async function enviarMensaje(cola) {
     try {
-        const mensaje = `Maestro: ${document.getElementById('messageInput').value}`;
+        const mensaje = `Padre: ${document.getElementById('messageInput').value}`;
         const colaEnviar = cola;
         const response = await fetch('http://localhost:3001/enviar-mensaje', {
             method: 'POST',
@@ -64,18 +56,18 @@ function iniciarWebSocket(cola) {
     ws.onopen = () => {
         console.log('Conexión WebSocket abierta');
         cargarMensajesGuardados(cola);
-//        const mensaje = document.getElementById('colaRecibirInput').value;
-//
-//        const cola = mensaje; // Nombre de la cola deseada
-        // Enviar el nombre de la cola al servidor
         ws.send(JSON.stringify({cola: cola}));
     };
 
     ws.onmessage = (event) => {
         console.log('Mensaje recibido:', event.data);
-        // Manejar el mensaje recibido del servidor
         document.getElementById('mensajes').innerText += event.data + '\n';
-        // Guardar el mensaje en el almacenamiento local
         guardarMensaje(event.data, cola);
+    };
+
+    // Manejar errores de conexión WebSocket
+    ws.onerror = (error) => {
+        console.error('Error en la conexión WebSocket:', error);
+        setTimeout(() => iniciarWebSocket(cola), 5000); // Intentar reconectar después de 5 segundos
     };
 }
