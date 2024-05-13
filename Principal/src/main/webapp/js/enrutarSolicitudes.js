@@ -195,7 +195,7 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                             // Persistir el curso aquí dentro de la función then
                             insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro).then(function (cursoPersisted) {
                                 console.log("elcursofue", cursoPersisted['cursoId'], "para el alumno: ", resultado['idsAlumnos'][0]);
-                                insertarCursoAlAlumno(resultado['idsAlumnos'][0], cursoPersisted['cursoId']);
+                                insertarCursoAlAlumno(resultado['idsAlumnosBase'][0], cursoPersisted['cursoId']);
                             });
                         });
                     });

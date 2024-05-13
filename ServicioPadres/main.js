@@ -97,9 +97,20 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
             });
         });
 
+// Consultar los IDs de los alumnos asociados al padre por su correo electrónico
+        const idsAlumnosBase = await new Promise((resolve, reject) => {
+            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+                if (error) {
+                    console.error('Error al consultar los IDs de los alumnos Base:', error);
+                    reject(error);
+                } else {
+                    resolve(idsAlumnos);
+                }
+            });
+        });
         // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
         const profesores = await Promise.all(promesasProfesores);
-        res.json({cursos, profesores, idsAlumnos});
+        res.json({cursos, profesores, idsAlumnos, idsAlumnosBase});
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
         res.status(500).json({error: 'Error al procesar la solicitud'});
@@ -111,7 +122,7 @@ const {consultarIdsAlumnosPorEmailPadre} = require('./persistencia.js');
 app.get('/api/consultar-cursos', async (req, res) => {
     try {
         const email = req.query.email;
-        
+
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
         const idsAlumnos = await new Promise((resolve, reject) => {
             consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
