@@ -17,13 +17,36 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import org.json.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 /**
  *
  * @author COMPUTOCKS
  */
 public class LoginServlet extends HttpServlet {
+    
+    public String sha256(String str) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(str.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,10 +54,11 @@ public class LoginServlet extends HttpServlet {
         System.out.println("llego al servlet");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String pass= sha256(password);
 
         try {
             // Construir la URL para la solicitud GET
-            String urlString = "http://localhost:3000/api/iniciarSesion-Padre?email=" + URLEncoder.encode(email, "UTF-8") + "&password=" + URLEncoder.encode(password, "UTF-8");
+            String urlString = "http://localhost:3000/api/iniciarSesion-Padre?email=" + URLEncoder.encode(email, "UTF-8") + "&password=" + URLEncoder.encode(pass, "UTF-8");
             URL url = new URL(urlString);
 
             // Abrir conexión HTTP

@@ -15,7 +15,7 @@ app.get('/api/otra-api', async (req, res) => {
         //var tbody = document.getElementById('tablaCursos');
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
+        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
         parametros.push("wsfunction=gradereport_user_get_grades_table");
         // parametros.push("courseid=2");
         parametros.push("moodlewsrestformat=json");
@@ -59,7 +59,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
                 // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
                 const url = "http://localhost/webservice/rest/server.php";
                 const parametros = [
-                    "wstoken=a7ab7c13eca9c4d87556998dff78a606",
+                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
                     `userid=${idAlumno}`
@@ -88,7 +88,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
             return courseid.map(id => {
                 return axios.get('http://localhost/webservice/rest/server.php', {
                     params: {
-                        wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
+                        wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
                         wsfunction: 'core_enrol_get_enrolled_users',
                         courseid: id,
                         moodlewsrestformat: 'json'
@@ -141,7 +141,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
                 // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
                 var url = "http://localhost/webservice/rest/server.php";
                 var parametros = [
-                    "wstoken=a7ab7c13eca9c4d87556998dff78a606",
+                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
                     `userid=${idAlumno}`
@@ -174,7 +174,7 @@ app.get('/api/consultar-profesor-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
+            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
             wsfunction: 'core_enrol_get_enrolled_users',
             courseid: req.query.courseId,
             moodlewsrestformat: 'json'
@@ -199,7 +199,7 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
     try {
         const url = "http://localhost/webservice/rest/server.php";
         const params = {
-            wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
+            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
             wsfunction: 'mod_assign_get_assignments',
             courseids: [req.query.courseId],
             moodlewsrestformat: 'json'
@@ -238,7 +238,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         });
 
         const url = "http://localhost/webservice/rest/server.php";
-        const token = 'a7ab7c13eca9c4d87556998dff78a606';
+        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
         // Array para almacenar las calificaciones de cada alumno
         const calificaciones = [];
 
@@ -386,7 +386,7 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = "http://localhost/webservice/rest/server.php";
         var parametros = [
-            "wstoken=a7ab7c13eca9c4d87556998dff78a606",
+            "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
             "wsfunction=core_user_get_users",
             "moodlewsrestformat=json",
             `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
@@ -558,7 +558,7 @@ app.get('/api/consultar-user-por-usuario', async (req, res) => {
         var url = "http://localhost/webservice/rest/server.php";
         // Construir los parámetros de la URL
         var parametros = [];
-        parametros.push("wstoken=a7ab7c13eca9c4d87556998dff78a606");
+        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
         parametros.push("wsfunction=core_user_get_users");
         parametros.push("moodlewsrestformat=json");
         parametros.push("criteria[0][key]=username");
