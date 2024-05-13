@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabla de Maestros</title>
-    <style>
-        table {
-            width: 50%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        button {
-            padding: 5px 10px;
-            border: none;
-            background-color: dodgerblue;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Tabla de Maestros</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre del Padre</th>
-                <th>Chat</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Maestro 1</td>
-                <td><button onclick="redirigirConUsuario('maestro1','2')">Chat</button></td>
-            </tr>
-            <tr>
-                <td>Maestro 3</td>
-                <td><button onclick="redirigirConUsuario('maestro3','3')">Chat</button></td>
-            </tr>
-            <!-- Agrega más filas según sea necesario -->
-        </tbody>
-    </table>
-    <script src="js/enrutarSolicitudes.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tabla de Maestros</title>
+        <style>
+            table {
+                width: 50%;
+                margin: auto;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            button {
+                padding: 5px 10px;
+                border: none;
+                background-color: dodgerblue;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Tabla de Maestros</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Padre</th>
+                    <th>Chat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Maestro 1</td>
+                    <td><button onclick="redirigirConUsuario('maestro1', '2')">Chat</button></td>
+                </tr>
+                <tr>
+                    <td>Maestro 3</td>
+                    <td><button onclick="redirigirConUsuario('maestro3', '3')">Chat</button></td>
+                </tr>
+                <!-- Agrega más filas según sea necesario -->
+
+            </tbody>
+
+        </table>
+        <button type="button" onclick="buscarPadres()">Entrar</button>
+
+        <script src="js/enrutarSolicitudes.js"></script>
+
+    </body>
 </html>

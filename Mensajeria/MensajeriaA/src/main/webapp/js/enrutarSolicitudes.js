@@ -43,7 +43,6 @@ async function loginMaestro() {
     try {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        console.log("acapendejo");
         const respuesta = await hacerSolicitud('/api/iniciarSesion-maestro?username=' + username + '&password=' + password);
         console.log(respuesta);
         if (respuesta.token) {
@@ -54,6 +53,17 @@ async function loginMaestro() {
             localStorage.setItem('token', respuesta['token']);
             window.location.href = 'chatsMaestro.html';
         }
+        return respuesta;
+    } catch (error) {
+        console.error('Error al iniciar sesion:', error);
+        throw error;
+    }
+}
+
+async function buscarPadres() {
+    try {
+        const respuesta = await hacerSolicitud('/api/obtener-padres-por-maestro?idMaestro='+localStorage.getItem('id'));
+        console.log(respuesta);
         return respuesta;
     } catch (error) {
         console.error('Error al iniciar sesion:', error);

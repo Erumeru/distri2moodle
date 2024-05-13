@@ -473,7 +473,7 @@ app.get('/api/iniciarSesion-Padre', async (req, res) => {
     }
 });
 
-const {obtenerPadrePorIdMoodle} = require('./persistencia');
+const {obtenerPadrePorIdMoodle, consultarPadresDeAlumnosDeMaestro} = require('./persistencia');
 app.get('/api/obtener-padre-por-id-moodle', async (req, res) => {
     try {
         // Obtener los parámetros de la URL
@@ -501,6 +501,33 @@ app.get('/api/obtener-padre-por-id-moodle', async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 });
+
+// Definir la ruta para obtener los padres por ID de Moodle
+app.get('/api/obtener-padres-por-maestro', async (req, res) => {
+    try {
+        // Obtener el parámetro de la URL (ID del maestro)
+        const idMaestro = req.query.idMaestro;
+
+        // Llamar a la función para consultar los padres de los alumnos del maestro
+        consultarPadresDeAlumnosDeMaestro(idMaestro, (error, padres) => {
+            if (error) {
+                // Manejar el error, si lo hay
+                console.error('Error al consultar padres de alumnos del maestro:', error);
+                res.status(500).send('Error interno del servidor');
+                return;
+            }
+
+            // Enviar la lista de padres como respuesta
+            res.json(padres);
+        });
+    } catch (error) {
+        // Manejar cualquier error inesperado
+        console.error('Error inesperado:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+
 
 
 app.get('/api/iniciarSesion-maestro', async (req, res) => {

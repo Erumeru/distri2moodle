@@ -1,5 +1,4 @@
 const mysql = require('mysql2');
-
 // Configuración de la conexión a la base de datos
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -50,7 +49,7 @@ function insertarDatosPadres(datos) {
             });
         });
     });
-   // connection.end();
+    // connection.end();
 }
 
 
@@ -83,7 +82,7 @@ function insertarDatosAlumnoDePadre(datos) {
         });
 
         // Cerrar la conexión a la base de datos
-      //  connection.end();
+        //  connection.end();
     });
 }
 
@@ -206,7 +205,7 @@ function consultarPadrePorCredenciales(email, password, callback) {
             callback(null, results[0]);
         });
     });
-   // connection.end();
+    // connection.end();
 
 }
 
@@ -354,6 +353,137 @@ function consultarCursosDeAlumno(alumno_id, callback) {
     });
 }
 
+async function consultarPadresDeAlumnosDeMaestro(id_maestro, callback) {
+    try {
+        const sql = 'SELECT id FROM curso WHERE id_maestro = ?';
+        const values = [id_maestro];
+
+        const resultadosCursos = await new Promise((resolve, reject) => {
+            connection.query(sql, values, function (error, resultadosCursos, fields) {
+                if (error) {
+                    console.error('Error al obtener cursos del maestro:', error);
+                    reject(error);
+                    return;
+                }
+                resolve(resultadosCursos);
+            });
+        });
+
+        const padresSet = new Set();
+
+        for (const curso of resultadosCursos) {
+            const alumnos = await new Promise((resolve, reject) => {
+                consultarAlumnosDeCurso(curso.id, function (error, alumnos) {
+                    if (error) {
+                        console.error('Error al obtener alumnos del curso:', error);
+                        reject(error);
+                        return;
+                    }
+                    resolve(alumnos);
+                });
+            });
+
+            for (const alumno of alumnos) {
+                const padre = await new Promise((resolve, reject) => {
+                    consultarPadreDeAlumno(alumno, function (error, padre) {
+                        if (error) {
+                            console.error('Error al obtener padre del alumno:', error);
+                            reject(error);
+                            return;
+                        }
+                        resolve(padre);
+                    });
+                });
+                padresSet.add({id: padre.id, nombre: padre.nombre});
+            }
+        }
+
+        const padresArray = Array.from(padresSet);
+
+// Utiliza un array temporal para almacenar las propiedades únicas (en este caso, el id)
+        const idUnicos = [];
+        padresArray.forEach(padre => {
+            if (!idUnicos.includes(padre.id)) {
+                idUnicos.push(padre.id);
+            }
+        });
+
+// Construye un nuevo array de objetos únicos basados en el id
+        const padresUnicos = idUnicos.map(id => padresArray.find(padre => padre.id === id));
+
+
+        console.log("Padres:", padresUnicos);
+        callback(null, Array.from(padresUnicos));
+    } catch (error) {
+        console.error('Error inesperado:', error);
+        callback(error, null);
+    }
+}
+
+
+
+function consultarAlumnosDeCurso(curso_id, callback) {
+    // Consulta SQL para seleccionar los alumnos que están cursando un curso específico
+    const sql = 'SELECT alumno_id FROM alumno_curso WHERE curso_id = ?';
+
+    // Parámetros para la consulta SQL
+    const values = [curso_id];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, resultadosAlumnos, fields) {
+        if (error) {
+            console.error('Error al obtener alumnos del curso:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Array para almacenar los ID de los alumnos
+        const alumnos = [];
+
+        // Obtener los ID de los alumnos del resultado de la consulta
+        resultadosAlumnos.forEach(function (resultado) {
+            alumnos.push(resultado.alumno_id);
+        });
+
+        // Llamar al callback con los ID de los alumnos
+        callback(null, alumnos);
+    });
+}
+
+function consultarPadreDeAlumno(alumno_id, callback) {
+    // Consulta SQL para seleccionar el ID y nombre del padre del alumno
+    const sql = 'SELECT p.id AS padre_id, p.nombre AS nombre_padre FROM padre p JOIN alumno a ON p.id = a.padre_id WHERE a.id = ?';
+
+    // Parámetros para la consulta SQL
+    const values = [alumno_id];
+
+    // Ejecutar la consulta SQL
+    connection.query(sql, values, function (error, resultadosPadre, fields) {
+        if (error) {
+            console.error('Error al obtener el padre del alumno:', error);
+            callback(error, null);
+            return;
+        }
+
+        // Si no se encontró un padre para el alumno
+        if (resultadosPadre.length === 0) {
+            const errorNoEncontrado = new Error('Padre no encontrado para el alumno');
+            callback(errorNoEncontrado, null);
+            return;
+        }
+
+        // Obtener el ID y nombre del padre del resultado de la consulta
+        const padre = {
+            id: resultadosPadre[0].padre_id,
+            nombre: resultadosPadre[0].nombre_padre
+        };
+
+        // Llamar al callback con el objeto padre
+        callback(null, padre);
+    });
+}
+
+
 
 function consultarIdMoodleCurso(id, callback) {
     // Consulta SQL para seleccionar el id_moodle del curso
@@ -397,5 +527,6 @@ module.exports = {
     insertarCursoAlAlumno: insertarCursoAlAlumno,
     consultarCursosDeAlumno: consultarCursosDeAlumno,
     consultarIdMoodleAlumnosPorEmailPadre: consultarIdMoodleAlumnosPorEmailPadre,
-    consultarIdMoodleCurso: consultarIdMoodleCurso
+    consultarIdMoodleCurso: consultarIdMoodleCurso,
+    consultarPadresDeAlumnosDeMaestro: consultarPadresDeAlumnosDeMaestro
 };
