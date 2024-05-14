@@ -1,15 +1,6 @@
-<<<<<<< Updated upstream
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\servlet\ObtenerEmailDesdeTokenServlet.java
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\servlet\LoginServlet.java
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\filtros\JaxRsFilterAuthentication.java
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\resources\JakartaEE91Resource.java
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\jwt\ManejoJWT.java
-C:\Users\elmer\Documents\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\JakartaRestConfiguration.java
-=======
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\jwt\ManejoJWT.java
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\servlet\LoginServlet.java
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\JakartaRestConfiguration.java
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\principal\resources\JakartaEE91Resource.java
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\servlet\ObtenerEmailDesdeTokenServlet.java
 C:\Users\DELL\Documents\GitHub\distri2moodle\Principal\src\main\java\equipo\distribuidos\filtros\JaxRsFilterAuthentication.java
->>>>>>> Stashed changes
