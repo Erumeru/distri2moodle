@@ -380,7 +380,7 @@ function consultarCursosDeAlumno(alumno_id, callback) {
 
 async function consultarPadresDeAlumnosDeMaestro(id_maestro, callback) {
     try {
-        const sql = 'SELECT id FROM curso WHERE id_maestro = ?';
+        const sql = 'SELECT id_moodle FROM curso WHERE id_maestro = ?';
         const values = [id_maestro];
 
         const resultadosCursos = await new Promise((resolve, reject) => {
@@ -398,7 +398,7 @@ async function consultarPadresDeAlumnosDeMaestro(id_maestro, callback) {
 
         for (const curso of resultadosCursos) {
             const alumnos = await new Promise((resolve, reject) => {
-                consultarAlumnosDeCurso(curso.id, function (error, alumnos) {
+                consultarAlumnosDeCurso(curso.id_moodle, function (error, alumnos) {
                     if (error) {
                         console.error('Error al obtener alumnos del curso:', error);
                         reject(error);
@@ -477,7 +477,7 @@ function consultarAlumnosDeCurso(curso_id, callback) {
 
 function consultarPadreDeAlumno(alumno_id, callback) {
     // Consulta SQL para seleccionar el ID y nombre del padre del alumno
-    const sql = 'SELECT p.id AS padre_id, p.nombre AS nombre_padre FROM padre p JOIN alumno a ON p.id = a.padre_id WHERE a.id = ?';
+    const sql = 'SELECT p.id AS padre_id, p.nombre AS nombre_padre FROM padre p JOIN alumno_padre a ON p.id = a.padre_id WHERE a.alumno_id = ?';
 
     // Parámetros para la consulta SQL
     const values = [alumno_id];

@@ -471,6 +471,7 @@ app.get('/api/obtener-padres-por-maestro', async (req, res) => {
     try {
         // Obtener el parámetro de la URL (ID del maestro)
         const idMaestro = req.query.idMaestro;
+        console.log(idMaestro);
 
         // Llamar a la función para consultar los padres de los alumnos del maestro
         consultarPadresDeAlumnosDeMaestro(idMaestro, (error, padres) => {
