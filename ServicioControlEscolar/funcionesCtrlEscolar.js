@@ -57,26 +57,53 @@ async function llamarServicioExterno(idMoodle) {
 }
 
 
-// Define la función obtenerIdsCursos
+const { obtenerTodosLosCursos, insertarDatosCursos } = require('./persistencia.js');
 async function obtenerIdsCursos() {
     try {
-        const url = "http://localhost/webservice/rest/server.php";
-        const params = {
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
-            wsfunction: 'core_course_get_courses',
-            moodlewsrestformat: 'json'
-        };
-        // Realiza la solicitud GET utilizando Axios
-        const response = await axios.get(url, {params});
-        // Extrae solo los IDs de cada curso
-        const idsCursos = response.data.map(curso => curso.id);
-        return idsCursos;
+        // Realizar la solicitud de obtención de cursos desde la base de datos
+        const cursos = await obtenerTodosLosCursos();
+        
+        // Verificar si la respuesta de obtenerTodosLosCursos es nula o está vacía
+        if (!cursos || cursos.length === 0) {
+            // Si no hay cursos en la base de datos, realizar la solicitud REST para obtenerlos
+            console.log("Realizando solicitud REST para obtener IDs de cursos...");
+            
+            const url = "http://localhost/webservice/rest/server.php";
+            const params = {
+                wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+                wsfunction: 'core_course_get_courses',
+                moodlewsrestformat: 'json'
+            };
+            // Realizar la solicitud GET utilizando Axios
+            const response = await axios.get(url, {params});
+            // Extraer solo los IDs de cada curso
+            const idsCursos = response.data.map(curso => curso.id);
+            
+            // Persistir los IDs de los cursos en la base de datos
+            for (const idCurso of idsCursos) {
+                try {
+                    // Insertar el curso en la base de datos
+                    await insertarDatosCursos({ id_moodle: idCurso });
+                    
+                    console.log(`Curso con ID ${idCurso} insertado correctamente en la base de datos.`);
+                } catch (error) {
+                    console.error(`Error al insertar curso con ID ${idCurso} en la base de datos:`, error);
+                }
+            }
+            return idsCursos;
+        } else {
+            // Si hay cursos en la base de datos, retornar los IDs de los cursos existentes
+            console.log("Utilizando los cursos existentes obtenidos de la base de datos.");
+            return cursos.map(curso => curso.id_moodle);
+        }
     } catch (error) {
-        // Maneja errores
-        console.error("Error al enviar la solicitud:", error);
+        // Manejar errores
+        console.error("Error al obtener los IDs de cursos:", error);
         throw error;
     }
 }
+
+
 
 // Define la función para obtener el id de los padres
 async function obtenerIdPadreDeAlumno(idMoodle) {

@@ -11,7 +11,7 @@ const PORT = 3003;
 app.use(express.json());
 
 
-const {obtenerIdsCursos, getProfesores, obtenerIdPadreDeAlumno} = require('./funcionesCtrlEscolar.js');
+const {obtenerIdsCursos, getProfesores, obtenerIdPadreDeAlumno, persistirIdsCursos} = require('./funcionesCtrlEscolar.js');
 app.get('/api/entrega-ctrlEscolar', async (req, res) => {
     try {
         const axios = require('axios');
