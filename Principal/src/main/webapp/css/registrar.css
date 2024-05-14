@@ -1,35 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Inicio de Sesión</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="contenedor">
-        <div class="margen">
-            <img src="img/phone.png" height="650px">
-            <img src="img/encabezado.jpeg" height="50px" class="superpuesta">
-        </div>
-        <div class="texto">
-            <h1>Inicio de Sesión</h1>
-            <form id="loginForm" action="LoginServlet" method="get" class="formulario">
-                <input type="email" placeholder="Correo Electrónico" id="email" name="email" class="input" required>
-                <br>
-                <input type="password" placeholder="Contraseña" id="password" name="password" class="input" required>
-                <br>
-                <button type="submit" class="boton">Entrar</button>
-            </form>
-            <br>
-            <p>No tienes cuenta? <a href="registerPadre.html">Crea una</a></p>
-        </div>
-    </div>
-</body>
-</html>
-
-
-<style>
-    .contenedor {
+.contenedor {
     position: relative;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -73,8 +42,6 @@
     border-radius: 15px; /* Agregamos redondeo de bordes */
 }
 
-
-
 .boton {
     width: 200px;
     height: 40px;
@@ -92,9 +59,6 @@
 }
 
 
-
 a{
     color: #ffffff;
 }
-
-    </style>

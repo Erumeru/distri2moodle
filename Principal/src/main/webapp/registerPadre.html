@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Formulario de Registro Padre</h1>
-        <form id="registroFormPadre">
-            <div>
-                <label for="emailPadre">Correo Electrónico:</label>
-                <input type="email" id="emailPadre" name="emailPadre" required>
-            </div>
-            <div>
-                <label for="nombrePadre">Nombre:</label>
-                <input type="text" id="nombrePadre" name="nombrePadre" required>
-            </div>
-            <div>
-                <label for="passwordPadre">Contraseña:</label>
-                <input type="password" id="passwordPadre" name="passwordPadre" required>
-            </div>
-            <button type="submit">Siguiente</button>
-            <!-- <button type="button" onclick="registrarPadre()">Enviar</button> --> 
-        </form>
-         <script src="js/navegacion.js"></script>
-    </body>
+<head>
+    <title>Registro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+</head>
+<body>
+    <div class="contenedor">
+        <div class="margen">
+            <img src="img/phone.png" height="650px">
+            <img src="img/encabezado.jpeg" height="50px" class="superpuesta">
+        </div>
+        <div class="texto">
+            <h1>Registro de Padre</h1>
+            <form id="registroFormPadre" class="formulario">
+                <input type="text" placeholder="Nombre" id="nombrePadre" name="nombrePadre" class="input" required>
+                <br>
+                <input type="email" placeholder="Correo electrónico" id="emailPadre" name="emailPadre" class="input" required>
+                <br>
+                <input type="password" placeholder="Contraseña" id="passwordPadre" name="passwordPadre" class="input" required>
+                <br>
+                <button type="submit" class="boton">Siguiente</button>
+                <!-- <button type="button" onclick="registrarPadre()" class="boton">Enviar</button> --> 
+            </form>
+        </div>
+    </div>
+    <script src="js/navegacion.js"></script>
+</body>
+<style>
+    .contenedor {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.margen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.superpuesta {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.texto {
+    position: absolute;
+    top: calc(15% + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    text-align: center;
+}
+
+.formulario {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.input {
+    width: 200px;
+    height: 40px;
+    margin: 5px auto; 
+    display: block; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px; /* Agregamos redondeo de bordes */
+}
+
+.boton {
+    width: 200px;
+    height: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 15px; /* Agregamos redondeo de bordes */
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+
+a{
+    color: #ffffff;
+}
+
+</style>
 </html>
