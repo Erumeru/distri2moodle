@@ -84,6 +84,7 @@ async function consultarCursos() {
     try {
         const email = await obtenerEmailPadre(); // Obtener el email del padre
         const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
+        console.log("respuesta desde el m consultarcurso> ", respuesta);
         return respuesta;
     } catch (error) {
         console.error('Error al consultar tareas:', error);
@@ -193,10 +194,10 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                             cursoInfo.nombreMaestro = profe[0]['fullname'];
 
                             // Persistir el curso aquí dentro de la función then
-                            insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro).then(function (cursoPersisted) {
-                                console.log("elcursofue", cursoPersisted['cursoId'], "para el alumno: ", resultado['idsAlumnos'][0]);
-                                insertarCursoAlAlumno(resultado['idsAlumnosBase'][0], cursoPersisted['cursoId']);
-                            });
+                            insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro);
+                            console.log("elcursofue", cursoInfo.idMoodle, "para el alumno: ", resultado['idsAlumnos'][0]);
+
+                            insertarCursoAlAlumno(resultado['idsAlumnos'][0], cursoInfo.idMoodle);
                         });
                     });
                 })(idCurso);
@@ -247,7 +248,7 @@ async function consultarAlumnoDePadre() {
         var emailPadre = parametros.get('emailPadre');
         var nombrePadre = parametros.get('nombrePadre');
         var passwordPadre = parametros.get('passwordPadre');
-      
+
 
         const url = `/api/consulta-alumno-de-padre?emailPadre=${emailPadre}&nombrePadre=${nombrePadre}&passwordPadre=${passwordPadre}
         &emailAlumno=${emailAlumno}&nombreAlumno=${nombreAlumno}&apellidosAlumno=${apellidosAlumno}`;

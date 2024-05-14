@@ -36,7 +36,7 @@ app.get('/api/otra-api', async (req, res) => {
 });
 
 
-
+//PERSISTIR CURSOS ACAAAA
 app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
     try {
         const email = req.query.email;
@@ -97,20 +97,10 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
             });
         });
 
-// Consultar los IDs de los alumnos asociados al padre por su correo electrónico
-        const idsAlumnosBase = await new Promise((resolve, reject) => {
-            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
-                if (error) {
-                    console.error('Error al consultar los IDs de los alumnos Base:', error);
-                    reject(error);
-                } else {
-                    resolve(idsAlumnos);
-                }
-            });
-        });
+
         // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
         const profesores = await Promise.all(promesasProfesores);
-        res.json({cursos, profesores, idsAlumnos, idsAlumnosBase});
+        res.json({cursos, profesores, idsAlumnos});
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
         res.status(500).json({error: 'Error al procesar la solicitud'});
@@ -125,7 +115,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
 
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
         const idsAlumnos = await new Promise((resolve, reject) => {
-            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
                 if (error) {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
@@ -226,7 +216,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
 
         const idsAlumnos = await new Promise((resolve, reject) => {
-            consultarIdsAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
                 if (error) {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
@@ -339,6 +329,7 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
 
 const{insertarDatosCurso} = require('./persistencia');
 app.get('/api/insertarDatosCurso', async (req, res) => {
+
     try {
         // construir y agregar al padre 
         const curso = {
@@ -426,7 +417,6 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
                 email: cleanedData[0].email,
                 id_moodle: cleanedData[0].id,
                 nombre: cleanedData[0].fullname,
-                password: "novaasernecesario",
                 padre_id: padreId
             };
             await insertarDatosAlumnoDePadre(alumno);

@@ -66,10 +66,12 @@ function insertarDatosAlumnoDePadre(datos) {
         console.log('Conectado como ID ' + connection.threadId);
 
         // Consulta SQL para insertar datos
-        const sql = 'INSERT INTO alumno (email, id_moodle, nombre, password, padre_id) VALUES (?, ?, ?, ?, ?)';
+        const sql = 'INSERT INTO alumno (email, id_moodle, nombre) VALUES ( ?, ?, ?)';
+        const sqlAlumnoPadre = 'INSERT INTO alumno_padre (alumno_id, padre_id) VALUES (?, ?)';
 
         // Parámetros para la consulta SQL
-        const values = [datos.email, datos.id_moodle, datos.nombre, datos.password, datos.padre_id];
+        const values = [datos.email, datos.id_moodle, datos.nombre];
+        const valuesAlumnoPadre = [datos.id_moodle, datos.padre_id];
 
         // Ejecutar la consulta SQL
         connection.query(sql, values, function (error, results, fields) {
@@ -79,12 +81,26 @@ function insertarDatosAlumnoDePadre(datos) {
 
             // Mostrar los resultados
             console.log('Datos insertados correctamente:', results);
+
+            connection.query(sqlAlumnoPadre, valuesAlumnoPadre, function (error, results, fields) {
+                // Si hay un error, mostrarlo
+                if (error)
+                    throw error;
+
+                // Mostrar los resultados
+                console.log('Datos insertados correctamente:', results);
+            });
+
         });
 
         // Cerrar la conexión a la base de datos
         //  connection.end();
     });
 }
+
+
+
+
 
 // Método para insertar datos en la base de datos
 function insertarDatosCurso(datos) {
@@ -100,20 +116,31 @@ function insertarDatosCurso(datos) {
 
             // Consulta SQL para insertar datos
             const sql = 'INSERT INTO curso (id_maestro, id_moodle, nombreCurso, nombreMaestro) VALUES (?, ?, ?, ?)';
+            //const sqlAlumno_curso = 'INSERT INTO alumno_curso (alumno_id, curso_id) VALUES ( ?, ?)';
 
             // Parámetros para la consulta SQL
             const values = [datos.id_maestro, datos.id_moodle, datos.nombreCurso, datos.nombreMaestro];
+           // const valuesAlumo_curso = [datos.id_alumno, datos.id_moodle];
 
             // Ejecutar la consulta SQL
             connection.query(sql, values, function (error, results, fields) {
                 // Si hay un error, rechazar la promesa con el error
                 if (error) {
-                    console.error('Error al insertar datos del curso:', error);
-                    return reject(error);
+                    console.error('Curso ya existente:', error);
+                    return;
                 }
 
                 // Mostrar los resultados
                 console.log('Datos del curso insertados correctamente:', results);
+//
+//                connection.query(sqlAlumno_curso, valuesAlumo_curso, function (error, results, fields) {
+//                    // Si hay un error, mostrarlo
+//                    if (error)
+//                        throw error;
+//
+//                    // Mostrar los resultados
+//                    console.log('Datos insertados correctamente:', results);
+//                });
 
                 // Obtener el ID del padre insertado
                 const cursoId = results.insertId;
@@ -152,7 +179,7 @@ function insertarCursoAlAlumno(datos) {
                 // Si hay un error, rechazar la promesa con el error
                 if (error) {
                     console.error('Error al insertar datos del curso en alumno:', error);
-                    return reject(error);
+                    return;
                 }
 
                 // Mostrar los resultados
@@ -297,13 +324,11 @@ function consultarIdsAlumnosPorEmailPadre(emailPadre, callback) {
 function consultarIdMoodleAlumnosPorEmailPadre(emailPadre, callback) {
     // Consulta SQL para buscar los IDs de los alumnos asociados al padre por su correo electrónico
     const sql = `
-        SELECT id_moodle
-        FROM alumno
-        WHERE padre_id IN (
-            SELECT id
-            FROM padre
-            WHERE email = ?
-        )`;
+    SELECT alumno.id_moodle
+FROM alumno
+JOIN alumno_padre ON alumno_padre.alumno_id = alumno.id_moodle
+JOIN padre ON alumno_padre.padre_id = padre.id
+WHERE padre.email = ?`;
 
     // Parámetros para la consulta SQL
     const values = [emailPadre];
