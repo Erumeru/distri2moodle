@@ -202,8 +202,7 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                     });
                 })(idCurso);
 
-                // No se necesita esta línea aquí
-                // idCursoInsertado = insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro);
+             
             });
         });
     });

@@ -251,69 +251,43 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
                 console.log("alumnoId", alumnoId);
                 console.log("cursoId", cursoId);
 
-                // Consultar el id_moodle del curso
-                const idMoodleCurso = await new Promise((resolve, reject) => {
-                    consultarIdMoodleCurso(cursoId, function (error, idMoodleCurso) {
-                        if (error) {
-                            console.error('Error al consultar el id_moodle del curso:', error);
-                            reject(error);
-                        } else {
-                            resolve(idMoodleCurso);
-                        }
-                    });
-                });
-                console.log("id_moodle_curso", idMoodleCurso);
+                console.log("id_moodle_alumno", alumnoId);
+                const params = {
+                    wstoken: token,
+                    wsfunction: 'gradereport_user_get_grades_table',
+                    moodlewsrestformat: 'json',
+                    userid: alumnoId, // Usar el ID de cada alumno
+                    courseid: cursoId // Utilizar el id_moodle del curso actual
+                };
+                try {
+                    const response = await axios.get(url, {params});
 
-                const idsAlumnosMoodle = await new Promise((resolve, reject) => {
-                    consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnosMoodle) {
-                        if (error) {
-                            console.error('Error al consultar los moodle IDs de los alumnos:', error);
-                            reject(error);
-                        } else {
-                            resolve(idsAlumnosMoodle);
-                        }
-                    });
-                });
-
-                for (const idAlumnoMoodle of idsAlumnosMoodle) {
-
-                    console.log("id_moodle_alumno", idAlumnoMoodle);
-                    const params = {
-                        wstoken: token,
-                        wsfunction: 'gradereport_user_get_grades_table',
-                        moodlewsrestformat: 'json',
-                        userid: idAlumnoMoodle, // Usar el ID de cada alumno
-                        courseid: idMoodleCurso // Utilizar el id_moodle del curso actual
-                    };
-                    try {
-                        const response = await axios.get(url, {params});
-
-                        let sum = 0;
-                        let hasNaN = false;
-                        // Recorre todas las tablas
-                        for (const table of response.data.tables) {
-                            // Recorre los datos de la tabla
-                            for (const data of table.tabledata) {
-                                // Verifica si hay un atributo contributiontocoursetotal
-                                if (data.contributiontocoursetotal) {
-                                    // Extrae el contenido del atributo contributiontocoursetotal y lo convierte a número
-                                    const contribution = parseFloat(data.contributiontocoursetotal.content);
-                                    // Suma el valor al total
-                                    if (!Number.isNaN(contribution)) {
-                                        sum += contribution;
-                                    } else {
-                                        hasNaN = true;
-                                    }
+                    let sum = 0;
+                    let hasNaN = false;
+                    // Recorre todas las tablas
+                    for (const table of response.data.tables) {
+                        // Recorre los datos de la tabla
+                        for (const data of table.tabledata) {
+                            // Verifica si hay un atributo contributiontocoursetotal
+                            if (data.contributiontocoursetotal) {
+                                // Extrae el contenido del atributo contributiontocoursetotal y lo convierte a número
+                                const contribution = parseFloat(data.contributiontocoursetotal.content);
+                                // Suma el valor al total
+                                if (!Number.isNaN(contribution)) {
+                                    sum += contribution;
+                                } else {
+                                    hasNaN = true;
                                 }
                             }
                         }
-                        // Almacenar la calificación del alumno actual en el array de calificaciones
-                        calificaciones.push({idAlumnoMoodle, idMoodleCurso, contibucionTotal: sum});
-                    } catch (error) {
-                        // Manejar errores
-                        console.error("Error al enviar la solicitud:", error);
                     }
-                } // Fin del bucle for de cursosAlumno
+                    // Almacenar la calificación del alumno actual en el array de calificaciones
+                    calificaciones.push({alumnoId, cursoId, contibucionTotal: sum});
+                } catch (error) {
+                    // Manejar errores
+                    console.error("Error al enviar la solicitud:", error);
+                }
+
             }
         }
 
