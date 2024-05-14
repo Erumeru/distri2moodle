@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 // Manejar las solicitudes POST a '/enviar-mensaje'
 app.post('/enviar-mensaje', async (req, res) => {
-    try {
+     try {
         // Obtener el mensaje y el nombre de la cola del cuerpo de la solicitud
         const mensaje = req.body.mensaje;
         const cola = req.body.cola;

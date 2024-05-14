@@ -3,9 +3,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'admin',
+    password: 'root',
     database: 'moodlepadres',
-    port: 3306
+    port: 12345
 });
 
 // Método para insertar datos en la base de datos
