@@ -40,7 +40,8 @@ app.get('/api/otra-api', async (req, res) => {
 app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
     try {
         const email = req.query.email;
-
+        var alumnos=[];
+        var mapaCursosDeAlumnos = new Map();
         // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
         const idsAlumnos = await new Promise((resolve, reject) => {
             consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
@@ -48,11 +49,11 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
                     console.error('Error al consultar los IDs de los alumnos:', error);
                     reject(error);
                 } else {
+                    alumnos.push(idsAlumnos);
                     resolve(idsAlumnos);
                 }
             });
         });
-
         // Si se obtuvieron los IDs de los alumnos correctamente, iterar sobre ellos y realizar una solicitud REST para cada uno
         const promesasCursos = idsAlumnos.map(idAlumno => {
             return new Promise((resolve, reject) => {
@@ -69,6 +70,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
                 // Hacer la solicitud utilizando Axios
                 axios.get(cursoUrl)
                         .then(function (response) {
+                            mapaCursosDeAlumnos.set(idAlumno,response.data);
                             // Resolver la promesa con los datos recibidos
                             resolve(response.data);
                         })
@@ -88,7 +90,7 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
             return courseid.map(id => {
                 return axios.get('http://localhost/webservice/rest/server.php', {
                     params: {
-                        wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+                        wstoken: 'a7ab7c13eca9c4d87556998dff78a606',
                         wsfunction: 'core_enrol_get_enrolled_users',
                         courseid: id,
                         moodlewsrestformat: 'json'
@@ -100,7 +102,8 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
 
         // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
         const profesores = await Promise.all(promesasProfesores);
-        res.json({cursos, profesores, idsAlumnos});
+        const mapajson= Object.fromEntries(mapaCursosDeAlumnos);
+        res.json({cursos, profesores, idsAlumnos, mapajson});
     } catch (error) {
         console.error('Error al procesar la solicitud:', error);
         res.status(500).json({error: 'Error al procesar la solicitud'});

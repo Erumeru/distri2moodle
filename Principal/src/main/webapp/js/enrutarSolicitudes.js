@@ -156,55 +156,64 @@ function consultarCusosAlumnoYCargarAsignaciones() {
     let profesores = [];
     consultarCursos().then(function (resultado) {
         console.log("chigon", resultado);
-        resultado['cursos'].forEach(function (elemento) {
-            const tareasNombres = [];
-            const tareasIds = [];
-            console.log("aquyi", elemento);
-            elemento.forEach(function (cursosParaSacarID) {
-                console.log(cursosParaSacarID['id']);
-                var idCurso = cursosParaSacarID['id']; // Declarar idCurso como variable local
-                var cursoInfo = {};
-                cursoInfo.idMoodle = idCurso;
+        resultado['idsAlumnos'].forEach(function (idDelAlumno) {
+            const mapa = new Map(Object.entries(resultado['mapajson']));
+            console.log(mapa);
+            const mapaDeCursos = resultado['mapajson'];
+            console.log("mapacursos",mapaDeCursos);
+            var cursosDeEsteAlumno = mapaDeCursos[idDelAlumno];
+            console.log("LOS CURSOS SON:", cursosDeEsteAlumno);
+            cursosDeEsteAlumno.forEach(function (cursosParaSacarID) {
+                const tareasNombres = [];
+                const tareasIds = [];
+                console.log("aquyi", cursosParaSacarID);
+                    console.log(cursosParaSacarID['id']);
+                    var idCurso = cursosParaSacarID['id']; // Declarar idCurso como variable local
+                    var cursoInfo = {};
+                    cursoInfo.idMoodle = idCurso;
 
-                // Mover la lógica que depende de cursoInfo dentro de la función then de la promesa
-                (function (idCurso) {
-                    consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {
-                        console.log(resultadoTareas);
-                        console.log(resultadoTareas['courses']);
-                        var tareas = resultadoTareas['courses'][0];
-                        var nombreCurso = tareas['fullname'];
-                        console.log(nombreCurso);
-                        cursoInfo.nombreCurso = nombreCurso;
-                        profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
-                            var fila = document.createElement('tr');
-                            var nombreProfe = document.createElement('td');
-                            nombreProfe.textContent = profe[0]['fullname'];
-                            fila.appendChild(nombreProfe);
-                            var idProfe = document.createElement('td');
-                            idProfe.textContent = profe[0]['id'];
-                            fila.appendChild(idProfe);
-                            var boton = document.createElement('button');
-                            boton.textContent = 'Ir a chat';
-                            boton.addEventListener('click', function () {
-                                redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
+                    // Mover la lógica que depende de cursoInfo dentro de la función then de la promesa
+                    (function (idCurso) {
+                        consultarTareasDeAlumnoEnCurso(idCurso).then(function (resultadoTareas) {
+                            console.log(resultadoTareas);
+                            console.log(resultadoTareas['courses']);
+                            var tareas = resultadoTareas['courses'][0];
+                            var nombreCurso = tareas['fullname'];
+                            console.log(nombreCurso);
+                            cursoInfo.nombreCurso = nombreCurso;
+                            profesorCurso = consultarProfesorCurso(idCurso).then(function (profe) {
+                                var fila = document.createElement('tr');
+                                var nombreProfe = document.createElement('td');
+                                nombreProfe.textContent = profe[0]['fullname'];
+                                fila.appendChild(nombreProfe);
+                                var idProfe = document.createElement('td');
+                                idProfe.textContent = profe[0]['id'];
+                                fila.appendChild(idProfe);
+                                var boton = document.createElement('button');
+                                boton.textContent = 'Ir a chat';
+                                boton.addEventListener('click', function () {
+                                    redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
+                                });
+                                fila.appendChild(boton);
+                                tbodyProfe.appendChild(fila);
+                                cursoInfo.idProfe = profe[0]['id'];
+                                cursoInfo.nombreMaestro = profe[0]['fullname'];
+
+                                // Persistir el curso aquí dentro de la función then
+                                insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro);
+                                console.log("elcursofue", cursoInfo.idMoodle, "para el alumno: ", resultado['idsAlumnos'][0]);
+
+                                insertarCursoAlAlumno(idDelAlumno, cursoInfo.idMoodle);
                             });
-                            fila.appendChild(boton);
-                            tbodyProfe.appendChild(fila);
-                            cursoInfo.idProfe = profe[0]['id'];
-                            cursoInfo.nombreMaestro = profe[0]['fullname'];
-
-                            // Persistir el curso aquí dentro de la función then
-                            insertarCurso(cursoInfo.idProfe, cursoInfo.idMoodle, cursoInfo.nombreCurso, cursoInfo.nombreMaestro);
-                            console.log("elcursofue", cursoInfo.idMoodle, "para el alumno: ", resultado['idsAlumnos'][0]);
-
-                            insertarCursoAlAlumno(resultado['idsAlumnos'][0], cursoInfo.idMoodle);
                         });
-                    });
-                })(idCurso);
+                    })(idCurso);
 
-             
+
             });
+
+
         });
+
     });
 }
 
