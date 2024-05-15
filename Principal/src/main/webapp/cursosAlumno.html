@@ -1,17 +1,96 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h2>Cursos de un alumno</h2>
-        <button onclick="consultarCursos()">Cargar profesores alumno</button>
-        <script src="js/enrutarSolicitudes.js"></script>
-    </body>
+    <div class="contenedor">
+    <div class="margen">
+        <img src="img/phone.png" height="650px">
+        <img src="img/mood.png" height="90px" class="superpuesta">
+        <a href="principal.html"><img src="img/circulo-de-flecha.png" height="35px" class="superpuesta2"></a>
+    </div>
+    <div class="texto">
+        <h2 style="color: #FF7904;">Cursos del alumno</h2>
+         <button onclick="consultarCursos()">Cargar profesores alumno</button>
+        <table>
+            <tr>
+                <th>Curso</th>
+                <th>Tarea</th>
+                <th></th>
+            </tr>
+            <!-- Aquí se agregarán dinámicamente los cursos y tareas -->
+            <tbody id="cursos-container">
+            </tbody>
+        </table>
+    </div>
+    </div>
+     <script src="js/enrutarSolicitudes.js"></script>
 </html>
+
+<style>
+    .contenedor {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.margen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.superpuesta {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.texto {
+    position: absolute;
+    top: calc(15% + 50px);
+    left: 51%;
+    transform: translateX(-50%);
+    z-index: 0;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    width: 19%; 
+    margin-bottom: 25px;
+    border-radius: 10px;
+
+}
+
+.superpuesta2 {
+    position: absolute;
+    top: 15%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+
+table {
+    width: 100%;
+
+}
+
+ td {
+    padding: 8px;
+    text-align: justify;
+    font-size: 10px;
+}
+
+th{
+    font-size: 12px;
+}
+
+button {
+  
+    background-color: #FF7904;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+    </style>

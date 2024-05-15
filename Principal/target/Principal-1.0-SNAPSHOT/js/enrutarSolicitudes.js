@@ -1,7 +1,3 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
 
 
 function hacerSolicitud(url) {
@@ -79,13 +75,41 @@ async function obtenerEmailPadre() {
 }
 
 
-
+/*
 async function consultarCursos() {
     try {
         const email = await obtenerEmailPadre(); // Obtener el email del padre
         const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
         console.log("respuesta desde el m consultarcurso> ", respuesta);
         return respuesta;
+    } catch (error) {
+        console.error('Error al consultar tareas:', error);
+        throw error;
+    }
+}
+*/
+
+//cambie un poquito la funcion solo para que la forma en que cargeun en el html se vea mejor 
+async function consultarCursos() {
+    try {
+        const email = await obtenerEmailPadre(); // Obtener el email del padre
+        const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
+        console.log("respuesta desde el m consultarcurso> ", respuesta);
+
+        const cursosContainer = document.getElementById('cursos-container');
+        cursosContainer.innerHTML = ''; // Limpiamos el contenedor antes de agregar nuevos elementos
+
+        // Agregar cursos y profesores al contenedor
+        respuesta.cursos.forEach(curso => {
+            const cursoElement = document.createElement('div');
+            cursoElement.classList.add('curso');
+            cursoElement.innerHTML = `
+                <h3>${curso.nombre}</h3>
+                <p>Profesor: ${curso.profesor}</p>
+            `;
+            cursosContainer.appendChild(cursoElement);
+        });
+
     } catch (error) {
         console.error('Error al consultar tareas:', error);
         throw error;
