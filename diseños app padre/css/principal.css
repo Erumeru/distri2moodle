@@ -74,3 +74,26 @@
 a{
     color: #ffffff;
 }
+
+
+
+.menu {
+    position: absolute;
+    top: 30%;
+    left: 27%;
+    transform: translateY(-50%);
+    width: 200px;
+    background-color: #333;
+    color: #fff;
+    text-align: justify;
+    border-radius: 10px;
+    display: none;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    text-decoration: underline;
+}

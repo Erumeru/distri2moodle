@@ -7,6 +7,32 @@
     </div>
     <div class="texto">
         <br>
+        <div class="menu-toggle" onclick="toggleMenu()">☰ Menú</div>
+        <div class="menu">
+            <h3>Menú</h3>
+            <ul>
+                <li>
+                    <span class="submenu-toggle" onclick="toggleSubmenu('cursos')">Cursos ▼</span>
+                    <ul class="submenu" id="cursos" style="display: none;">
+                        <li><a href="#">Consultar cursos</a></li>
+                        <li><a href="#">Consultar asignaciones del alumno en un curso</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="submenu-toggle" onclick="toggleSubmenu('alumno')">Alumno ▼</span>
+                    <ul class="submenu" id="alumno" style="display: none;">
+                        <li><a href="#">Consultar alumno</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="submenu-toggle" onclick="toggleSubmenu('profesores')">Profesores ▼</span>
+                    <ul class="submenu" id="profesores" style="display: none;">
+                        <li><a href="#">Cargar profesores del alumno</a></li>
+                        <li><a href="#">Consultar profesor curso</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
         <br>
         <div class="botones">
             <a href="cursos.html">
@@ -43,3 +69,26 @@
         </a>
     </div>
 </div>
+
+
+<script>
+function toggleMenu() {
+    var menu = document.querySelector('.menu');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
+
+function toggleSubmenu(id) {
+    var submenu = document.getElementById(id);
+    if (submenu.style.display === 'block') {
+        submenu.style.display = 'none';
+    } else {
+        submenu.style.display = 'block';
+    }
+}
+
+
+</script>
