@@ -3,9 +3,9 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'admin',
     database: 'moodlepadres',
-    port: 12345
+    port: 3306
 });
 
 // Método para insertar datos en la base de datos
@@ -260,10 +260,10 @@ function obtenerIdsYNombrePadres(callback) {
 }
 
 function obtenerPadrePorIdMoodle(idMoodle, callback) {
-    // Consulta SQL para obtener el padre de un alumno por su id_moodle
-    const sql = 'SELECT p.id, p.nombre FROM padre p INNER JOIN alumno a ON p.id = a.padre_id WHERE a.id_moodle = ?';
+ // Consulta SQL para obtener el padre de un alumno por su alumno_id
+    const sql = 'SELECT p.id, p.nombre FROM padre p INNER JOIN alumno_padre ap ON p.id = ap.padre_id WHERE ap.alumno_id = ?';
 
-    // Ejecutar la consulta SQL con el id_moodle proporcionado
+    // Ejecutar la consulta SQL con el alumno_id proporcionado
     connection.query(sql, [idMoodle], function (error, results, fields) {
         // Si hay un error, llamar al callback con el error
         if (error) {
@@ -274,7 +274,7 @@ function obtenerPadrePorIdMoodle(idMoodle, callback) {
 
         // Si no se encontraron resultados, llamar al callback con un mensaje de error
         if (results.length === 0) {
-            const mensajeError = 'No se encontró ningún padre para el alumno con id_moodle: ' + idMoodle;
+            const mensajeError = 'No se encontró ningún padre para el alumno con alumno_id: ' + idMoodle;
             callback(mensajeError, null);
             return;
         }

@@ -120,20 +120,7 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
 });
 
 async function enviarMensaje(cola, mensaje) {
-    try {
-        const colaEnviar = cola;
-        const response = await fetch('http://localhost:3001/enviar-mensaje', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({mensaje: mensaje, cola: colaEnviar})
-        });
-        const data = await response.text();
-        console.log(data); // Mensaje enviado correctamente
-    } catch (error) {
-        console.error('Error al enviar mensaje:', error);
-    }
+ window.location.href = 'http://localhost:3011?col='+ encodeURIComponent(cola)+'&mensaje=' +encodeURIComponent(mensaje);
 }
 
 // Manejador de ruta para todas las demás solicitudes
