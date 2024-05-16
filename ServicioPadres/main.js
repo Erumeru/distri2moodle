@@ -97,11 +97,12 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
             const courseid = curso.map(c => c.id); // Supongo que el ID del curso está en la propiedad 'id'
             return courseid.map(id => {
                 return axios.get(URL_MOODLE_WEBSERVICE, {
-                                           wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
-                        wsfunction: 'core_enrol_get_enrolled_users',
-                        courseid: id,
-                        moodlewsrestformat: 'json'
-                    }
+                    params:{
+                    wstoken: token,
+                    wsfunction: 'core_enrol_get_enrolled_users',
+                    courseid: id,
+                    moodlewsrestformat: 'json'
+                }
                 }).then(response => response.data);
             });
         });
@@ -142,7 +143,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
                 var url = URL_MOODLE_WEBSERVICE;
                 var parametros = [
 
-                    "wstoken="+token,
+                    "wstoken=" + token,
 
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
@@ -367,7 +368,7 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = URL_MOODLE_WEBSERVICE;
         var parametros = [
-            "wstoken="+token,
+            "wstoken=" + token,
             "wsfunction=core_user_get_users",
             "moodlewsrestformat=json",
             `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
@@ -376,7 +377,7 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
         ];
 
         url += "?" + parametros.join("&");
-        console.log("AQUIIIIIII",url);
+        console.log("AQUIIIIIII", url);
         const response = await axios.get(url);
 
         // Limpiar los datos de la respuesta
@@ -539,7 +540,7 @@ app.get('/api/consultar-user-por-usuario', async (req, res) => {
         // Construir los parámetros de la URL
         var parametros = [];
 
-        parametros.push("wstoken="+token);
+        parametros.push("wstoken=" + token);
         parametros.push("wsfunction=core_user_get_users");
         parametros.push("moodlewsrestformat=json");
         parametros.push("criteria[0][key]=username");
