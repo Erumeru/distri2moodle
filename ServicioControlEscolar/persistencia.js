@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 const mysql = require('mysql2');
+
+const os = require('os');
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Configuración de la conexión a la base de datos
 const connection = mysql.createConnection({
     host: 'localhost',
