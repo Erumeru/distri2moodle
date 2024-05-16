@@ -24,9 +24,6 @@ app.get('/api/otra-api', async (req, res) => {
         var parametros = [];
 
         parametros.push("wstoken=" + token);
-
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
-
         parametros.push("wsfunction=gradereport_user_get_grades_table");
         // parametros.push("courseid=2");
         parametros.push("moodlewsrestformat=json");
@@ -72,8 +69,6 @@ app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
                 const url = URL_MOODLE_WEBSERVICE;
                 const parametros = [
                     "wstoken=" + token,
-                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
-
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
                     `userid=${idAlumno}`
@@ -147,7 +142,7 @@ app.get('/api/consultar-cursos', async (req, res) => {
                 var url = URL_MOODLE_WEBSERVICE;
                 var parametros = [
 
-                    "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+                    "wstoken="+token,
 
                     "wsfunction=core_enrol_get_users_courses",
                     "moodlewsrestformat=json",
@@ -182,7 +177,7 @@ app.get('/api/consultar-profesor-curso', async (req, res) => {
         const url = URL_MOODLE_WEBSERVICE;
         const params = {
 
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: token,
             wsfunction: 'core_enrol_get_enrolled_users',
             courseid: req.query.courseId,
             moodlewsrestformat: 'json'
@@ -209,7 +204,7 @@ app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
         console.log(url);
         const params = {
 
-            wstoken: 'b5905aee33fbbe8a2cb3f613bcec7bbf',
+            wstoken: token,
             wsfunction: 'mod_assign_get_assignments',
             courseids: [req.query.courseId],
             moodlewsrestformat: 'json'
@@ -246,8 +241,8 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
             });
         });
 
-        const url = "http://localhost/webservice/rest/server.php";
-        const token = 'b5905aee33fbbe8a2cb3f613bcec7bbf';
+        const url = URL_MOODLE_WEBSERVICE;
+        const token = token;
 
 
         // Array para almacenar las calificaciones de cada alumno
@@ -372,7 +367,7 @@ app.get('/api/consulta-alumno-de-padre', async (req, res) => {
     try {
         var url = URL_MOODLE_WEBSERVICE;
         var parametros = [
-            "wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf",
+            "wstoken="+token,
             "wsfunction=core_user_get_users",
             "moodlewsrestformat=json",
             `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
@@ -544,7 +539,7 @@ app.get('/api/consultar-user-por-usuario', async (req, res) => {
         // Construir los parámetros de la URL
         var parametros = [];
 
-        parametros.push("wstoken=b5905aee33fbbe8a2cb3f613bcec7bbf");
+        parametros.push("wstoken="+token);
         parametros.push("wsfunction=core_user_get_users");
         parametros.push("moodlewsrestformat=json");
         parametros.push("criteria[0][key]=username");
