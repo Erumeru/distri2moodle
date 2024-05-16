@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Lista Negra de Maestros</title>
 </head>
 <body>
-    <h1>Control escolar</h1>
-    <p><a href="calificaciones.html">Ver Calificaciones</a></p>
-    <p><a href="listaNegra.html">Ver Lista Negra de Maestros</a></p>
+    <h1>Lista Negra de Maestros</h1>
+    <div id="maestrosSinCalificaciones"></div>
+
+    <script src="js/obtenerMaestrosSinCalificaciones.js"></script>
+    <script src="js/mostrarMaestrosSinCalificaciones.js"></script>
+    <script>
+        obtenerMaestrosSinCalificaciones(mostrarMaestrosSinCalificaciones);
+    </script>
 </body>
 </html>

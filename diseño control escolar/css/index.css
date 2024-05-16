@@ -1,0 +1,142 @@
+.buttons-div{
+	margin-top: 1em;
+}
+
+.buttons-div a{
+	text-decoration: none;
+	margin: 1em;
+}
+
+.mt-5
+{
+	margin-top: 5em;
+}
+
+.text-center{
+	text-align: center;
+}
+
+.card{
+	box-shadow: 1px 2px 4px 2px #efefef;
+	padding:3em;
+	font-family: serif;
+}
+
+.btn-trans{
+	border: 2px solid #4b5986;
+    color: #4b5986;
+    border-radius: 7px;
+    padding: 0.5em 2em;
+    font-size: 18px;
+    transition: all .3s ease-in-out;
+}
+
+.btn-trans:hover,
+.btn-trans:focus{	
+	background-color: #4b5986;
+    color: #fff;
+    transition: all .3s ease-in-out;
+}
+
+.btn-solid{
+	border: 2px solid #4b5986;
+    color: #fff;
+    background-color: #4b5986;
+    border-radius: 7px;
+    padding: 0.5em 2em;
+    font-size: 18px;
+    transition: all .3s ease-in-out;
+}
+
+.btn-solid:hover,
+.btn-solid:focus{
+	background-color: transparent;
+    color: #4b5986;
+    transition: all .3s ease-in-out;
+}
+
+.btn-gradient{
+	background: linear-gradient(#889ad6, #626f9a, #3d486d);
+    color: #fff;
+    border-radius: 7px;
+    padding: 0.5em 2em;
+    font-size: 18px;
+    border: 2px solid #4b5986;
+    transition: all .3s ease-in-out;
+
+}
+
+.btn-gradient:hover,
+.btn-gradient:focus{
+	background: linear-gradient(#889ad6, #626f9a);
+    color: #fff;
+    border-color: #626f9a;
+    transition: all .3s ease-in-out;
+}
+
+.btn-emboss,.btn-emboss:focus{
+	background: #7281b3;
+    border: 2px solid #7281b3;
+    color: #fff;
+    font-size: 18px;
+    padding: 0.5em 2em;
+    box-shadow: 4px 4px 2px 2px #465278;
+    transition: all .3s ease-in-out;
+}
+
+.btn-emboss:hover{
+	background: #586282;
+    border: 2px solid #586282;
+    color: #fff;
+}
+
+.btn-emboss:active{
+	color: #fff;
+	box-shadow: none;
+	transition: all .3s ease-in-out;
+}
+
+.btn-oval{
+	background: transparent;
+    border: 2px solid #4b5986;
+    color: #4b5986;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 0.5em 2em;
+    transition: all .3s ease-in-out;
+    box-shadow: 1px 1px 2px 1px #b5b9bf;
+}
+
+.btn-oval:hover{
+	background-color: #4b5986;
+	color: #fff;
+	transition: all .3s ease-in-out;
+}
+
+.btn-oval-solid{
+	background: #4b5986;
+    border: 2px solid #4b5986;
+    color: #fff;
+    border-radius: 25px;
+    font-size: 18px;
+    padding: 0.5em 2em;
+    transition: all .3s ease-in-out;
+    box-shadow: 1px 1px 2px 1px #b5b9bf;
+}
+
+.btn-oval-solid:hover{
+	background: transparent;
+    color: #4b5986;
+}
+
+
+.logo-container {
+    padding: 25px;
+    display: flex;
+    align-items: center; 
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
