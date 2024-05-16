@@ -30,16 +30,16 @@ function hacerSolicitud(url) {
     });
 }
 
-
-async function consultarAlumno() {
-    try {
-        const respuesta = await hacerSolicitud('/api/otra-api?userId=4&courseId=2');
-        return respuesta;
-    } catch (error) {
-        console.error('Error al consultar alumno:', error);
-        throw error;
-    }
-}
+//
+//async function consultarAlumno() {
+//    try {
+//        const respuesta = await hacerSolicitud('/api/otra-api?userId=4&courseId=2');
+//        return respuesta;
+//    } catch (error) {
+//        console.error('Error al consultar alumno:', error);
+//        throw error;
+//    }
+//}
 
 async function consultarTareasDeAlumnoEnCurso(courseId) {
     try {
@@ -154,11 +154,48 @@ async function insertarCursoAlAlumno(alumno_id, curso_id) {
 async function consultarCalificaciones() {
     try {
         const email = await obtenerEmailPadre(); // Obtener el email del padre
-        await hacerSolicitud('/api/consultar-calificaciones-curso?email=' + email);
+        const response = await hacerSolicitud('/api/consultar-calificaciones-curso?email=' + email);
+        return response.data; // Retornar los datos de la respuesta
     } catch (error) {
         console.error("Error al consultar calificaciones:", error);
+        throw error; // Relanzar el error para manejarlo fuera de la función
     }
 }
+
+// Esta función imprimirá las calificaciones en el HTML
+async function imprimirCalificaciones() {
+    try {
+        // Obtener las calificaciones
+        const calificaciones = await consultarCalificaciones();
+
+        // Verificar si las calificaciones están definidas y no están vacías
+        if (calificaciones && calificaciones.length > 0) {
+            // Obtener la lista donde se imprimirán las calificaciones
+            const calificacionesList = document.getElementById('calificaciones-list');
+
+            // Limpiar la lista antes de agregar nuevas calificaciones
+            calificacionesList.innerHTML = '';
+
+            // Recorrer el array de calificaciones y agregar elementos a la lista
+            calificaciones.forEach(calificacion => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Alumno ID: ${calificacion.alumnoId}, Curso ID: ${calificacion.cursoId}, Contribución Total: ${calificacion.contibucionTotal}`;
+                calificacionesList.appendChild(listItem);
+            });
+        } else {
+            console.log('No se encontraron calificaciones.');
+        }
+
+    } catch (error) {
+        console.error("Error al imprimir calificaciones:", error);
+        // Puedes manejar el error de acuerdo a tus necesidades
+    }
+}
+
+
+
+
+
 
 //esto es para control escolar 
 function maestroConCalificar() {
@@ -254,7 +291,8 @@ function consultarCusosAlumnoYCargarAsignaciones() {
                                     var btnAvalar = document.createElement('button');
                                     btnAvalar.textContent = 'Avalar Tarea';
                                     btnAvalar.addEventListener('click', function () {
-                                        console.log("AQUI SE DEBE MANDAR UN MENSAJE PARA AVALAR TAREA");
+                                       // console.log("AQUI SE DEBE MANDAR UN MENSAJE PARA AVALAR TAREA");
+                                         redirigirConUsuario(profe[0]['fullname'], profe[0]['id']);
                                     });
                                     filaTarea.appendChild(btnAvalar);
 
@@ -401,4 +439,10 @@ function redirigirConUsuario(nombreMaestro, idMaestro) {
 // Redirigir a la página de mensajería con el nombre de usuario como parámetro
     let idpapa = localStorage.getItem('idPadre');
     window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idMaestro) + encodeURIComponent(idpapa)+ '&rem=' + encodeURIComponent(nombreMaestro);
+}
+
+function redirigirConUsuarioAvalar(nombreMaestro, idMaestro) {
+// Redirigir a la página de mensajería con el nombre de usuario como parámetro
+    let idpapa = localStorage.getItem('idPadre');
+    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idMaestro) + encodeURIComponent(idpapa)+ '&mensaje=' +"Confirmo de avalada la tarea de mi hijo";
 }

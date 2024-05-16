@@ -242,8 +242,8 @@ app.get('/api/consultar-calificaciones-curso', async (req, res) => {
             });
         });
 
+        //const token = token;
         const url = URL_MOODLE_WEBSERVICE;
-        const token = token;
 
 
         // Array para almacenar las calificaciones de cada alumno

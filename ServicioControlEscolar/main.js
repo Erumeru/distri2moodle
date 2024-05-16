@@ -102,10 +102,13 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
                             if (padre.idPadre) {
                                 console.log(padre);
                                 var nombrePadre = padre.nombre;
-                                var col = `ctrlEscolar&${padre.idPadre}`;
+                                var col = `ctrlEscolar${padre.idPadre}`;
                                 console.log(col);
                                 const mensaje=`Querido ${padre.nombre}, su hijo ${alumno.fullname} ha presentado una baja calificación con un valor de ${alumno.calificaciones}`;
                                 enviarMensaje(col,mensaje);
+                                     // Agregar la información de la cola y el mensaje al objeto del alumno
+                                alumno.cola = col;
+                                alumno.mensaje = mensaje;
                             }
                         }
                     } catch (error) {
@@ -125,7 +128,7 @@ app.get('/api/entrega-ctrlEscolar', async (req, res) => {
 });
 
 async function enviarMensaje(cola, mensaje) {
- window.location.href = 'http://localhost:3011?col='+ encodeURIComponent(cola)+'&mensaje=' +encodeURIComponent(mensaje);
+ //window.location.href = 'http://localhost:3011?col='+ encodeURIComponent(cola)+'&mensaje=' +encodeURIComponent(mensaje);
 }
 
 // Manejador de ruta para todas las demás solicitudes
