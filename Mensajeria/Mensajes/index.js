@@ -1,88 +1,102 @@
 import express from 'express';
-import { createServer } from 'node:http';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { createServer } from 'http';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { Server } from 'socket.io';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
-import { availableParallelism } from 'node:os';
-import cluster from 'node:cluster';
+import cluster from 'cluster';
 import { createAdapter, setupPrimary } from '@socket.io/cluster-adapter';
 
 if (cluster.isPrimary) {
-  const numCPUs = availableParallelism();
-  for (let i = 0; i < 2; i++) {
-    cluster.fork({
-      PORT: 3010 + i
-    });
-  }
+    for (let i = 0; i < 2; i++) {
+        cluster.fork({
+            PORT: 3010 + i
+        });
+    }
 
-  setupPrimary();
+    setupPrimary();
 } else {
-  const db = await open({
-    filename: 'chat.db',
-    driver: sqlite3.Database
-  });
+    const db = await open({
+        filename: 'chat.db',
+        driver: sqlite3.Database
+    });
 
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS messages (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      client_offset TEXT UNIQUE,
-      content TEXT
-    );
-  `);
-
-  const app = express();
-  const server = createServer(app);
-  const io = new Server(server, {
-    connectionStateRecovery: {},
-    adapter: createAdapter()
-  });
+    await db.exec(`
   
+    CREATE TABLE IF NOT EXISTS messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        client_offset TEXT UNIQUE,
+        content TEXT,
+        room TEXT  -- Agregar la columna room
+    );
+`);
 
-  const __dirname = dirname(fileURLToPath(import.meta.url));
+    const app = express();
+    const server = createServer(app);
+    const io = new Server(server, {
+        connectionStateRecovery: {},
+        adapter: createAdapter()
+    });
 
-  app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'index.html'));
-  });
+    const __dirname = dirname(fileURLToPath(import.meta.url));
 
-  io.on('connection', async (socket) => {
-     const colValue = socket.handshake.auth.col;
-    //console.log("Valor de 'col' recibido en el servidor:", colValue);
+    app.get('/', (req, res) => {
+        res.sendFile(join(__dirname, 'index.html'));
+    });
 
-    socket.on(colValue, async (msg, clientOffset, callback) => {
-      let result;
-      try {
-        result = await db.run('INSERT INTO messages (content, client_offset) VALUES (?, ?)', msg, clientOffset);
-      } catch (e) {
-        if (e.errno === 19 /* SQLITE_CONSTRAINT */ ) {
-          callback();
-        } else {
-          // nothing to do, just let the client retry
+   io.on('connection', async (socket) => {
+    const colValue = socket.handshake.auth.col;
+    const remValue = socket.handshake.auth.rem;
+    console.log(`Usuario conectado a la sala ${colValue}`);
+
+    // Almacena el valor colValue en la instancia del socket
+    socket.room = colValue;
+
+    socket.join(colValue);
+
+    socket.on('disconnect', () => {
+        console.log(`Usuario desconectado de la sala ${colValue}`);
+    });
+
+    socket.on('message', async (msg, clientOffset, callback) => {
+        let result;
+        try {
+            result = await db.run(`INSERT INTO messages (content, client_offset, room) VALUES (?, ?, ?)`, msg, clientOffset, colValue);
+            console.log(`Mensaje insertado en la sala ${colValue}: ${msg}`);
+        } catch (e) {
+            if (e.errno === 19 /* SQLITE_CONSTRAINT */) {
+                callback();
+            } else {
+                console.error(`Error al insertar mensaje en la sala ${colValue}: ${e.message}`);
+            }
+            return;
         }
-        return;
-      }
-      io.emit(colValue, msg, result.lastID);
-      callback();
+        io.to(colValue).emit('message',  `${remValue}: ${msg}`);
+        console.log(`Mensaje emitido en la sala ${colValue}: ${msg}`);
+        callback();
     });
 
     if (!socket.recovered) {
-      try {
-        await db.each('SELECT id, content FROM messages WHERE id > ?',
-          [socket.handshake.auth.serverOffset || 0],
-          (_err, row) => {
-            socket.emit(colValue, row.content, row.id);
-          }
-        )
-      } catch (e) {
-        // something went wrong
-      }
+        try {
+            // Recuperar mensajes solo de la sala específica almacenada en el socket
+            await db.each('SELECT id, content FROM messages WHERE room = ? AND id > ?',
+                [socket.room, socket.handshake.auth.serverOffset || 0],
+                (_err, row) => {
+                    console.log("recuperado", row.content);
+                    socket.emit(socket.room, row.content, row.id);
+                }
+            );
+        } catch (e) {
+            console.error(`Error al recuperar mensajes de la sala ${colValue}: ${e.message}`);
+            // Manejar el error según sea necesario
+        }
     }
-  });
+});
 
-  const port = process.env.PORT;
+    const port = process.env.PORT || 3010;
 
-  server.listen(port, () => {
-    console.log(`server running at http://localhost:${port}`);
-  });
+    server.listen(port, () => {
+        console.log(`Servidor en ejecuciÃ³n en http://localhost:${port}`);
+    });
 }

@@ -1,5 +1,122 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #ff5722;
+            text-align: center;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #ff6f42;
+        }
+        
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ff5722;
+            color: #fff;
+        }
+        
+        @media only screen and (min-width: 600px) {
+            /* Estilos para tablet y desktop */
+            body {
+                padding: 40px;
+            }
+            button {
+                width: auto;
+            }
+            input[type="text"] {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Consultas</h2>
+    <button onclick="consultarAlumno()">Consultar Alumno</button>
+    <button onclick="consultarCusosAlumnoYCargarAsignaciones()">Consultar Cursos</button>
+    <button onclick="consultarProfesorCurso()">Consultar Profesor Curso</button>
+    <button onclick="consultarCalificaciones()">Consultar Calificaciones</button>
+    <button onclick="consultarTareasDeAlumnoEnCurso()">Consultar Asignaciones de alumno en un curso</button>
+    <button onclick="consultarCursos()">PERSISTIRCURSOOOOOS</button>
+    <input type="text" id="idAlumno" placeholder="Escribe el id del alumno">
+    <button onclick="cargarProfesoresAlumno()">Cargar profesores alumno</button>
+ <script src="js/enrutarSolicitudes.js"></script>
+    <table id="tablaTareas">
+        <thead>
+            <tr>
+                <th>Nombre Curso</th>
+                <th>Nombre Tarea</th>
+                <th>Id Curso</th>
+                <th>Id Tarea</th>
+                <th>Id Maestro</th>
+                <th>Id Alumno</th>
+                <th>Avalar</th>
+            </tr>
+        </thead>
+        <tbody id="bodyCursos">
+        </tbody>
+    </table>
+    <table id="tablaProfes">
+        <thead>
+            <tr>
+                <th>Nombre Profe</th>
+                <th>Id Profe</th>
+            </tr>
+        </thead>
+        <tbody id="bodyProfes">
+        </tbody>
+    </table>
+</body>
+</html>
+
+<!--<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -24,11 +141,7 @@
         <button onclick="obtenerNot()">notificaciones</button>
         <input type="text" id="idAlumno" placeholder="Escribe el id del alumno">
         <button onclick="cargarProfesoresAlumno()">Cargar profesores alumno</button>
-=======
-
-<div class="contenedor">
-    <div class="margen">
-        <img src="img/phone.png" height="650px">
+        <script src="js/enrutarSolicitudes.js"></script>
         <img src="img/mood.png" height="90px" class="superpuesta">
     </div>
     <div class="texto">
@@ -75,9 +188,6 @@
                     <span style="float: left;"><strong>Notificaciones </strong> </span>
                 </button>
             </a>
->>>>>>> 239fe3f2ba0a9c6d953200ceb8071fb86b4fd113
-
-
 
             <a href="mensajeriaMaestro.html">
                 <button class="boton-grande contacto">
@@ -221,4 +331,4 @@ a{
     text-decoration: underline;
 }
 
-    </style>
+    </style>-->

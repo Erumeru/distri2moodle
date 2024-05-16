@@ -88,8 +88,9 @@ async function buscarPadres() {
 
 
 
-function redirigirConUsuario(nombrePadre, idPadre) {
-// Redirigir a la página de mensajería con el nombre de usuario como parámetro
+function redirigirConUsuario(idPadre, idPadre) {
+    //uario como parámetro
     let idmaestro = localStorage.getItem('id');
-    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idmaestro)+encodeURIComponent(idPadre);
+      var cadenaCifradaM = btoa(idmaestro);
+    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idmaestro)+encodeURIComponent(idPadre) + '&rem' + encodeURIComponent(idPadre);
 }

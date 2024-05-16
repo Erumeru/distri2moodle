@@ -30,6 +30,7 @@ function hacerSolicitud(url) {
     });
 }
 
+
 async function consultarAlumno() {
     try {
         const respuesta = await hacerSolicitud('/api/otra-api?userId=4&courseId=2');
@@ -399,5 +400,5 @@ function imprimirIdTarea(idTarea) {
 function redirigirConUsuario(nombreMaestro, idMaestro) {
 // Redirigir a la página de mensajería con el nombre de usuario como parámetro
     let idpapa = localStorage.getItem('idPadre');
-    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idMaestro) + encodeURIComponent(idpapa);
+    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idMaestro) + encodeURIComponent(idpapa)+ '&rem=' + encodeURIComponent(nombreMaestro);
 }
