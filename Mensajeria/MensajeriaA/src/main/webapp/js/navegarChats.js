@@ -90,5 +90,6 @@ async function buscarPadres() {
 
 function redirigirConUsuario(nombrePadre, idPadre) {
 // Redirigir a la página de mensajería con el nombre de usuario como parámetro
-    window.location.href = 'mensajeriaPadre.html?padre=' + encodeURIComponent(nombrePadre) + '&col=' + encodeURIComponent(idPadre);
+    let idmaestro = localStorage.getItem('id');
+    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idmaestro)+encodeURIComponent(idPadre);
 }

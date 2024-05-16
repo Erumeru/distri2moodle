@@ -75,7 +75,6 @@ async function obtenerEmailPadre() {
 }
 
 
-/*
 async function consultarCursos() {
     try {
         const email = await obtenerEmailPadre(); // Obtener el email del padre
@@ -87,36 +86,38 @@ async function consultarCursos() {
         throw error;
     }
 }
-*/
 
 //cambie un poquito la funcion solo para que la forma en que cargeun en el html se vea mejor 
-async function consultarCursos() {
-    try {
-        const email = await obtenerEmailPadre(); // Obtener el email del padre
-        const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
-        console.log("respuesta desde el m consultarcurso> ", respuesta);
+//async function consultarCursos() {
+//    try {
+//        const email = await obtenerEmailPadre(); // Obtener el email del padre
+//        const respuesta = await hacerSolicitud('/api/consultar-cursos-y-profesores?email=' + email);
+//        console.log("respuesta desde el m consultarcurso> ", respuesta);
+//
+//        const cursosContainer = document.getElementById('cursos-container');
+//        cursosContainer.innerHTML = ''; // Limpiamos el contenedor antes de agregar nuevos elementos
+//
+//        // Agregar cursos y profesores al contenedor
+//        respuesta.cursos.forEach(curso => {
+//            const cursoElement = document.createElement('div');
+//            cursoElement.classList.add('curso');
+//            cursoElement.innerHTML = `
+//                <h3>${curso.nombre}</h3>
+//                <p>Profesor: ${curso.profesor}</p>
+//            `;
+//            cursosContainer.appendChild(cursoElement);
+//        });
+//
+//    } catch (error) {
+//        console.error('Error al consultar tareas:', error);
+//        throw error;
+//    }
+//}
 
-        const cursosContainer = document.getElementById('cursos-container');
-        cursosContainer.innerHTML = ''; // Limpiamos el contenedor antes de agregar nuevos elementos
-
-        // Agregar cursos y profesores al contenedor
-        respuesta.cursos.forEach(curso => {
-            const cursoElement = document.createElement('div');
-            cursoElement.classList.add('curso');
-            cursoElement.innerHTML = `
-                <h3>${curso.nombre}</h3>
-                <p>Profesor: ${curso.profesor}</p>
-            `;
-            cursosContainer.appendChild(cursoElement);
-        });
-
-    } catch (error) {
-        console.error('Error al consultar tareas:', error);
-        throw error;
-    }
+function obtenerNot() {
+    let idpapa = localStorage.getItem('idPadre');
+    window.location.href = 'http://localhost:3011?col=ctrlEscolar&' + encodeURIComponent(idpapa);
 }
-
-
 
 async function consultarProfesorCurso(courseId) {
     try {
@@ -397,5 +398,6 @@ function imprimirIdTarea(idTarea) {
 
 function redirigirConUsuario(nombreMaestro, idMaestro) {
 // Redirigir a la página de mensajería con el nombre de usuario como parámetro
-    window.location.href = 'mensajeriaMaestro.html?maestro=' + encodeURIComponent(nombreMaestro) + '&col=' + encodeURIComponent(idMaestro);
+    let idpapa = localStorage.getItem('idPadre');
+    window.location.href = 'http://localhost:3010?col=' + encodeURIComponent(idMaestro) + encodeURIComponent(idpapa);
 }
