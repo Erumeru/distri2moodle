@@ -1,11 +1,22 @@
 const mysql = require('mysql2');
+const os = require('os');
+const dotenv = require('dotenv');
+dotenv.config();
 // Configuración de la conexión a la base de datos
 const connection = mysql.createConnection({
+<<<<<<< HEAD
+    host: process.env.HOST_MYSQL || 'localhost',
+    user: process.env.USER_MYSQL || 'root',
+    password: process.env.PASSWORD_MYSQL || 'root', 
+    database: process.env.DATABASE_MYSQL || 'moodlepadres',
+    port: process.env.PORT_MYSQL || '3306'
+=======
     host: 'localhost',
     user: 'root',
     password: 'admin',
     database: 'moodlepadres',
     port: 3306
+>>>>>>> 8a833352b6994ec32012bf049faa65849970d507
 });
 
 // Método para insertar datos en la base de datos
