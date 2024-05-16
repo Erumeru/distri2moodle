@@ -28,13 +28,9 @@
     </head>
     <body>
         <h1>Mensajería</h1>
-        <form id="formularioNotificacion">
-
-            <span id="nomCntrl">Alertas itson</span>
-            <div id="mensajes"></div>
-        </form>
         <script>
-           
+              let idpapa = localStorage.getItem('idPadre');
+              window.location.href = `http://localhost:3011?col=ctrlEscolar${idpapa}&mensaje=`;
         </script>
      
 
