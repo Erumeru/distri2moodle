@@ -8,9 +8,9 @@ const axios = require('axios');
 const app = express();
 const PORT = 3003;
 
-const os = require('os');
-const dotenv = require('dotenv');
-dotenv.config();
+//const os = require('os');
+//const dotenv = require('dotenv');
+//dotenv.config();
 
 // Middleware para parsear JSON en las solicitudes
 app.use(express.json());
@@ -140,4 +140,3 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor API Gateway escuchando en el puerto ${PORT}`);
 });
-

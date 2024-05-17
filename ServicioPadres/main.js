@@ -6,11 +6,15 @@ const os = require('os');
 const dotenv = require('dotenv');
 dotenv.config();
 const PORT = process.env.PORT_NODE || '3000';
+ PORT = '3000';
+ URL_MOODLE_WEBSERVICE = process.env.URL_MOODLE_WEBSERVICE || 'http://host.docker.internal:80/webservice/rest/server.php';
 const URL_MOODLE_WEBSERVICE = process.env.URL_MOODLE_WEBSERVICE || 'http://host.docker.internal:80/webservice/rest/server.php';
 const URL_MOODLE_LOGIN_TOKEN = process.env.URL_MOODLE_LOGIN_TOKEN || 'http://host.docker.internal:80/login/token.php';
+ URL_MOODLE_LOGIN_TOKEN = process.env.URL_MOODLE_LOGIN_TOKEN || 'http://host.docker.internal:80/login/token.php';
 
 token = process.env.TOKEN || 'tokennull';
 ;
+token=b5905aee33fbbe8a2cb3f613bcec7bbf;
 // Middleware para parsear JSON en las solicitudes
 app.use(express.json());
 // Ruta para hacer la solicitud a la otra API
@@ -582,6 +586,3 @@ app.all('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor API Gateway escuchando en el puerto ${PORT}`);
 });
-
-
-

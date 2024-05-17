@@ -75,4 +75,3 @@ module.exports = {
     insertarDatosCursos: insertarDatosCursos,
     obtenerTodosLosCursos: obtenerTodosLosCursos
 };
-
