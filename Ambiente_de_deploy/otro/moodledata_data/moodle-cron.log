@@ -1,0 +1,317 @@
+[16-May-2024 06:50:05 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+[16-May-2024 09:05:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 09:30:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 15:20:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 16:40:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 19:55:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+[16-May-2024 22:15:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 22:30:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[16-May-2024 22:55:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 02:50:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+sh: 1: /usr/sbin/sendmail: not found
+[17-May-2024 04:00:05 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:05:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+PHP Warning:  require_once(/bitnami/moodle/grade/grading/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/mod/assign/locallib.php on line 90
+[17-May-2024 03:15:08 UTC] PHP Warning:  require_once(/bitnami/moodle/cache/classes/interfaces.php): Failed to open stream: Input/output error in /bitnami/moodle/cache/lib.php on line 34
+[17-May-2024 04:15:08 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/mobile/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:08 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/mobile/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 03:15:08 UTC] PHP Warning:  include_once(/bitnami/moodle/lib/classes/string_manager_standard.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:15:08 UTC] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/string_manager_standard.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:15:08 UTC] PHP Fatal error:  Uncaught Error: Class "core_string_manager_standard" not found in /bitnami/moodle/lib/moodlelib.php:7283
+Stack trace:
+#0 /bitnami/moodle/lib/setuplib.php(520): get_string_manager()
+#1 /bitnami/moodle/lib/setuplib.php(363): get_exception_info()
+#2 [internal function]: default_exception_handler()
+#3 {main}
+  thrown in /bitnami/moodle/lib/moodlelib.php on line 7283
+[17-May-2024 04:15:08 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/monitor/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:08 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/monitor/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include_once(/bitnami/moodle/question/type/calculatedmulti/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:08 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/calculatedmulti/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+PHP Warning:  include(/bitnami/moodle/admin/tool/multilangupgrade/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/multilangupgrade/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/phpunit/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  require_once(/bitnami/moodle/completion/criteria/completion_criteria_role.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/task/completion_regular_task.php on line 55
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/phpunit/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/ddimageortext/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddimageortext/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/policy/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/policy/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/ddmarker/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:09 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddmarker/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/recyclebin/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/recyclebin/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include_once(/bitnami/moodle/question/type/ddwtos/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddwtos/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/replace/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/replace/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include(/bitnami/moodle/admin/tool/spamcleaner/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/spamcleaner/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/calculatedmulti/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/calculatedmulti/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+PHP Warning:  include_once(/bitnami/moodle/question/type/gapselect/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/gapselect/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+PHP Warning:  include_once(/bitnami/moodle/question/type/ddimageortext/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddimageortext/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/ddmarker/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:10 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddmarker/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+PHP Warning:  include_once(/bitnami/moodle/question/type/ddwtos/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddwtos/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+PHP Warning:  include(/bitnami/moodle/admin/tool/usertours/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/usertours/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include(/bitnami/moodle/admin/tool/xmldb/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/admin/tool/xmldb/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/randomsamatch/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/randomsamatch/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/match/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/match/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/multichoice/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/multichoice/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(/bitnami/moodle/mod/assign/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/mod/assign/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include(/bitnami/moodle/mod/assign/feedback/comments/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/mod/assign/feedback/comments/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  require_once(/bitnami/moodle/mod/assign/deprecatedlib.php): Failed to open stream: Input/output error in /bitnami/moodle/mod/assign/lib.php on line 28
+PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_mod_choice_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+PHP Warning:  include(/bitnami/moodle/mod/choice/lang/en/choice.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 177
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/mod/choice/lang/en/choice.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/string_manager_standard.php on line 177
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  include(/bitnami/moodle/mod/book/tool/importhtml/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/mod/book/tool/importhtml/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  require_once(/bitnami/moodle/mod/choice/deprecatedlib.php): Failed to open stream: Input/output error in /bitnami/moodle/mod/choice/lib.php on line 65
+[17-May-2024 04:15:12 Europe/London] Default exception handler: error/generalexceptionmessage Debug: 
+Error code: generalexceptionmessage
+$a contents: DirectoryIterator::__construct([dirroot]/mod/data/field): Failed to open directory: Input/output error
+* line 648 of /lib/classes/component.php: UnexpectedValueException thrown
+* line 648 of /lib/classes/component.php: call to DirectoryIterator->__construct()
+* line 1192 of /lib/classes/component.php: call to core_component::fetch_plugins()
+* line 1159 of /lib/classes/component.php: call to core_component::get_all_versions()
+* line 8266 of /lib/moodlelib.php: call to core_component::get_all_versions_hash()
+* line 70 of /lib/classes/cron.php: call to moodle_needs_upgrading()
+* line 186 of /admin/cli/cron.php: call to core\cron::run_main_process()
+
+[17-May-2024 04:15:12 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_mod_workshop_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:15:13 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_databasemeta/2d3-cache/2d3067322b47f0d6d07343daa2e451fbcd295ee2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:15:13 Europe/London] PHP Warning:  md5_file(/bitnami/moodledata/cache/cachestore_file/default_application/core_databasemeta/2d3-cache/fWSQIA2enu.6646cbc1359447.06675795.temp): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 862
+[17-May-2024 04:15:13 Europe/London] PHP Warning:  md5_file(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/w7qv3PBuad.6646cbc1453926.82503599.temp): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 862
+PHP Warning:  include_once(/bitnami/moodle/lib/classes/message/inbound/manager.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:15:14 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/message/inbound/manager.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+PHP Warning:  md5_file(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/845-cache/fWSQIA2enu.6646cbc1bd5c47.10853872.temp): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 862
+[17-May-2024 04:15:14 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/a43-cache/a433bd932a5d846c80d356a8b5fb0bdbf53f0ef8.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:15:14 Europe/London] PHP Warning:  rename(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/BUQqeTxjdp.6646cbc2308e59.66625573.temp,/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_mod_workshop_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 869
+PHP Warning:  include_once(/bitnami/moodle/lib/classes/minify.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:15:16 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/minify.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:16:02 UTC] PHP Warning:  include(/bitnami/moodledata/cache/core_component.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 298
+[17-May-2024 03:16:02 UTC] PHP Warning:  include(): Failed opening '/bitnami/moodledata/cache/core_component.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 298
+[17-May-2024 04:16:02 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/9c2-cache/9c2d211d2ebf1d679aaedc59785d37ed7109bb91.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:16:02 Europe/London] PHP Warning:  rename(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/9c2-cache/w7qv3PBuad.6646cbf2ad4ea3.78428953.temp,/bitnami/moodledata/cache/cachestore_file/default_application/core_config/9c2-cache/9c2d211d2ebf1d679aaedc59785d37ed7109bb91.cache): Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 869
+[17-May-2024 03:16:03 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/assign/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 04:16:03 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/1fe-cache/1fec2382d8a403b3dd1aaf9170c1c6e198d209e6.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 03:16:03 UTC] /bitnami/moodle/mod/assign/db/subplugins.json is invalid (Syntax error)
+[17-May-2024 03:16:03 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/book/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 03:16:03 UTC] /bitnami/moodle/mod/book/db/subplugins.json is invalid (Syntax error)
+[17-May-2024 03:16:03 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/data/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 03:16:03 UTC] /bitnami/moodle/mod/data/db/subplugins.json is invalid (Syntax error)
+[17-May-2024 03:16:03 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/forum/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 03:16:03 UTC] /bitnami/moodle/mod/forum/db/subplugins.json is invalid (Syntax error)
+PHP Warning:  require_once(/bitnami/moodle/lib/clilib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/cron.php on line 560
+[17-May-2024 04:16:03 Europe/London] Default exception handler: error/generalexceptionmessage Debug: 
+Error code: generalexceptionmessage
+$a contents: Failed opening required '[dirroot]/lib/clilib.php' (include_path='[dirroot]/lib/pear:.:/opt/bitnami/php/lib/php')
+* line 560 of /lib/classes/cron.php: Error thrown
+* line 441 of /lib/classes/cron.php: call to core\cron::set_process_title()
+* line 208 of /lib/classes/cron.php: call to core\cron::run_inner_scheduled_task()
+* line 125 of /lib/classes/cron.php: call to core\cron::run_scheduled_tasks()
+* line 186 of /admin/cli/cron.php: call to core\cron::run_main_process()
+
+[17-May-2024 03:16:04 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/quiz/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 03:16:04 UTC] /bitnami/moodle/mod/quiz/db/subplugins.json is invalid (Syntax error)
+[17-May-2024 04:16:04 Europe/London] PHP Warning:  include_once(/bitnami/moodle/lib/classes/output/activity_header.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:16:04 UTC] PHP Warning:  file_get_contents(/bitnami/moodle/mod/scorm/db/subplugins.json): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 586
+[17-May-2024 04:16:04 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/output/activity_header.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:16:04 UTC] /bitnami/moodle/mod/scorm/db/subplugins.json is invalid (Syntax error)
+[17-May-2024 03:16:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_local_referer() in /bitnami/moodle/lib/setuplib.php:575
+Stack trace:
+#0 /bitnami/moodle/lib/setuplib.php(363): get_exception_info()
+#1 [internal function]: default_exception_handler()
+#2 {main}
+  thrown in /bitnami/moodle/lib/setuplib.php on line 575
+[17-May-2024 03:17:02 UTC] PHP Warning:  require_once(/bitnami/moodle/lib/grouplib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/setup.php on line 638
+[17-May-2024 03:17:02 UTC] PHP Fatal error:  Uncaught Error: Class "cache" not found in /bitnami/moodle/lib/classes/string_manager_standard.php:83
+Stack trace:
+#0 /bitnami/moodle/lib/moodlelib.php(7283): core_string_manager_standard->__construct()
+#1 /bitnami/moodle/lib/setuplib.php(520): get_string_manager()
+#2 /bitnami/moodle/lib/setuplib.php(363): get_exception_info()
+#3 [internal function]: default_exception_handler()
+#4 {main}
+  thrown in /bitnami/moodle/lib/classes/string_manager_standard.php on line 83
+[17-May-2024 04:20:09 Europe/London] PHP Warning:  include(/bitnami/moodle/filter/displayh5p/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:09 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/filter/displayh5p/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:10 Europe/London] PHP Warning:  include(/bitnami/moodle/user/profile/field/checkbox/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:10 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/user/profile/field/checkbox/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:10 Europe/London] PHP Warning:  include(/bitnami/moodle/report/configlog/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:10 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/report/configlog/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/report/history/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/history/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/report/outcomes/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/outcomes/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/report/overview/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/overview/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/report/singleview/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/singleview/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/report/summary/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/summary/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+PHP Warning:  include(/bitnami/moodle/grade/report/user/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/report/user/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/grade/grading/form/rubric/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/grade/grading/form/rubric/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(/bitnami/moodle/lib/mlbackend/php/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:11 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/lib/mlbackend/php/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(/bitnami/moodle/search/engine/solr/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/search/engine/solr/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(/bitnami/moodle/question/bank/bulkmove/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/question/bank/bulkmove/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(/bitnami/moodle/question/bank/columnsortorder/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/question/bank/columnsortorder/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(/bitnami/moodle/question/bank/tagquestion/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:12 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/question/bank/tagquestion/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(/bitnami/moodle/question/format/blackboard_six/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/question/format/blackboard_six/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(/bitnami/moodle/question/format/gift/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/question/format/gift/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(/bitnami/moodle/lang/en/error.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 142
+[17-May-2024 04:20:13 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/lang/en/error.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/string_manager_standard.php on line 142
+[17-May-2024 04:20:14 Europe/London] PHP Warning:  rename(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/TXBeaRFotu.6646ccee238005.45159494.temp,/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_core_error_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 869
+[17-May-2024 04:20:14 Europe/London] Default exception handler: error/generalexceptionmessage Debug: 
+Error code: generalexceptionmessage
+$a contents: DirectoryIterator::__construct([dirroot]/admin/tool): Failed to open directory: Input/output error
+* line 648 of /lib/classes/component.php: UnexpectedValueException thrown
+* line 648 of /lib/classes/component.php: call to DirectoryIterator->__construct()
+* line 1192 of /lib/classes/component.php: call to core_component::fetch_plugins()
+* line 1159 of /lib/classes/component.php: call to core_component::get_all_versions()
+* line 8266 of /lib/moodlelib.php: call to core_component::get_all_versions_hash()
+* line 70 of /lib/classes/cron.php: call to moodle_needs_upgrading()
+* line 186 of /admin/cli/cron.php: call to core\cron::run_main_process()
+
+[17-May-2024 04:20:14 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/845-cache/845876474d8221da95ce56f65e5f29ee6e5f891c.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:20:14 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_databasemeta/2d3-cache/2d3067322b47f0d6d07343daa2e451fbcd295ee2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:20:14 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_core_debug_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:20:14 Europe/London] PHP Warning:  md5_file(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/TXBeaRFotu.6646cceec6de71.69704008.temp): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 862
+[17-May-2024 04:21:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_cachestore_session_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:21:01 Europe/London] PHP Warning:  include(/bitnami/moodle/cache/stores/session/lang/en/cachestore_session.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 177
+[17-May-2024 04:21:02 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/cache/stores/session/lang/en/cachestore_session.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/string_manager_standard.php on line 177
+[17-May-2024 04:21:02 Europe/London] PHP Warning:  include_once(/bitnami/moodle/lib/classes/task/send_new_user_passwords_task.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:21:02 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/task/send_new_user_passwords_task.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:21:02 UTC] PHP Warning:  require_once(/bitnami/moodle/lib/setup.php): Failed to open stream: Input/output error in /bitnami/moodle/config.php on line 34
+[17-May-2024 03:21:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/bitnami/moodle/lib/setup.php' (include_path='.:/opt/bitnami/php/lib/php') in /bitnami/moodle/config.php:34
+Stack trace:
+#0 /bitnami/moodle/admin/cli/cron.php(32): require()
+#1 {main}
+  thrown in /bitnami/moodle/config.php on line 34
+[17-May-2024 04:21:02 Europe/London] PHP Warning:  rename(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/FrLvFpG3b5.6646cd1e200e93.30935957.temp,/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_cachestore_session_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 869
+PHP Warning:  require_once(/bitnami/moodle/completion/completion_completion.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/completionlib.php on line 39
+[17-May-2024 04:21:02 Europe/London] PHP Warning:  require_once(/bitnami/moodle/mod/quiz/deprecatedlib.php): Failed to open stream: Input/output error in /bitnami/moodle/mod/quiz/lib.php on line 83
+[17-May-2024 04:21:02 Europe/London] Default exception handler: Exception - Failed opening required '[dirroot]/mod/quiz/deprecatedlib.php' (include_path='[dirroot]/lib/pear:.:/opt/bitnami/php/lib/php') Debug: 
+Error code: generalexceptionmessage
+* line 83 of /mod/quiz/lib.php: Error thrown
+* line 33 of /mod/quiz/locallib.php: call to require_once()
+* line 30 of /mod/quiz/classes/task/legacy_quiz_reports_cron.php: call to require_once()
+* line 147 of /lib/classes/component.php: call to include_once()
+* line ? of unknownfile: call to core_component::classloader()
+* line 397 of /lib/classes/task/manager.php: call to class_exists()
+* line 1052 of /lib/classes/task/manager.php: call to core\task\manager::scheduled_task_from_record()
+* line 206 of /lib/classes/cron.php: call to core\task\manager::get_next_scheduled_task()
+* line 125 of /lib/classes/cron.php: call to core\cron::run_scheduled_tasks()
+* line 186 of /admin/cli/cron.php: call to core\cron::run_main_process()
+
+[17-May-2024 04:21:03 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_yuimodules/724-cache/72402c71fc7cb5ef11ac3af77bf436e5543cf5b3.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:21:03 Europe/London] PHP Warning:  include_once(/bitnami/moodle/lib/classes/minify.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:21:03 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/minify.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:21:11 Europe/London] PHP Warning:  include_once(/bitnami/moodle/repository/googledocs/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:11 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/repository/googledocs/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:14 Europe/London] PHP Warning:  require_once(/bitnami/moodle/repository/wikimedia/wikimedia.php): Failed to open stream: Input/output error in /bitnami/moodle/repository/wikimedia/lib.php on line 27
+[17-May-2024 04:21:15 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_core_debug_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:21:15 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/en_core_debug_1715828471-d4c9016bdf2036972eddf7ba014bd9f2.cache): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 427
+[17-May-2024 04:21:15 Europe/London] PHP Warning:  md5_file(/bitnami/moodledata/cache/cachestore_file/default_application/core_string/en_-cache/FrLvFpG3b5.6646cd2b41b076.75663462.temp): Failed to open stream: Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 862
+[17-May-2024 04:21:15 Europe/London] PHP Warning:  require_once(/bitnami/moodle/lib/gradelib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/task/grade_cron_task.php on line 46
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/ddimageortext/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddimageortext/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/ddmarker/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/ddmarker/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/question/type/essay/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/question/type/essay/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/auth/oauth2/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/auth/oauth2/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/customfield/field/textarea/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/customfield/field/textarea/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(/bitnami/moodle/message/output/airnotifier/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:17 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/message/output/airnotifier/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:18 Europe/London] PHP Warning:  include_once(/bitnami/moodle/lib/editor/textarea/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:18 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/editor/textarea/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:18 Europe/London] PHP Warning:  include_once(/bitnami/moodle/lib/editor/tiny/lib.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:18 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/editor/tiny/lib.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 921
+[17-May-2024 04:21:19 Europe/London] PHP Warning:  require_once(/bitnami/moodle/lib/google/src/Google/autoload.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/google/lib.php on line 28
+[17-May-2024 04:22:13 Europe/London] PHP Warning:  file_get_contents(/bitnami/moodle/admin/tool/oauth2/lang/en/deprecated.txt): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 240
+[17-May-2024 04:22:14 Europe/London] PHP Warning:  file_get_contents(/bitnami/moodle/theme/boost/lang/en/deprecated.txt): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 240
+[17-May-2024 04:22:15 Europe/London] PHP Warning:  file_get_contents(/bitnami/moodle/lib/editor/atto/plugins/recordrtc/lang/en/deprecated.txt): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/string_manager_standard.php on line 240
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(/bitnami/moodle/blocks/mnet_hosts/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/blocks/mnet_hosts/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(/bitnami/moodle/blocks/myoverview/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/blocks/myoverview/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(/bitnami/moodle/blocks/recentlyaccesseditems/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/blocks/recentlyaccesseditems/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(/bitnami/moodle/blocks/selfcompletion/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:22 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/blocks/selfcompletion/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/blocks/timeline/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/blocks/timeline/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/media/player/html5video/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/media/player/html5video/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/media/player/videojs/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/media/player/videojs/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/filter/algebra/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/filter/algebra/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/filter/mathjaxloader/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/filter/mathjaxloader/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/filter/mediaplugin/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/filter/mediaplugin/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(/bitnami/moodle/filter/tidy/version.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 1198
+[17-May-2024 04:22:23 Europe/London] PHP Warning:  include(): Failed opening '/bitnami/moodle/filter/tidy/version.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 1198
+Default exception handler: Exception - DirectoryIterator::__construct([dirroot]/course/report): Failed to open directory: Input/output error Debug: 
+Error code: generalexceptionmessage
+* line 648 of /lib/classes/component.php: UnexpectedValueException thrown
+* line 648 of /lib/classes/component.php: call to DirectoryIterator->__construct()
+* line 1192 of /lib/classes/component.php: call to core_component::fetch_plugins()
+* line 1159 of /lib/classes/component.php: call to core_component::get_all_versions()
+* line 8266 of /lib/moodlelib.php: call to core_component::get_all_versions_hash()
+* line 70 of /lib/classes/cron.php: call to moodle_needs_upgrading()
+* line 186 of /admin/cli/cron.php: call to core\cron::run_main_process()
+
+[17-May-2024 04:22:25 Europe/London] PHP Warning:  rename(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/845-cache/rlyw4rHC5u.6646cd714677f0.08276523.temp,/bitnami/moodledata/cache/cachestore_file/default_application/core_config/845-cache/845876474d8221da95ce56f65e5f29ee6e5f891c.cache): Input/output error in /bitnami/moodle/cache/stores/file/lib.php on line 869
+[17-May-2024 04:22:26 Europe/London] PHP Warning:  include_once(/bitnami/moodle/filter/urltolink/filter.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/filterlib.php on line 152
+[17-May-2024 04:22:26 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/filter/urltolink/filter.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/filterlib.php on line 152
+[17-May-2024 04:22:26 Europe/London] PHP Warning:  include_once(/bitnami/moodle/media/player/youtube/classes/plugin.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:22:26 Europe/London] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/media/player/youtube/classes/plugin.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 04:22:31 Europe/London] PHP Warning:  require_once(/bitnami/moodle/lib/htmlpurifier/HTMLPurifier/Generator.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/htmlpurifier/HTMLPurifier.safe-includes.php on line 42
+[17-May-2024 03:23:04 UTC] PHP Warning:  include_once(/bitnami/moodle/lib/classes/lock/file_lock_factory.php): Failed to open stream: Input/output error in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 03:23:04 UTC] PHP Warning:  include_once(): Failed opening '/bitnami/moodle/lib/classes/lock/file_lock_factory.php' for inclusion (include_path='/bitnami/moodle/lib/pear:.:/opt/bitnami/php/lib/php') in /bitnami/moodle/lib/classes/component.php on line 147
+[17-May-2024 07:20:01 Europe/London] PHP Warning:  fopen(/bitnami/moodledata/cache/cachestore_file/default_application/core_config/491-cache/49151e7a71afbe1a6e14759bc932b9acf4407452.cache): Failed to open stream: No such file or directory in /bitnami/moodle/cache/stores/file/lib.php on line 427
+sh: 1: /usr/sbin/sendmail: not found

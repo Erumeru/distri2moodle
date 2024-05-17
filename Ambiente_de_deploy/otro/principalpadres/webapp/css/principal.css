@@ -1,0 +1,76 @@
+.contenedor {
+    position: relative;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.margen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.superpuesta {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.texto {
+    position: absolute;
+    top: calc(15% + 50px);
+    left: 51%;
+    transform: translateX(-50%);
+    z-index: 0;
+    text-align: center;
+}
+
+
+.boton-grande {
+    width: 60%; 
+    height: 50px; 
+    margin-bottom: 25px;
+    font-size: 20px; 
+    text-align: center;
+    border-radius: 15px; 
+    border-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.cursos {
+    background-color: #4CAF50; 
+    color: white; 
+}
+
+.notificaciones {
+    background-color: #008CBA;
+    color: white; 
+}
+
+.contacto {
+    background-color: #f44336;
+    color: white;
+}
+
+
+.boton {
+    width: 200px;
+    height: 40px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 15px; 
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+a{
+    color: #ffffff;
+}

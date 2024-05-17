@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio de Sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+        .contenedor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .texto {
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        .formulario {
+            display: inline-block;
+            text-align: left;
+        }
+        .input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ff6600;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .boton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .boton:hover {
+            background-color: #cc5500;
+        }
+        p {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            .contenedor {
+                padding: 0 20px;
+            }
+            .texto {
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="texto">
+            <h1>Inicio de Sesión</h1>
+            <form id="loginForm" action="LoginServlet" method="get" class="formulario">
+                <input type="email" placeholder="Correo Electrónico" id="email" name="email" class="input" required>
+                <br>
+                <input type="password" placeholder="Contraseña" id="password" name="password" class="input" required>
+                <br>
+                <button type="submit" class="boton">Entrar</button>
+            </form>
+            <br>
+            <p>¿No tienes cuenta? <a href="registerPadre.html">Crea una</a></p>
+        </div>
+    </div>
+</body>
+</html>

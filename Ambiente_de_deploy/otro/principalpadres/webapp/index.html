@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h2 {
+            color: #ff5722;
+            text-align: center;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #ff5722;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #ff6f42;
+        }
+        
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #ff5722;
+            color: #fff;
+        }
+        
+        @media only screen and (min-width: 600px) {
+            /* Estilos para tablet y desktop */
+            body {
+                padding: 40px;
+            }
+            button {
+                width: auto;
+            }
+            input[type="text"] {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Consultas</h2>
+    
+    <button onclick="consultarCusosAlumnoYCargarAsignaciones()">Avalar y dudas</button>
+    <button onclick="imprimirCalificaciones()">Consultar Calificaciones</button>
+    <ul id="calificaciones-list"></ul>
+ <script src="js/enrutarSolicitudes.js"></script>
+    <table id="tablaTareas">
+        <thead>
+            <tr>
+                <th>Nombre Curso</th>
+                <th>Nombre Tarea</th>
+                <th>Id Maestro</th>
+                <th>Id Alumno</th>
+                <th>Avalar</th>
+            </tr>
+        </thead>
+        <tbody id="bodyCursos">
+        </tbody>
+    </table>
+    <table id="tablaProfes">
+        <thead>
+            <tr>
+                <th>Nombre Profe</th>
+                <th>Id Profe</th>
+            </tr>
+        </thead>
+        <tbody id="bodyProfes">
+        </tbody>
+    </table>
+</body>
+</html>

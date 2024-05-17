@@ -1,0 +1,13 @@
+# Utiliza la imagen base oficial de MySQL
+FROM mysql:5.7
+
+# Establece la contraseña de root
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=moodlepadres
+
+# Copia el script SQL de inicialización a la carpeta /docker-entrypoint-initdb.d/ en la imagen
+# Este script se ejecutará la primera vez que se inicie el contenedor y creará una base de datos y tablas de ejemplo
+COPY moodlepadres.sql /docker-entrypoint-initdb.d/
+
+# Define un volumen para almacenar los datos de MySQL
+VOLUME /var/lib/mysql

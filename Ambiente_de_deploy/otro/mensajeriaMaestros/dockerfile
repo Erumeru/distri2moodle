@@ -1,0 +1,10 @@
+# Usa la imagen oficial de TomEE
+FROM tomee:latest
+
+# Copia el archivo WAR en el directorio webapps de TomEE
+ADD MensajeriaA.war /usr/local/tomee/webapps/
+ADD webapp /usr/local/tomee/webapps/
+
+# Expone el puerto en el que TomEE estará escuchando
+EXPOSE 8087
+CMD ["catalina.sh","run"]

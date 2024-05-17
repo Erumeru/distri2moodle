@@ -1,0 +1,586 @@
+const express = require('express');
+const axios = require('axios');
+const jwt = require('jsonwebtoken');
+const app = express();
+const os = require('os');
+const dotenv = require('dotenv');
+dotenv.config();
+let PORT = process.env.PORT_NODE || '3000';
+ PORT = 3003;
+let URL_MOODLE_WEBSERVICE = process.env.URL_MOODLE_WEBSERVICE || 'http://host.docker.internal:80/webservice/rest/server.php';
+let URL_MOODLE_LOGIN_TOKEN = process.env.URL_MOODLE_LOGIN_TOKEN || 'http://host.docker.internal:80/login/token.php';
+
+token = process.env.TOKEN || 'tokennull';
+;
+token= '86158e1f7f073595c65460b27edaf9b5';
+// Middleware para parsear JSON en las solicitudes
+app.use(express.json());
+// Ruta para hacer la solicitud a la otra API
+app.get('/api/otra-api', async (req, res) => {
+    try {
+
+        var url = URL_MOODLE_WEBSERVICE;
+        var cursos = [];
+        //var tbody = document.getElementById('tablaCursos');
+        // Construir los parámetros de la URL
+        var parametros = [];
+
+        parametros.push("wstoken=" + token);
+        parametros.push("wsfunction=gradereport_user_get_grades_table");
+        // parametros.push("courseid=2");
+        parametros.push("moodlewsrestformat=json");
+        parametros.push("userid=" + req.query.userId);
+        parametros.push("courseid=" + req.query.courseId);
+        //parametros.push("groupid=0");
+        // Combinar todos los parámetros en la URL
+        url += "?" + parametros.join("&");
+        // Hacer una solicitud GET a la otra API
+        const response = await axios.get(url);
+        // Devolver los datos recibidos como respuesta
+        res.json(response.data);
+    } catch (error) {
+        // Manejar cualquier error que ocurra durante la solicitud
+        console.error('Error al hacer la solicitud a la otra API:', error);
+        res.status(500).json({error: 'Error al hacer la solicitud a la otra API'});
+    }
+});
+
+
+//PERSISTIR CURSOS ACAAAA
+app.get('/api/consultar-cursos-y-profesores', async (req, res) => {
+    try {
+        const email = req.query.email;
+        var alumnos = [];
+        var mapaCursosDeAlumnos = new Map();
+        // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
+        const idsAlumnos = await new Promise((resolve, reject) => {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+                if (error) {
+                    console.error('Error al consultar los IDs de los alumnos:', error);
+                    reject(error);
+                } else {
+                    alumnos.push(idsAlumnos);
+                    resolve(idsAlumnos);
+                }
+            });
+        });
+        // Si se obtuvieron los IDs de los alumnos correctamente, iterar sobre ellos y realizar una solicitud REST para cada uno
+        const promesasCursos = idsAlumnos.map(idAlumno => {
+            return new Promise((resolve, reject) => {
+                // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
+                const url = URL_MOODLE_WEBSERVICE;
+                const parametros = [
+                    "wstoken=" + token,
+                    "wsfunction=core_enrol_get_users_courses",
+                    "moodlewsrestformat=json",
+                    `userid=${idAlumno}`
+                ];
+                const cursoUrl = url + "?" + parametros.join("&");
+
+                // Hacer la solicitud utilizando Axios
+                axios.get(cursoUrl)
+                        .then(function (response) {
+                            mapaCursosDeAlumnos.set(idAlumno, response.data);
+                            // Resolver la promesa con los datos recibidos
+                            resolve(response.data);
+                        })
+                        .catch(function (error) {
+                            // Rechazar la promesa con el error
+                            reject(error);
+                        });
+            });
+        });
+
+        // Esperar a que se completen todas las solicitudes de cursos y luego obtener los profesores
+        const cursos = await Promise.all(promesasCursos);
+        console.log(cursos);
+        // Ahora, puedes iterar sobre los cursos para obtener los IDs de los cursos y hacer la solicitud para obtener los profesores
+        const promesasProfesores = cursos.flatMap(curso => {
+            const courseid = curso.map(c => c.id); // Supongo que el ID del curso está en la propiedad 'id'
+            return courseid.map(id => {
+                return axios.get(URL_MOODLE_WEBSERVICE, {
+                    params:{
+                    wstoken: token,
+                    wsfunction: 'core_enrol_get_enrolled_users',
+                    courseid: id,
+                    moodlewsrestformat: 'json'
+                }
+                }).then(response => response.data);
+            });
+        });
+
+
+        // Esperar a que se completen todas las solicitudes de profesores y luego devolver los datos
+        const profesores = await Promise.all(promesasProfesores);
+        const mapajson = Object.fromEntries(mapaCursosDeAlumnos);
+        res.json({cursos, profesores, idsAlumnos, mapajson});
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+
+const {consultarIdsAlumnosPorEmailPadre} = require('./persistencia.js');
+app.get('/api/consultar-cursos', async (req, res) => {
+    try {
+        const email = req.query.email;
+
+        // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
+        const idsAlumnos = await new Promise((resolve, reject) => {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+                if (error) {
+                    console.error('Error al consultar los IDs de los alumnos:', error);
+                    reject(error);
+                } else {
+                    resolve(idsAlumnos);
+                }
+            });
+        });
+
+        // Si se obtuvieron los IDs de los alumnos correctamente, iterar sobre ellos y realizar una solicitud REST para cada uno
+        const promesas = idsAlumnos.map(idAlumno => {
+            return new Promise((resolve, reject) => {
+                // Construir la URL para la solicitud al servidor Moodle para el ID de este alumno
+                var url = URL_MOODLE_WEBSERVICE;
+                var parametros = [
+
+                    "wstoken=" + token,
+
+                    "wsfunction=core_enrol_get_users_courses",
+                    "moodlewsrestformat=json",
+                    `userid=${idAlumno}`
+                ];
+                url += "?" + parametros.join("&");
+
+                // Hacer la solicitud utilizando Axios
+                axios.get(url)
+                        .then(function (response) {
+                            // Resolver la promesa con los datos recibidos
+                            resolve(response.data);
+                        })
+                        .catch(function (error) {
+                            // Rechazar la promesa con el error
+                            reject(error);
+                        });
+            });
+        });
+
+        // Esperar a que se completen todas las solicitudes y luego devolver los datos
+        const resultados = await Promise.all(promesas);
+        res.json(resultados);
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+app.get('/api/consultar-profesor-curso', async (req, res) => {
+    try {
+        const url = URL_MOODLE_WEBSERVICE;
+        const params = {
+
+            wstoken: token,
+            wsfunction: 'core_enrol_get_enrolled_users',
+            courseid: req.query.courseId,
+            moodlewsrestformat: 'json'
+        };
+        // Realizar la solicitud GET utilizando Axios
+        const response = await axios.get(url, {params})
+                .then(function (response) {
+                    // Devolver la respuesta JSON con los maestros del curso
+                    const cursoInfo = response.data;
+                    // Filtrar los maestros y alumnos
+                    const maestros = cursoInfo.filter(user => user.roles.some(role => role.shortname === 'editingteacher'));
+                    res.json(maestros);
+                });
+    } catch (error) {
+        // Manejar errores
+        console.error("Error al enviar la solicitud:", error);
+        // Aquí puedes agregar cualquier lógica adicional para manejar el error
+    }
+});
+
+app.get('/api/consultar-tareas-alumno-curso', async (req, res) => {
+    try {
+        const url = URL_MOODLE_WEBSERVICE;
+        console.log(url);
+        const params = {
+
+            wstoken: token,
+            wsfunction: 'mod_assign_get_assignments',
+            courseids: [req.query.courseId],
+            moodlewsrestformat: 'json'
+        };
+        // Realizar la solicitud GET utilizando Axios
+        const response = await axios.get(url, {params})
+                .then(function (response) {
+                    const cursoInfo = response.data;
+                    res.json(cursoInfo);
+                });
+    } catch (error) {
+        // Manejar errores
+        console.error("Error al enviar la solicitud:", error);
+        // Aquí puedes agregar cualquier lógica adicional para manejar el error
+    }
+});
+
+//CHECARRRRRR
+const {consultarIdMoodleAlumnosPorEmailPadre, consultarCursosDeAlumno, consultarIdMoodleCurso} = require('./persistencia.js');
+app.get('/api/consultar-calificaciones-curso', async (req, res) => {
+    const email = req.query.email;
+    console.log("email", email);
+    try {
+        // Consultar los IDs de los alumnos asociados al padre por su correo electrónico
+
+        const idsAlumnos = await new Promise((resolve, reject) => {
+            consultarIdMoodleAlumnosPorEmailPadre(email, function (error, idsAlumnos) {
+                if (error) {
+                    console.error('Error al consultar los IDs de los alumnos:', error);
+                    reject(error);
+                } else {
+                    resolve(idsAlumnos);
+                }
+            });
+        });
+
+        //const token = token;
+        const url = URL_MOODLE_WEBSERVICE;
+
+
+        // Array para almacenar las calificaciones de cada alumno
+        const calificaciones = [];
+
+        for (const alumnoId of idsAlumnos) {
+            // Consultar los cursos del alumno actual
+            const cursosAlumno = await new Promise((resolve, reject) => {
+                consultarCursosDeAlumno(alumnoId, function (error, cursosAlumno) {
+                    if (error) {
+                        console.error('Error al consultar los cursos del alumno:', error);
+                        reject(error);
+                    } else {
+                        resolve(cursosAlumno);
+                    }
+                });
+            });
+            console.log("cursosAlumnos", cursosAlumno);
+
+            // Iterar sobre cada ID de curso del alumno actual
+            for (const cursoId of cursosAlumno) {
+                console.log("alumnoId", alumnoId);
+                console.log("cursoId", cursoId);
+
+                console.log("id_moodle_alumno", alumnoId);
+                const params = {
+                    wstoken: token,
+                    wsfunction: 'gradereport_user_get_grades_table',
+                    moodlewsrestformat: 'json',
+                    userid: alumnoId, // Usar el ID de cada alumno
+                    courseid: cursoId // Utilizar el id_moodle del curso actual
+                };
+                try {
+                    const response = await axios.get(url, {params});
+
+                    let sum = 0;
+                    let hasNaN = false;
+                    // Recorre todas las tablas
+                    for (const table of response.data.tables) {
+                        // Recorre los datos de la tabla
+                        for (const data of table.tabledata) {
+                            // Verifica si hay un atributo contributiontocoursetotal
+                            if (data.contributiontocoursetotal) {
+                                // Extrae el contenido del atributo contributiontocoursetotal y lo convierte a número
+                                const contribution = parseFloat(data.contributiontocoursetotal.content);
+                                // Suma el valor al total
+                                if (!Number.isNaN(contribution)) {
+                                    sum += contribution;
+                                } else {
+                                    hasNaN = true;
+                                }
+                            }
+                        }
+                    }
+                    // Almacenar la calificación del alumno actual en el array de calificaciones
+                    calificaciones.push({alumnoId, cursoId, contibucionTotal: sum});
+                } catch (error) {
+                    // Manejar errores
+                    console.error("Error al enviar la solicitud:", error);
+                }
+
+            }
+        }
+
+        // Enviar las calificaciones como respuesta
+        res.json(calificaciones);
+
+    } catch (error) {
+        // Manejar errores
+        console.error("Error al procesar la solicitud:", error);
+        res.status(500).send("Error al procesar la solicitud");
+    }
+});
+
+const{insertarDatosCurso} = require('./persistencia');
+app.get('/api/insertarDatosCurso', async (req, res) => {
+
+    try {
+        // construir y agregar al padre 
+        const curso = {
+            id_maestro: req.query.id_maestro,
+            id_moodle: req.query.id_moodle,
+            nombreCurso: req.query.nombreCurso,
+            nombreMaestro: req.query.nombreMaestro
+        };
+        try {
+            const cursoId = await insertarDatosCurso(curso); // Esperar a que se resuelva la inserción en la base de datos
+            res.json({cursoId: cursoId});
+        } catch (error) {
+            console.error('Error al persistir los datos del curso:', error);
+            res.status(500).json({error: 'Error al persistir los datos del curso'});
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+const{insertarCursoAlAlumno} = require('./persistencia');
+app.get('/api/insertarCursoAlAlumno', async (req, res) => {
+    try {
+        // construir y agregar al padre 
+        const cursoAlAlumno = {
+            alumno_id: req.query.alumno_id,
+            curso_id: req.query.curso_id
+        };
+        try {
+            const alumno_cursoId = await insertarCursoAlAlumno(cursoAlAlumno); // Esperar a que se resuelva la inserción en la base de datos
+            res.json({alumno_cursoId: alumno_cursoId});
+        } catch (error) {
+            console.error('Error al persistir los datos del curso en alumno:', error);
+            res.status(500).json({error: 'Error al persistir los datos del curso en alumno'});
+        }
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+const {insertarDatosAlumnoDePadre, insertarDatosPadres} = require('./persistencia');
+app.get('/api/consulta-alumno-de-padre', async (req, res) => {
+    try {
+        var url = URL_MOODLE_WEBSERVICE;
+        var parametros = [
+            "wstoken=" + token,
+            "wsfunction=core_user_get_users",
+            "moodlewsrestformat=json",
+            `criteria[0][key]=email&criteria[0][value]=${encodeURIComponent(req.query.emailAlumno)}`,
+            `criteria[1][key]=firstname&criteria[1][value]=${encodeURIComponent(req.query.nombreAlumno)}`,
+            `criteria[2][key]=lastname&criteria[2][value]=${encodeURIComponent(req.query.apellidosAlumno)}`
+        ];
+
+        url += "?" + parametros.join("&");
+        console.log("AQUIIIIIII", url);
+        const response = await axios.get(url);
+
+        // Limpiar los datos de la respuesta
+        const cleanedData = response.data.users.map(user => {
+            // Crear un nuevo objeto con las propiedades necesarias limpias
+            return {
+                id: user.id,
+                email: user.email,
+                fullname: user.fullname.trim()
+            };
+        });
+
+        // Devolver la respuesta JSON con los datos limpios
+        res.json(cleanedData);
+
+
+
+        // construir y agregar al padre 
+        const padre = {
+            email: req.query.emailPadre,
+            nombre: req.query.nombrePadre,
+            password: req.query.passwordPadre
+        };
+        try {
+            const padreId = await insertarDatosPadres(padre); // Esperar a que se resuelva la inserción en la base de datos
+            const alumno = {
+                email: cleanedData[0].email,
+                id_moodle: cleanedData[0].id,
+                nombre: cleanedData[0].fullname,
+                padre_id: padreId
+            };
+            await insertarDatosAlumnoDePadre(alumno);
+
+        } catch (error) {
+            console.error('Error al persistir los datos del padre:', error);
+            res.status(500).json({error: 'Error al persistir los datos del padre'});
+        }
+
+
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+const {consultarPadrePorCredenciales} = require('./persistencia');
+app.get('/api/iniciarSesion-Padre', async (req, res) => {
+    try {
+        // Obtener los parámetros de la URL
+        const email = req.query.email;
+        const password = req.query.password;
+
+        // Llamar a la función para consultar al padre por sus credenciales
+        consultarPadrePorCredenciales(email, password, (error, padre) => {
+            if (error) {
+                // Manejar el error, si lo hay
+                console.error('Error al consultar padre:', error);
+                res.status(500).send('Error interno del servidor');
+                return;
+            }
+            if (!padre) {
+                // Si no se encuentra al padre, enviar una respuesta de error
+                res.status(401).send('Credenciales incorrectas');
+                return;
+            }
+
+            res.json({idPadre: padre.id});
+        });
+    } catch (error) {
+        // Manejar cualquier error inesperado
+        console.error('Error inesperado:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+const {obtenerPadrePorIdMoodle, consultarPadresDeAlumnosDeMaestro} = require('./persistencia');
+app.get('/api/obtener-padre-por-id-moodle', async (req, res) => {
+    try {
+        // Obtener los parámetros de la URL
+        const idmoodle = req.query.idmoodle;
+
+        // Llamar a la función para consultar al padre por sus credenciales
+        obtenerPadrePorIdMoodle(idmoodle, (error, padre) => {
+            if (error) {
+                // Manejar el error, si lo hay
+                console.error('Error al consultar padre:', error);
+                res.status(500).send('Error interno del servidor');
+                return;
+            }
+            if (!padre) {
+                // Si no se encuentra al padre, enviar una respuesta de error
+                res.status(401).send('Credenciales incorrectas');
+                return;
+            }
+
+            res.json({idPadre: padre.id, nombre: padre.nombre});
+        });
+    } catch (error) {
+        // Manejar cualquier error inesperado
+        console.error('Error inesperado:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+// Definir la ruta para obtener los padres por ID de Moodle
+app.get('/api/obtener-padres-por-maestro', async (req, res) => {
+    try {
+        // Obtener el parámetro de la URL (ID del maestro)
+        const idMaestro = req.query.idMaestro;
+        console.log(idMaestro);
+
+        // Llamar a la función para consultar los padres de los alumnos del maestro
+        consultarPadresDeAlumnosDeMaestro(idMaestro, (error, padres) => {
+            if (error) {
+                // Manejar el error, si lo hay
+                console.error('Error al consultar padres de alumnos del maestro:', error);
+                res.status(500).send('Error interno del servidor');
+                return;
+            }
+
+            // Enviar la lista de padres como respuesta
+            res.json(padres);
+        });
+    } catch (error) {
+        // Manejar cualquier error inesperado
+        console.error('Error inesperado:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+
+
+
+app.get('/api/iniciarSesion-maestro', async (req, res) => {
+    try {
+        const axios = require('axios');
+        const url = URL_MOODLE_LOGIN_TOKEN;
+        const username = req.query.username;
+        const password = req.query.password;
+        const service = 'moodle_mobile_app';
+        const params = {
+            username: username,
+            password: password,
+            service: service
+        };
+        // Realizar la solicitud GET utilizando Axios
+        const response = await axios.get(url, {params});
+
+        res.json(response.data);
+
+    } catch (error) {
+        // Manejar errores
+        console.error("Error al enviar la solicitud:", error);
+    }
+});
+
+app.get('/api/consultar-user-por-usuario', async (req, res) => {
+    try {
+        var url = URL_MOODLE_WEBSERVICE;
+        // Construir los parámetros de la URL
+        var parametros = [];
+
+        parametros.push("wstoken=" + token);
+        parametros.push("wsfunction=core_user_get_users");
+        parametros.push("moodlewsrestformat=json");
+        parametros.push("criteria[0][key]=username");
+        parametros.push("criteria[0][value]=" + req.query.username);
+
+        // Combinar todos los parámetros en la URL
+        url += "?" + parametros.join("&");
+        // Hacer la solicitud utilizando Axios
+        axios.get(url)
+                .then(function (response) {
+                    // Devolver la respuesta JSON
+                    res.json(response.data);
+                })
+                .catch(function (error) {
+                    // Manejar errores
+                    console.error("Error al enviar la solicitud:", error);
+                    res.status(500).json({error: 'Error al enviar la solicitud'});
+                });
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        res.status(500).json({error: 'Error al procesar la solicitud'});
+    }
+});
+
+//POR AHORA NO SE USARA Y SOLO SE USARÁ EL ID AL INICIAR SESIÓN
+// Función para generar el token JWT
+function generarToken(usuario) {
+    // Generar el token con la información del usuario y una clave secreta
+    const token = jwt.sign({usuario}, 'claveSecreta', {expiresIn: '1h'}); // duración del token
+    return token;
+}
+
+// Manejador de ruta para todas las demás solicitudes
+app.all('*', (req, res) => {
+    res.status(404).json({mensaje: 'Ruta no encontrada'});
+});
+
+// Iniciar el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor API Gateway escuchando en el puerto ${PORT}`);
+});

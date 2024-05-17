@@ -1,0 +1,42 @@
+{
+    "SPDXID": "SPDXRef-moodle",
+    "spdxVersion": "SPDX-2.3",
+    "creationInfo": {
+        "created": "2024-05-13T16:10:17.014Z",
+        "creators": [
+            "Organization: VMware, Inc."
+        ]
+    },
+    "name": "SPDX document for Bitnami LMS powered by Moodle(TM) LMS 4.2.7",
+    "dataLicense": "CC0-1.0",
+    "documentDescribes": [
+        "SPDXRef-moodle"
+    ],
+    "documentNamespace": "moodle-4.2.7",
+    "packages": [
+        {
+            "SPDXID": "SPDXRef-moodle",
+            "name": "Bitnami LMS powered by Moodle(TM) LMS",
+            "versionInfo": "4.2.7-1",
+            "downloadLocation": "https://download.moodle.org/download.php/direct/stable402/moodle-4.2.7.tgz",
+            "licenseConcluded": "GPL-2.0-only",
+            "licenseDeclared": "GPL-2.0-only",
+            "filesAnalyzed": false,
+            "externalRefs": [
+                {
+                    "referenceCategory": "SECURITY",
+                    "referenceType": "cpe23Type",
+                    "referenceLocator": "cpe:2.3:*:moodle:moodle:4.2.7:*:*:*:*:*:*:*"
+                },
+                {
+                    "referenceCategory": "PACKAGE-MANAGER",
+                    "referenceType": "purl",
+                    "referenceLocator": "pkg:bitnami/moodle@4.2.7-1?arch=amd64&distro=debian-12"
+                }
+            ],
+            "copyrightText": "NOASSERTION"
+        }
+    ],
+    "files": [],
+    "relationships": []
+}

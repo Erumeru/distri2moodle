@@ -1,0 +1,25 @@
+FROM node:latest
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+#Variables de entorno
+ENV PORT_NODE_ESCOLAR=3003
+ENV HOST_MYSQL_ESCOLAR=localhost
+ENV USER_MYSQL_ESCOLAR=root
+ENV PASSWORD_MYSQL_ESCOLAR=root
+ENV DATABASE_MYSQL_ESCOLAR=ctrl_escolar
+ENV PORT_MYSQL_ESCOLAR=3310
+ENV URL_MOODLE_WEBSERVICE_ESCOLAR=http://moodle:8080/webservice/rest/server.php
+ENV TOKEN_ESCOLAR=86158e1f7f073595c65460b27edaf9b5
+
+EXPOSE $PORT_NODE_ESCOLAR
+
+
+
+CMD ["node","main.js"]

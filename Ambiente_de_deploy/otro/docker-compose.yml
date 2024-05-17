@@ -1,0 +1,86 @@
+version: '3.3'
+
+services:
+
+  mariadb:
+    image: bitnami/mariadb:latest
+    container_name: moodle-db
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes 
+      - MARIADB_USER=bn_moodle 
+      - MARIADB_PASSWORD=bitnami
+      - MARIADB_DATABASE=bitnami_moodle
+    volumes:
+      - ./moodle_db:/var/lib/mysql
+
+  moodle:
+    image: bitnami/moodle:4.2.7
+    container_name: moodle
+    ports:
+      - "8200:8080"
+      - "8443:8443"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MOODLE_DATABASE_USER=bn_moodle 
+      - MOODLE_DATABASE_PASSWORD=bitnami
+      - MOODLE_DATABASE_NAME=bitnami_moodle
+      - MOODLE_USERNAME=user
+      - MOODLE_PASSWORD=p4ssw0rd      
+    volumes:
+      - ./moodle_data:/bitnami/moodle
+      - ./moodledata_data:/bitnami/moodledata  
+    depends_on:
+      - mariadb    
+
+  app:
+    env_file: .env
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - basepadres
+      
+  basepadres:
+    env_file: .env
+    build: ./basePadres
+    ports:
+      - "3308:3306"
+    
+  base_ctrl_escolar:
+    env_file: .env
+    build: ./ServicioControlEscolar/baseCtrlEscolar
+    ports:
+      - "3311:3306"
+     
+  ctrl_escolar:
+    env_file: .env
+    build: ./ServicioControlEscolar
+    ports:
+      - "3003:3003"
+    depends_on:
+      - base_ctrl_escolar
+  
+  mensajeria_maestro:
+    env_file: .env
+    build: ./mensajeriaMaestros
+    ports:
+      - "8087:8080"
+  
+  nginx_apigateway:
+    build: ./ApiGateway
+    ports:
+      - "89:89"
+  principalpadres:
+    build: ./principalpadres
+    ports: 
+      - "8091:8080"
+      
+  mensajeriaservicio:
+    build: ./Mensajes
+    ports:
+      - "3010:3010"
+      - "3011:3011"
+  controlescolarweb:
+    build: ./controlescolarweb
+    ports:
+      - "8090:8080"

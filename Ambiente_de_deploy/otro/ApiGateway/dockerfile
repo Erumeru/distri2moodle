@@ -1,0 +1,11 @@
+# Utiliza la imagen base oficial de MySQL
+FROM nginx:latest
+
+#Aqui viene la conexion a los otros servicios para usarlos como apigateway
+#y exponer en el puerto :89, si se necesitan hacer cambios de estos
+#cambiar los puertos y direccion aqui para la redireccion
+COPY nginx.conf etc/nginx/nginx.conf
+
+EXPOSE 89
+
+CMD ["nginx", "-g", "daemon off;"]

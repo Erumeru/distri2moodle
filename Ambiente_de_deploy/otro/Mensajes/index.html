@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO chat</title>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" /><button id="btn">Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const uri = window.location.href;
+            const searchParams = new URLSearchParams(window.location.search);
+            const colValue = searchParams.get('col');
+            const remValue = searchParams.get('rem');
+            const mensajeValue = searchParams.get('mensaje');
+
+            console.log(remValue);
+
+            console.log("El valor del parámetro 'col' es:", colValue);
+
+            let counter = 0;
+
+            const socket = io({
+                auth: {
+                    col: colValue,
+                    rem: remValue,
+                    mensaje: mensajeValue
+                }
+            });
+
+            const form = document.getElementById('form');
+            const input = document.getElementById('input');
+            const messages = document.getElementById('messages');
+            const btn = document.getElementById('btn');
+
+            // Función para agregar un mensaje al DOM
+            function addMessageToDOM(msg) {
+                const item = document.createElement('li');
+                item.textContent = msg;
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+
+            // Evento para manejar mensajes recibidos del servidor
+            socket.on('message', (msg) => {
+                console.log('Mensaje recibido del servidor:', msg);
+                addMessageToDOM(msg); // Agregar mensaje al DOM
+            });
+
+            // Evento para manejar mensajes recuperados
+            socket.on(colValue, (msg) => {
+                console.log('Mensaje recuperado del servidor:', msg);
+                addMessageToDOM(msg); // Agregar mensaje al DOM
+            });
+
+            if (mensajeValue) {
+                input.style.display = 'none'; // Ocultar el input
+                btn.style.display = 'none'; // Ocultar el botón
+                const clientOffset = `${socket.id}-${counter++}`;
+                socket.emit('message', mensajeValue, clientOffset, () => {
+                    console.log('Mensaje enviado al servidor:', mensajeValue);
+                });
+            } else {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (input.value) {
+                        const clientOffset = `${socket.id}-${counter++}`;
+                        socket.emit('message', input.value, clientOffset, () => {
+                            console.log('Mensaje enviado al servidor:', input.value);
+                        });
+                        input.value = '';
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #FFA500;
+    }
+
+    #messages {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #messages li {
+        margin-bottom: 10px;
+    }
+
+    #messages li:last-child {
+        margin-bottom: 0;
+    }
+
+    #form {
+        margin-top: 20px;
+    }
+
+    #input {
+        width: 70%;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+    }
+
+    #btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #0056b3;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #btn:hover {
+        background-color: #004080;
+    }
+</style>
+</html>

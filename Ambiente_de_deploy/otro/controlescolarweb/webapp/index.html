@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo para el cuerpo del documento */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Color de fondo */
+        }
+
+        /* Estilo para el encabezado */
+        h1 {
+            text-align: center;
+            color: #333333; /* Color del texto */
+            margin-top: 20px;
+        }
+
+        /* Estilo para el iframe */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            border: none;
+        }
+
+        /* Estilo para los botones */
+        button {
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff; /* Color de fondo del botón */
+            color: #ffffff; /* Color del texto del botón */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Estilo para hover del botón */
+        button:hover {
+            background-color: #0056b3; /* Color de fondo del botón en hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Control escolar</h1>
+    <iframe id="rutaAlerta" title="notificacionesEnviavas" width="500" height="500"></iframe>
+    <script src="js/enrutarSolicitudes.js"></script>
+</body>
+</html>
